@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { SYSTEM_BRIDGE_EDGES } from '../src/lib/data/portfolio';
 import {
+	copyEmailSafely,
 	getConnectedEdges,
 	getDomainTopologyHighlight,
 	getProjectCounts,
@@ -41,5 +42,22 @@ describe('component interaction helpers', () => {
 	it('toggles conformal alpha between 0.10 and 0.05', () => {
 		expect(toggleConformalAlpha(0.1)).toBe(0.05);
 		expect(toggleConformalAlpha(0.05)).toBe(0.1);
+	});
+
+	it('copies email safely and falls back gracefully when clipboard fails or is absent', async () => {
+		const okResult = await copyEmailSafely('fahmihaqqulihsan@gmail.com', {
+			writeText: async () => undefined
+		});
+		expect(okResult).toBe('copied');
+
+		const missingResult = await copyEmailSafely('fahmihaqqulihsan@gmail.com', undefined);
+		expect(missingResult).toBe('fallback');
+
+		const rejectedResult = await copyEmailSafely('fahmihaqqulihsan@gmail.com', {
+			writeText: async () => {
+				throw new Error('Permission denied');
+			}
+		});
+		expect(rejectedResult).toBe('fallback');
 	});
 });

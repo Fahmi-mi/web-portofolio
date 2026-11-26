@@ -37,3 +37,16 @@ export function getProjectCounts(filter: ProjectFilter): {
 export function toggleConformalAlpha(current: ConformalAlpha): ConformalAlpha {
 	return current === 0.1 ? 0.05 : 0.1;
 }
+
+export async function copyEmailSafely(
+	email: string,
+	clipboardApi: Pick<Clipboard, 'writeText'> | undefined
+): Promise<'copied' | 'fallback'> {
+	if (!clipboardApi?.writeText) return 'fallback';
+	try {
+		await clipboardApi.writeText(email);
+		return 'copied';
+	} catch {
+		return 'fallback';
+	}
+}
