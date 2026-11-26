@@ -34,12 +34,8 @@
 						</ul>
 
 						<div class="mt-4 flex flex-wrap items-center justify-between gap-3">
-							<div class="flex flex-wrap gap-1.5">
-								{#each item.stack as tech}
-									<span class="font-mono-tech border border-[var(--rule)] bg-[var(--bg-bone)] px-2 py-0.5 text-[11px] text-[var(--ink)]">
-										{tech}
-									</span>
-								{/each}
+							<div class="font-mono-tech text-[11px] text-[var(--ink-muted)]">
+								{item.stack.join(' / ')}
 							</div>
 
 							{#if item.liveUrl || item.repoUrl}
@@ -72,27 +68,7 @@
 			</div>
 
 			<div class="flex flex-col gap-6">
-				<div class="bg-[var(--vitrine)] p-5 text-[var(--vitrine-ink)]">
-					<div class="font-mono-tech text-[11px] font-semibold tracking-[0.08em] text-[var(--vitrine-ok)] uppercase">
-						Production Architecture Lifecycle
-					</div>
-					<div class="mt-3 space-y-2.5 font-mono-tech text-xs leading-relaxed">
-						<div>
-							<span class="text-[var(--vitrine-ok)]">[smart-school]</span>
-							<span class="text-[#D5DBE3]"> Laravel Queues + Prompt-Injection Guard + DashboardService</span>
-						</div>
-						<div>
-							<span class="text-[var(--vitrine-ok)]">[localive-api]</span>
-							<span class="text-[#D5DBE3]"> Bilingual ID/EN CMS + RBAC + Image Pipeline</span>
-						</div>
-						<div>
-							<span class="text-[var(--vitrine-alert)]">[jogja-tour]</span>
-							<span class="text-[#D5DBE3]"> PHP/MySQL + cache/testimoni.json Failover</span>
-						</div>
-					</div>
-				</div>
-
-				<div class="border border-[var(--ink)] bg-[var(--bg-bone)] p-5">
+				<div class="border border-[var(--rule)] bg-[var(--bg-bone)] p-6">
 					<div class="flex items-center justify-between border-b border-[var(--rule)] pb-3">
 						<span class="font-mono-tech text-xs font-semibold tracking-[0.05em] text-[var(--ink)] uppercase">
 							National Competitions
@@ -132,7 +108,7 @@
 					</div>
 				</div>
 
-				<div class="border border-[var(--rule)] bg-[var(--bg-bone)] p-5">
+				<div class="border border-[var(--rule)] bg-[var(--bg-bone)] p-6">
 					<div class="flex items-baseline justify-between gap-2">
 						<h3 class="font-display text-base font-bold text-[var(--ink)]">
 							{LEADERSHIP_ITEM.organization}

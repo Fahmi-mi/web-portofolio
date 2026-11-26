@@ -98,12 +98,12 @@
 			</div>
 		</div>
 
-		<div class="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2">
+		<div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
 			{#each unifiedProjects as project (project.id)}
 				<article class="flex flex-col justify-between border border-[var(--rule)] bg-[var(--bg-plate)] transition-colors duration-200 hover:border-[var(--ink)]">
 					<div>
 						<ProjectCardVisual variant={project.visualVariant} />
-						<div class="p-5 sm:p-6">
+						<div class="p-6 sm:p-7">
 							<h3 class="font-display text-lg font-bold leading-snug text-[var(--ink)] sm:text-xl">
 								{project.title}
 							</h3>
@@ -120,13 +120,9 @@
 						</div>
 					</div>
 
-					<div class="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--rule)] px-5 py-3.5 sm:px-6">
-						<div class="flex flex-wrap gap-1.5">
-							{#each project.stack as tech}
-								<span class="font-mono-tech border border-[var(--rule)] bg-[var(--bg-bone)] px-2 py-0.5 text-[11px] text-[var(--ink)]">
-									{tech}
-								</span>
-							{/each}
+					<div class="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--rule)] px-6 py-4 sm:px-7">
+						<div class="font-mono-tech text-[11px] text-[var(--ink-muted)]">
+							{project.stack.join(' / ')}
 						</div>
 						<div class="flex items-center gap-4">
 							{#if project.liveUrl}

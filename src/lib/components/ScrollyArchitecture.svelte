@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { SCROLL_STAGES } from '$lib/data/portfolio';
+	import { PROFILE, SCROLL_STAGES } from '$lib/data/portfolio';
 	import { clampScrollStage } from '$lib/utils/interactions';
 
 	let activeIndex = $state(0);
@@ -29,10 +29,8 @@
 			const viewH = window.innerHeight || 800;
 			const totalSpan = Math.max(1, rect.height - viewH * 0.45);
 			const traveled = viewH * 0.35 - rect.top;
-			const ratio = Math.min(1, Math.max(0, traveled / totalSpan));
-			scrollProgress = ratio;
+			scrollProgress = Math.min(1, Math.max(0, traveled / totalSpan));
 
-			// Also resolve active step cleanly by comparing card centers to viewport focal line
 			const focalY = viewH * 0.42;
 			let closestIdx = 0;
 			let closestDist = Infinity;
@@ -72,15 +70,15 @@
 	});
 </script>
 
-<section id="pipeline" bind:this={sectionEl} class="scroll-mt-16 border-b border-[var(--rule)] bg-[var(--bg-bone)]">
-	<div class="w-full px-6 py-16 sm:px-10 lg:px-14 lg:py-20 xl:px-20">
-		<div class="flex flex-col justify-between gap-4 border-b border-[var(--ink)] pb-6 md:flex-row md:items-end">
+<section id="about" bind:this={sectionEl} class="scroll-mt-16 border-b border-[var(--rule)] bg-[var(--bg-bone)]">
+	<div class="w-full px-6 py-20 sm:px-10 lg:px-14 lg:py-24 xl:px-20">
+		<div class="flex flex-col justify-between gap-6 border-b border-[var(--ink)] pb-7 md:flex-row md:items-end">
 			<div>
 				<h2 class="font-display text-3xl font-extrabold tracking-tight text-[var(--ink)] sm:text-4xl">
-					How Systems Scale
+					About &amp; How Systems Scale
 				</h2>
-				<p class="mt-2 max-w-[65ch] text-base text-[var(--ink-muted)]">
-					Scroll through the three architectural pillars linking statistical bounds, causal optimization, and real-time pipelines.
+				<p class="mt-3 max-w-[68ch] text-base leading-relaxed text-[var(--ink-muted)]">
+					{PROFILE.degree} at {PROFILE.university}—pairing statistical rigor with resilient backend execution across three engineering pillars.
 				</p>
 			</div>
 			<div class="flex flex-wrap gap-2" role="group" aria-label="Jump to architecture stage">
@@ -103,19 +101,19 @@
 			</div>
 		</div>
 
-		<div class="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
+		<div class="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
 			<div class="space-y-8 lg:space-y-44 lg:pt-6 lg:pb-16">
 				{#each SCROLL_STAGES as stage, idx (stage.id)}
 					<article
 						bind:this={stepEls[idx]}
 						data-stage-index={idx}
-						class="border p-6 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+						class="border p-6 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] sm:p-7"
 						class:border-[var(--ink)]={activeIndex === idx}
 						class:bg-[var(--bg-plate)]={activeIndex === idx}
 						class:opacity-100={activeIndex === idx}
 						class:border-[var(--rule)]={activeIndex !== idx}
 						class:bg-[var(--bg-bone)]={activeIndex !== idx}
-						class:opacity-65={activeIndex !== idx}
+						class:opacity-60={activeIndex !== idx}
 					>
 						<h3 class="font-display text-2xl font-bold text-[var(--ink)]">
 							{stage.title}
@@ -134,28 +132,23 @@
 							</div>
 						</div>
 
-						<div class="mt-4 flex flex-wrap gap-1.5">
-							{#each stage.stack as tech}
-								<span class="font-mono-tech border border-[var(--rule)] bg-[var(--bg-bone)] px-2.5 py-0.5 text-[11px] text-[var(--ink)]">
-									{tech}
-								</span>
-							{/each}
+						<div class="font-mono-tech mt-4 text-[11px] text-[var(--ink-muted)]">
+							{stage.stack.join(' / ')}
 						</div>
 					</article>
 				{/each}
 			</div>
 
 			<div class="lg:sticky lg:top-24">
-				<div class="specimen-dot-grid border border-[var(--ink)] p-6">
-					<!-- Continuous scroll progress track + shared live title bar -->
-					<div class="border-b border-[var(--ink)] pb-3">
+				<div class="border border-[var(--rule)] bg-[var(--bg-plate)] p-6">
+					<div class="border-b border-[var(--rule)] pb-3">
 						<div class="flex items-center justify-between font-mono-tech text-xs">
 							<span class="font-semibold text-[var(--ink)] uppercase transition-opacity duration-300">
 								{activeStage.title}
 							</span>
 							<span class="text-[var(--teal)]">{activeStage.step}</span>
 						</div>
-						<div class="mt-2.5 h-[2px] w-full bg-[var(--rule)] overflow-hidden">
+						<div class="mt-2.5 h-[2px] w-full overflow-hidden bg-[var(--rule)]">
 							<div
 								class="h-full origin-left bg-[var(--teal)] transition-transform duration-150 ease-out"
 								style:transform={`scaleX(${Math.max(0.08, scrollProgress)})`}
@@ -163,7 +156,6 @@
 						</div>
 					</div>
 
-					<!-- Layered smooth cross-fade stage plates -->
 					<div class="relative my-5 grid overflow-hidden">
 						<!-- Stage 01: Statistical ML & Causal Modeling -->
 						<div
@@ -177,7 +169,7 @@
 							class:scale-[0.985]={activeIndex !== 0}
 							class:pointer-events-none={activeIndex !== 0}
 						>
-							<svg viewBox="0 0 560 320" class="h-auto w-full border border-[var(--rule)] bg-[var(--bg-plate)] p-3" role="img" aria-label="Statistical ML conformal calibration and causal profit curves">
+							<svg viewBox="0 0 560 320" class="h-auto w-full bg-[var(--bg-bone)] p-3" role="img" aria-label="Statistical ML conformal calibration and causal profit curves">
 								<line x1="48" y1="274" x2="520" y2="274" stroke="#111317" stroke-width="1.3" />
 								<line x1="48" y1="30" x2="48" y2="274" stroke="#111317" stroke-width="1.3" />
 								<path
@@ -216,7 +208,7 @@
 							</svg>
 						</div>
 
-						<!-- Stage 02: Streaming Agents & ML Data Pipelines -->
+						<!-- Stage 02: Streaming Agents & ML Data Pipelines (light editorial surface) -->
 						<div
 							aria-hidden={activeIndex !== 1}
 							class="col-start-1 row-start-1 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
@@ -228,63 +220,63 @@
 							class:scale-[0.985]={activeIndex !== 1}
 							class:pointer-events-none={activeIndex !== 1}
 						>
-							<svg viewBox="0 0 560 320" class="h-auto w-full border border-[var(--ink)] bg-[var(--vitrine)] p-3" role="img" aria-label="Streaming event bus, LangGraph worker, Airflow DAGs, and tabular MLflow pipeline">
-								<text x="24" y="28" font-family="JetBrains Mono" font-size="10" fill="#A3AEBC">
+							<svg viewBox="0 0 560 320" class="h-auto w-full bg-[var(--bg-bone)] p-3" role="img" aria-label="Streaming event bus, LangGraph worker, Airflow DAGs, and tabular MLflow pipeline">
+								<text x="280" y="28" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" font-weight="600" fill="#4B525A">
 									EVENT BUS  /  REASONING WORKER  /  AIRFLOW &amp; TABULAR MLOPS
 								</text>
 
-								<line x1="168" y1="98" x2="208" y2="98" stroke="#7FD4C2" stroke-width="2" stroke-dasharray="5 4" />
-								<line x1="352" y1="98" x2="392" y2="98" stroke="#E8A394" stroke-width="2" stroke-dasharray="5 4" />
-								<path d="M 280 198 L 280 140" fill="none" stroke="#A3AEBC" stroke-width="1.5" stroke-dasharray="4 4" />
-								<path d="M 464 198 L 464 140" fill="none" stroke="#7FD4C2" stroke-width="1.5" stroke-dasharray="4 4" />
+								<line x1="168" y1="98" x2="208" y2="98" stroke="#0F766E" stroke-width="1.8" stroke-dasharray="5 4" />
+								<line x1="352" y1="98" x2="392" y2="98" stroke="#B8381E" stroke-width="1.8" stroke-dasharray="5 4" />
+								<path d="M 280 198 L 280 140" fill="none" stroke="#4B525A" stroke-width="1.5" stroke-dasharray="4 4" />
+								<path d="M 464 198 L 464 140" fill="none" stroke="#0F766E" stroke-width="1.5" stroke-dasharray="4 4" />
 
-								<rect x="24" y="56" width="144" height="84" fill="#262E38" stroke="#7FD4C2" stroke-width="1.5" />
-								<text x="96" y="84" text-anchor="middle" font-family="JetBrains Mono" font-size="11.5" font-weight="600" fill="#E5E7EB">
+								<rect x="24" y="56" width="144" height="84" fill="#FAF9F5" stroke="#0F766E" stroke-width="1.4" />
+								<text x="96" y="84" text-anchor="middle" font-family="JetBrains Mono" font-size="11.5" font-weight="600" fill="#111317">
 									NATS / Go
 								</text>
-								<text x="96" y="103" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#A3AEBC">
+								<text x="96" y="103" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" fill="#4B525A">
 									Protobuf Gateway
 								</text>
-								<text x="96" y="124" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#7FD4C2">
+								<text x="96" y="124" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" font-weight="600" fill="#0F766E">
 									&gt;3% | &gt;5x Vol
 								</text>
 
-								<rect x="208" y="56" width="144" height="84" fill="#262E38" stroke="#E8A394" stroke-width="1.5" />
-								<text x="280" y="84" text-anchor="middle" font-family="JetBrains Mono" font-size="11.5" font-weight="600" fill="#E5E7EB">
+								<rect x="208" y="56" width="144" height="84" fill="#FAF9F5" stroke="#B8381E" stroke-width="1.4" />
+								<text x="280" y="84" text-anchor="middle" font-family="JetBrains Mono" font-size="11.5" font-weight="600" fill="#111317">
 									LangGraph
 								</text>
-								<text x="280" y="103" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#A3AEBC">
+								<text x="280" y="103" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" fill="#4B525A">
 									5-Stage DeepSeek
 								</text>
-								<text x="280" y="124" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#E8A394">
+								<text x="280" y="124" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" font-weight="600" fill="#B8381E">
 									HITL + Cache Guard
 								</text>
 
-								<rect x="392" y="56" width="144" height="84" fill="#262E38" stroke="#A3AEBC" stroke-width="1.5" />
-								<text x="464" y="84" text-anchor="middle" font-family="JetBrains Mono" font-size="11.5" font-weight="600" fill="#E5E7EB">
+								<rect x="392" y="56" width="144" height="84" fill="#FAF9F5" stroke="#111317" stroke-width="1.3" />
+								<text x="464" y="84" text-anchor="middle" font-family="JetBrains Mono" font-size="11.5" font-weight="600" fill="#111317">
 									TimescaleDB
 								</text>
-								<text x="464" y="103" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#A3AEBC">
+								<text x="464" y="103" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" fill="#4B525A">
 									Hypertables + Redis
 								</text>
-								<text x="464" y="124" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#7FD4C2">
+								<text x="464" y="124" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" font-weight="600" fill="#0F766E">
 									5m Hot Window
 								</text>
 
-								<rect x="24" y="198" width="512" height="92" fill="#262E38" stroke="#64748B" stroke-width="1.5" />
-								<text x="280" y="226" text-anchor="middle" font-family="JetBrains Mono" font-size="11.5" font-weight="600" fill="#E5E7EB">
+								<rect x="24" y="198" width="512" height="92" fill="#FAF9F5" stroke="#D8D4CA" stroke-width="1.4" />
+								<text x="280" y="226" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#111317">
 									4 Apache Airflow DAGs (1m / 5m / 1h) + Tabular MLflow Pipeline
 								</text>
-								<text x="280" y="248" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#7FD4C2">
+								<text x="280" y="248" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" fill="#0F766E">
 									Parquet | LightGBM / XGBoost / CatBoost | feature_store_ai
 								</text>
-								<text x="280" y="272" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" fill="#A3AEBC">
-									Validated with Pydantic contracts &amp; automated pytest verification
+								<text x="280" y="272" text-anchor="middle" font-family="JetBrains Mono" font-size="9.2" fill="#4B525A">
+									Validated with Pydantic contracts &amp; automated pytest checks
 								</text>
 							</svg>
 						</div>
 
-						<!-- Stage 03: Production Web, APIs & CLI Tooling -->
+						<!-- Stage 03: Production Web, APIs & CLI Tooling (uniform light editorial plates) -->
 						<div
 							aria-hidden={activeIndex !== 2}
 							class="col-start-1 row-start-1 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
@@ -296,7 +288,7 @@
 							class:scale-[0.985]={activeIndex !== 2}
 							class:pointer-events-none={activeIndex !== 2}
 						>
-							<svg viewBox="0 0 560 320" class="h-auto w-full border border-[var(--rule)] bg-[var(--bg-plate)] p-3" role="img" aria-label="Production web systems, REST APIs, and open-source developer tools topology">
+							<svg viewBox="0 0 560 320" class="h-auto w-full bg-[var(--bg-bone)] p-3" role="img" aria-label="Production web systems, REST APIs, and open-source developer tools topology">
 								<text x="142" y="28" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" font-weight="600" fill="#4B525A">
 									CLIENT WEB &amp; REST APIS
 								</text>
@@ -304,7 +296,6 @@
 									OPEN-SOURCE &amp; WEB TOOLS
 								</text>
 
-								<!-- Left Column: Client & Backend Production -->
 								<rect x="18" y="46" width="248" height="72" fill="#FAF9F5" stroke="#111317" stroke-width="1.3" />
 								<text x="142" y="75" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#111317">
 									Smart School Platform
@@ -329,33 +320,31 @@
 									Laravel REST API | OpenAPI
 								</text>
 
-								<!-- Center Bridge Connectors -->
-								<line x1="266" y1="82" x2="294" y2="82" stroke="#0F766E" stroke-width="1.5" stroke-dasharray="4 3" />
-								<line x1="266" y1="168" x2="294" y2="168" stroke="#B8381E" stroke-width="1.5" stroke-dasharray="4 3" />
-								<line x1="266" y1="255" x2="294" y2="255" stroke="#4B525A" stroke-width="1.5" stroke-dasharray="4 3" />
+								<line x1="266" y1="82" x2="294" y2="82" stroke="#0F766E" stroke-width="1.4" stroke-dasharray="4 3" />
+								<line x1="266" y1="168" x2="294" y2="168" stroke="#B8381E" stroke-width="1.4" stroke-dasharray="4 3" />
+								<line x1="266" y1="255" x2="294" y2="255" stroke="#4B525A" stroke-width="1.4" stroke-dasharray="4 3" />
 
-								<!-- Right Column: Open-Source & Interactive Web -->
-								<rect x="294" y="46" width="248" height="72" fill="#1E242C" stroke="#1E242C" stroke-width="1.3" />
-								<text x="418" y="75" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#E5E7EB">
+								<rect x="294" y="46" width="248" height="72" fill="#FAF9F5" stroke="#0F766E" stroke-width="1.3" />
+								<text x="418" y="75" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#111317">
 									glzr
 								</text>
-								<text x="418" y="96" text-anchor="middle" font-family="JetBrains Mono" font-size="9.2" fill="#7FD4C2">
+								<text x="418" y="96" text-anchor="middle" font-family="JetBrains Mono" font-size="9.2" fill="#0F766E">
 									Svelte Linux Workspace
 								</text>
 
-								<rect x="294" y="132" width="248" height="72" fill="#1E242C" stroke="#1E242C" stroke-width="1.3" />
-								<text x="418" y="161" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#E5E7EB">
+								<rect x="294" y="132" width="248" height="72" fill="#FAF9F5" stroke="#B8381E" stroke-width="1.3" />
+								<text x="418" y="161" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#111317">
 									trello-cli
 								</text>
-								<text x="418" y="182" text-anchor="middle" font-family="JetBrains Mono" font-size="9.2" fill="#E8A394">
+								<text x="418" y="182" text-anchor="middle" font-family="JetBrains Mono" font-size="9.2" fill="#B8381E">
 									TypeScript + Ink Board TUI
 								</text>
 
-								<rect x="294" y="218" width="248" height="74" fill="#FAF9F5" stroke="#B8381E" stroke-width="1.3" />
+								<rect x="294" y="218" width="248" height="74" fill="#FAF9F5" stroke="#D8D4CA" stroke-width="1.3" />
 								<text x="418" y="248" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#111317">
 									snapshoot
 								</text>
-								<text x="418" y="269" text-anchor="middle" font-family="JetBrains Mono" font-size="9.2" fill="#B8381E">
+								<text x="418" y="269" text-anchor="middle" font-family="JetBrains Mono" font-size="9.2" fill="#4B525A">
 									Browser Canvas Photobooth
 								</text>
 							</svg>

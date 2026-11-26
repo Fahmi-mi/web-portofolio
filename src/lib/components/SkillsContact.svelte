@@ -12,7 +12,7 @@
 </script>
 
 <section id="skills" class="border-b border-[var(--rule)] bg-[var(--bg-bone)]">
-	<div class="w-full px-6 py-16 sm:px-10 lg:px-14 lg:py-20 xl:px-20">
+	<div class="w-full px-6 py-20 sm:px-10 lg:px-14 lg:py-24 xl:px-20">
 		<div class="border-b border-[var(--ink)] pb-6">
 			<h2 class="font-display text-3xl font-extrabold tracking-tight text-[var(--ink)] sm:text-4xl">
 				Technical Stack
@@ -22,14 +22,14 @@
 			</p>
 		</div>
 
-		<div class="mt-8 space-y-4">
+		<div class="mt-10 space-y-4">
 			<!-- Row 1: drifts left; pauses on hover -->
 			<div class="marquee-row overflow-hidden py-1">
 				<div class="marquee-mask overflow-hidden">
-					<div class="marquee-track-left flex w-max items-center gap-3 pr-3">
+					<div class="marquee-track-left flex w-max items-center gap-4 pr-4">
 						{#each MARQUEE_ROWS.top as skill}
 							<div
-								class="group flex shrink-0 items-center gap-2.5 border border-[var(--rule)] bg-[var(--bg-plate)] px-4 py-2.5 transition-colors duration-200 hover:border-[var(--ink)]"
+								class="group flex shrink-0 items-center gap-2.5 border border-[var(--rule)]/80 bg-[var(--bg-plate)] px-4 py-2 transition-colors duration-200 hover:border-[var(--ink)]"
 							>
 								<SkillIcon iconSrc={skill.iconSrc} />
 								<span class="font-mono-tech text-xs font-medium text-[var(--ink)] whitespace-nowrap">
@@ -40,7 +40,7 @@
 						{#each MARQUEE_ROWS.top as skill}
 							<div
 								aria-hidden="true"
-								class="marquee-duplicate group flex shrink-0 items-center gap-2.5 border border-[var(--rule)] bg-[var(--bg-plate)] px-4 py-2.5 transition-colors duration-200 hover:border-[var(--ink)]"
+								class="marquee-duplicate group flex shrink-0 items-center gap-2.5 border border-[var(--rule)]/80 bg-[var(--bg-plate)] px-4 py-2 transition-colors duration-200 hover:border-[var(--ink)]"
 							>
 								<SkillIcon iconSrc={skill.iconSrc} />
 								<span class="font-mono-tech text-xs font-medium text-[var(--ink)] whitespace-nowrap">
@@ -55,10 +55,10 @@
 			<!-- Row 2: drifts right cleanly opposite Row 1 -->
 			<div class="marquee-row overflow-hidden py-1">
 				<div class="marquee-mask overflow-hidden">
-					<div class="marquee-track-right flex w-max items-center gap-3 pr-3">
+					<div class="marquee-track-right flex w-max items-center gap-4 pr-4">
 						{#each MARQUEE_ROWS.bottom as skill}
 							<div
-								class="group flex shrink-0 items-center gap-2.5 border border-[var(--rule)] bg-[var(--bg-plate)] px-4 py-2.5 transition-colors duration-200 hover:border-[var(--ink)]"
+								class="group flex shrink-0 items-center gap-2.5 border border-[var(--rule)]/80 bg-[var(--bg-plate)] px-4 py-2 transition-colors duration-200 hover:border-[var(--ink)]"
 							>
 								<SkillIcon iconSrc={skill.iconSrc} />
 								<span class="font-mono-tech text-xs font-medium text-[var(--ink)] whitespace-nowrap">
@@ -69,7 +69,7 @@
 						{#each MARQUEE_ROWS.bottom as skill}
 							<div
 								aria-hidden="true"
-								class="marquee-duplicate group flex shrink-0 items-center gap-2.5 border border-[var(--rule)] bg-[var(--bg-plate)] px-4 py-2.5 transition-colors duration-200 hover:border-[var(--ink)]"
+								class="marquee-duplicate group flex shrink-0 items-center gap-2.5 border border-[var(--rule)]/80 bg-[var(--bg-plate)] px-4 py-2 transition-colors duration-200 hover:border-[var(--ink)]"
 							>
 								<SkillIcon iconSrc={skill.iconSrc} />
 								<span class="font-mono-tech text-xs font-medium text-[var(--ink)] whitespace-nowrap">
