@@ -120,7 +120,7 @@
 
 					<div class="mt-4 space-y-3.5">
 						{#each HONOR_ITEMS as honor}
-							<div class="border-l-2 border-[var(--teal)] pl-3">
+							<div class="border-t border-[var(--rule)] pt-3 first:border-t-0 first:pt-0">
 								<div class="font-display text-sm font-bold text-[var(--ink)]">
 									{honor.title}
 								</div>

@@ -167,10 +167,22 @@ export const SYSTEM_BRIDGE_NODES: BridgeNode[] = [
 		detail: 'Pydantic-validated anomaly reasoning with 5-minute Redis caching and HITL feedback.'
 	},
 	{
+		id: 'llm-pipeline',
+		label: 'Provider-Agnostic LLM Pipeline',
+		side: 'ml',
+		detail: 'Prompt-injection hardening and automated grading sync in production education software.'
+	},
+	{
 		id: 'fastapi',
 		label: 'FastAPI + FAISS + SQLite',
 		side: 'system',
-		detail: 'Semantic cache inference gateway with multi-provider LLM fallback and Docker Compose.'
+		detail: 'Semantic cache inference gateway and decision endpoints with Docker Compose.'
+	},
+	{
+		id: 'duckdb',
+		label: 'DuckDB + Polars + Streamlit',
+		side: 'system',
+		detail: '64k RCT analytical ingestion and interactive constrained budget policy simulator.'
 	},
 	{
 		id: 'streaming',
@@ -188,7 +200,7 @@ export const SYSTEM_BRIDGE_NODES: BridgeNode[] = [
 		id: 'laravel',
 		label: 'Laravel Queues + PHP + MySQL',
 		side: 'system',
-		detail: 'Prompt-injection-hardened AI school suite, bilingual CMS RBAC, and tour platform.'
+		detail: 'Async education suite, DashboardService analytics, bilingual RBAC, and tour APIs.'
 	}
 ];
 
@@ -197,13 +209,19 @@ export const SYSTEM_BRIDGE_EDGES: BridgeEdge[] = [
 		from: 'conformal',
 		to: 'fastapi',
 		project: 'Conformal LLM Router',
-		proof: '96.14% frontier quality retained with 8.50% cost reduction'
+		proof: '96.14% frontier quality retained with 8.50% cost reduction over FAISS/SQLite gateway'
 	},
 	{
 		from: 'causal',
 		to: 'fastapi',
 		project: 'Causal Uplift Policy Engine',
-		proof: 'FastAPI decision engine + Streamlit policy simulator over DuckDB/Polars'
+		proof: 'FastAPI decision engine serving LP/MILP constrained policy allocations'
+	},
+	{
+		from: 'causal',
+		to: 'duckdb',
+		project: 'Causal Uplift Simulator',
+		proof: 'DuckDB/Polars ingestion and Streamlit policy simulator ($2,679.37 projected net profit)'
 	},
 	{
 		from: 'agents',
@@ -218,22 +236,10 @@ export const SYSTEM_BRIDGE_EDGES: BridgeEdge[] = [
 		proof: '4 Airflow ETL DAGs feeding SMA/EMA/RSI/Bollinger features to TimescaleDB'
 	},
 	{
-		from: 'conformal',
+		from: 'llm-pipeline',
 		to: 'laravel',
-		project: 'Smart School AI Platform',
-		proof: 'Provider-agnostic LLM question bank with prompt-injection hardening'
-	},
-	{
-		from: 'causal',
-		to: 'airflow',
-		project: 'Tabular & Telemetry Pipelines',
-		proof: 'Automated feature quality checks, gap filling, and PSI drift monitoring'
-	},
-	{
-		from: 'agents',
-		to: 'laravel',
-		project: 'Production Web Backends',
-		proof: 'Async Laravel Queues, DashboardService analytics, and bilingual RBAC APIs'
+		project: 'Smart School Platform',
+		proof: 'Async Laravel Queues + Livewire AI question bank and DashboardService analytics'
 	}
 ];
 
@@ -477,14 +483,14 @@ export function getConformalStats(alpha: ConformalAlpha): {
 			alphaLabel: 'alpha = 0.05',
 			falseAcceptRate: '1.96%',
 			reductionDelta: '-11.56 pts vs 13.52% heuristic',
-			bandHeight: 30
+			bandHeight: 13
 		};
 	}
 	return {
 		alphaLabel: 'alpha = 0.10',
 		falseAcceptRate: '4.15%',
 		reductionDelta: '-9.37 pts vs 13.52% heuristic',
-		bandHeight: 48
+		bandHeight: 27
 	};
 }
 

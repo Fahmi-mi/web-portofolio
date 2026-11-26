@@ -64,21 +64,21 @@
 		class="mx-auto grid max-w-[1360px] grid-cols-1 gap-5 px-5 py-5 sm:px-8 lg:grid-cols-[240px_1fr_220px] lg:items-center lg:gap-8"
 	>
 		<div>
-			<div class="font-mono-tech text-[11px] font-semibold tracking-[0.08em] text-[var(--vitrine-ok)] uppercase">
+			<div class="font-display text-base font-bold text-white">{subtitle}</div>
+			<div class="font-mono-tech mt-1 text-[11px] font-medium tracking-[0.06em] text-[var(--vitrine-ok)] uppercase">
 				{title}
 			</div>
-			<div class="mt-1 font-display text-base font-bold text-white">{subtitle}</div>
 		</div>
 
 		<div class="space-y-1.5 border-[var(--vitrine-muted)]/30 font-mono-tech text-xs leading-relaxed lg:border-l lg:pl-6">
 			{#each lines as line, idx}
 				<div
-					class="transition-opacity duration-300"
-					class:opacity-100={idx === activeIndex || reducedMotion}
-					class:opacity-65={idx !== activeIndex && !reducedMotion}
+					class="border-l pl-2.5 transition-colors duration-300"
+					class:border-[var(--vitrine-ok)]={idx === activeIndex && !reducedMotion}
+					class:border-transparent={idx !== activeIndex || reducedMotion}
 				>
 					<span class="text-[var(--vitrine-ok)]">[{line.tag}]</span>
-					<span class="text-slate-300"> {line.message} </span>
+					<span class="text-slate-200"> {line.message} </span>
 					<span
 						class={line.tone === 'alert'
 							? 'text-[var(--vitrine-alert)]'

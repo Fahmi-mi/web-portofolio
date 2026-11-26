@@ -59,14 +59,14 @@
 						<div>
 							<ProjectCardVisual variant={project.visualVariant} />
 							<div class="p-5 sm:p-6">
-								<div class="font-mono-tech flex items-center justify-between text-[11px] text-[var(--ink-muted)] uppercase">
+								<h3 class="font-display text-xl font-bold leading-snug text-[var(--ink)]">
+									{project.title}
+								</h3>
+								<div class="font-mono-tech mt-1.5 flex items-center justify-between text-[11px] text-[var(--ink-muted)] uppercase">
 									<span class="font-semibold text-[var(--teal)]">{project.code}</span>
 									<span>{project.period}</span>
 								</div>
-								<h3 class="font-display mt-2 text-xl font-bold leading-snug text-[var(--ink)]">
-									{project.title}
-								</h3>
-								<p class="mt-2.5 text-sm leading-relaxed text-[#2A2E35]">{project.summary}</p>
+								<p class="mt-3 text-sm leading-relaxed text-[#2A2E35]">{project.summary}</p>
 								<ul class="mt-4 space-y-2 border-t border-[var(--rule)] pt-3.5 text-sm leading-relaxed text-[var(--ink-muted)]">
 									{#each project.highlights as item}
 										<li class="border-l border-[var(--rule)] pl-3">{item}</li>
@@ -102,26 +102,33 @@
 		{#if secondary.length > 0}
 			<div class="mt-10">
 				<div class="font-mono-tech mb-4 text-xs font-semibold tracking-[0.06em] text-[var(--ink-muted)] uppercase">
-					{activeFilter === 'swe'
-						? 'Software Engineering & Tooling'
-						: 'Additional ML & Software Engineering Work'}
+					{#if activeFilter === 'swe'}
+						Software Engineering &amp; Tooling
+					{:else if activeFilter === 'ds-ai'}
+						Additional Data Science &amp; ML Work
+					{:else}
+						Additional ML &amp; Software Engineering Work
+					{/if}
 				</div>
 				<div class="grid grid-cols-1 gap-5 md:grid-cols-2">
-					{#each secondary as project (project.id)}
-						<article class="flex flex-col justify-between border border-[var(--rule)] bg-[var(--bg-plate)]">
+					{#each secondary as project, idx (project.id)}
+						<article
+							class="flex flex-col justify-between border border-[var(--rule)] bg-[var(--bg-plate)]"
+							class:md:col-span-2={idx === 0 && secondary.length % 2 === 1}
+						>
 							<div>
 								<ProjectCardVisual variant={project.visualVariant} />
 								<div class="p-5">
-									<div class="font-mono-tech flex items-center justify-between text-[11px] text-[var(--ink-muted)] uppercase">
+									<h3 class="font-display text-lg font-bold text-[var(--ink)]">
+										{project.title}
+									</h3>
+									<div class="font-mono-tech mt-1 flex items-center justify-between text-[11px] text-[var(--ink-muted)] uppercase">
 										<span class="text-[var(--teal)]">
 											{project.category === 'ds-ai' ? 'Data Science & AI' : 'Software Eng'}
 										</span>
 										<span>{project.period}</span>
 									</div>
-									<h3 class="font-display mt-1.5 text-lg font-bold text-[var(--ink)]">
-										{project.title}
-									</h3>
-									<p class="mt-2 text-sm leading-relaxed text-[var(--ink-muted)]">
+									<p class="mt-2.5 text-sm leading-relaxed text-[var(--ink-muted)]">
 										{project.summary}
 									</p>
 								</div>

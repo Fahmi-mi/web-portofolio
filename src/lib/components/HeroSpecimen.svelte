@@ -54,7 +54,7 @@
 			<div class="mt-10 grid grid-cols-1 gap-5 border-t border-[var(--rule)] pt-5 sm:grid-cols-3">
 				<div>
 					<div class="font-mono-tech text-[11px] tracking-[0.05em] text-[var(--ink-muted)] uppercase">
-						Conformal Guardrail
+						Conformal (alpha = 0.05)
 					</div>
 					<div class="font-display mt-1 text-2xl font-bold text-[var(--ink)] tabular-nums">
 						1.96% FAR
@@ -139,7 +139,7 @@
 						y1="208"
 						x2="268"
 						y2="135"
-						stroke={isActive('ml-langgraph') ? '#D9482B' : '#CFCAC0'}
+						stroke={isActive('ml-langgraph') ? '#B8381E' : '#CFCAC0'}
 						stroke-width={isActive('ml-langgraph') ? '2.5' : '1.4'}
 					/>
 					<line
@@ -163,7 +163,7 @@
 						y1="135"
 						x2="402"
 						y2="208"
-						stroke={isActive('sys-go-nats') ? '#D9482B' : '#CFCAC0'}
+						stroke={isActive('sys-go-nats') ? '#B8381E' : '#CFCAC0'}
 						stroke-width={isActive('sys-go-nats') ? '2.5' : '1.4'}
 					/>
 
@@ -215,7 +215,7 @@
 							y="186"
 							width="124"
 							height="46"
-							fill={isActive('ml-langgraph') ? '#D9482B' : '#F6F5F0'}
+							fill={isActive('ml-langgraph') ? '#B8381E' : '#F6F5F0'}
 							stroke="#111317"
 							stroke-width="1.5"
 						/>
