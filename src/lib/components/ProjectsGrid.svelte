@@ -18,7 +18,6 @@
 		categoryLabel: 'Data Science & AI' | 'Software Eng';
 		summary: string;
 		keyResult?: string;
-		stack: string[];
 		repoUrl: string;
 		liveUrl?: string;
 	}
@@ -30,7 +29,6 @@
 			categoryLabel: 'Data Science & AI' as const,
 			summary: p.summary,
 			keyResult: p.highlights[0],
-			stack: p.stack,
 			repoUrl: p.repoUrl
 		})),
 		...secondary.map((p) => ({
@@ -39,7 +37,6 @@
 			categoryLabel:
 				p.category === 'ds-ai' ? ('Data Science & AI' as const) : ('Software Eng' as const),
 			summary: p.summary,
-			stack: p.stack,
 			repoUrl: p.repoUrl,
 			liveUrl: p.liveUrl
 		}))
@@ -86,8 +83,8 @@
 
 		<div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
 			{#each unifiedProjects as project (project.id)}
-				<article class="flex flex-col justify-between border border-[var(--rule)] bg-[var(--bg-plate)] transition-colors duration-200 hover:border-[var(--ink)]">
-					<div class="p-6 sm:p-7">
+				<article class="flex flex-col justify-between border border-[var(--rule)] bg-[var(--bg-plate)] p-6 transition-colors duration-200 hover:border-[var(--ink)] sm:p-7">
+					<div>
 						<h3 class="font-display text-lg font-bold leading-snug text-[var(--ink)] sm:text-xl">
 							{project.title}
 						</h3>
@@ -102,30 +99,25 @@
 						{/if}
 					</div>
 
-					<div class="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--rule)] px-6 py-4 sm:px-7">
-						<div class="font-mono-tech text-[11px] text-[var(--ink-muted)]">
-							{project.stack.join(' / ')}
-						</div>
-						<div class="flex items-center gap-4">
-							{#if project.liveUrl}
-								<a
-									href={project.liveUrl}
-									target="_blank"
-									rel="noopener noreferrer"
-									class="font-mono-tech border-b border-[var(--vermilion)] pb-0.5 text-xs font-semibold text-[var(--vermilion)] uppercase"
-								>
-									Live Demo
-								</a>
-							{/if}
+					<div class="mt-5 flex flex-wrap items-center gap-3">
+						<a
+							href={project.repoUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="font-mono-tech inline-block border border-[var(--ink)] bg-[var(--bg-bone)] px-3 py-1.5 text-[11px] font-semibold tracking-[0.04em] text-[var(--ink)] uppercase transition-colors hover:bg-[var(--ink)] hover:text-[var(--bg-plate)]"
+						>
+							Repository
+						</a>
+						{#if project.liveUrl}
 							<a
-								href={project.repoUrl}
+								href={project.liveUrl}
 								target="_blank"
 								rel="noopener noreferrer"
-								class="font-mono-tech border-b border-[var(--ink)] pb-0.5 text-xs font-semibold text-[var(--ink)] uppercase hover:border-[var(--teal)] hover:text-[var(--teal)]"
+								class="font-mono-tech inline-block border border-[var(--vermilion)] bg-[var(--vermilion)] px-3 py-1.5 text-[11px] font-semibold tracking-[0.04em] text-[var(--bg-plate)] uppercase transition-colors hover:bg-[#9A2D16]"
 							>
-								Repository
+								Live Demo
 							</a>
-						</div>
+						{/if}
 					</div>
 				</article>
 			{/each}
