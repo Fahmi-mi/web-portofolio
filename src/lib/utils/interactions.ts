@@ -24,6 +24,13 @@ export function getConnectedEdges(nodeId: string | null, edges: BridgeEdge[]): B
 	return edges.filter((edge) => edge.from === nodeId || edge.to === nodeId);
 }
 
+export function resolveBridgeSelection(
+	pinnedNodeId: string | null,
+	hoveredNodeId: string | null
+): string | null {
+	return hoveredNodeId ?? pinnedNodeId;
+}
+
 export function getProjectCounts(filter: ProjectFilter): {
 	featured: number;
 	secondary: number;

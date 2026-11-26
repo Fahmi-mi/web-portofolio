@@ -53,7 +53,7 @@
 				</p>
 			</div>
 
-			<div class="flex flex-wrap gap-3 lg:justify-end">
+			<div class="flex flex-wrap items-center gap-3 lg:justify-end">
 				<button
 					type="button"
 					onclick={handleCopyEmail}
@@ -67,6 +67,13 @@
 						Copy Email
 					{/if}
 				</button>
+				<span class="sr-only" aria-live="polite">
+					{#if copyState === 'copied'}
+						Email address copied to clipboard.
+					{:else if copyState === 'fallback'}
+						Clipboard unavailable; use the direct mail link below.
+					{/if}
+				</span>
 				<a
 					href={`mailto:${PROFILE.email}`}
 					class="font-mono-tech border border-slate-600 px-4 py-2.5 text-xs font-medium tracking-[0.04em] text-white uppercase transition-colors hover:border-white"

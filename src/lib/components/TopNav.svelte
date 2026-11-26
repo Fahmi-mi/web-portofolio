@@ -11,6 +11,12 @@
 	];
 </script>
 
+<svelte:window
+	onkeydown={(event) => {
+		if (event.key === 'Escape' && menuOpen) menuOpen = false;
+	}}
+/>
+
 <header
 	class="sticky top-0 z-40 border-b border-[var(--rule)] bg-[var(--bg-bone)]/95"
 	aria-label="Primary navigation"
@@ -23,7 +29,7 @@
 			{PROFILE.shortBrand}
 		</a>
 
-		<nav class="hidden items-center gap-7 md:flex">
+		<nav class="hidden items-center gap-7 md:flex" aria-label="Desktop sections">
 			{#each navLinks as link}
 				<a
 					href={link.href}

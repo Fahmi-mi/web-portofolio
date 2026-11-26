@@ -6,6 +6,7 @@ import {
 	getDomainTopologyHighlight,
 	getProjectCounts,
 	nextTraceIndex,
+	resolveBridgeSelection,
 	toggleConformalAlpha
 } from '../src/lib/utils/interactions';
 
@@ -27,10 +28,12 @@ describe('component interaction helpers', () => {
 		expect(getConnectedEdges(null, SYSTEM_BRIDGE_EDGES)).toHaveLength(SYSTEM_BRIDGE_EDGES.length);
 
 		const conformalEdges = getConnectedEdges('conformal', SYSTEM_BRIDGE_EDGES);
-		expect(conformalEdges.length).toBeGreaterThanOrEqual(2);
-		expect(conformalEdges.every((edge) => edge.from === 'conformal' || edge.to === 'conformal')).toBe(
-			true
-		);
+		expect(conformalEdges).toHaveLength(1);
+		expect(conformalEdges[0].to).toBe('fastapi');
+
+		const causalEdges = getConnectedEdges('causal', SYSTEM_BRIDGE_EDGES);
+		expect(causalEdges).toHaveLength(2);
+		expect(causalEdges.every((edge) => edge.from === 'causal' || edge.to === 'causal')).toBe(true);
 	});
 
 	it('computes exact featured and secondary project counts per filter', () => {
@@ -59,5 +62,11 @@ describe('component interaction helpers', () => {
 			}
 		});
 		expect(rejectedResult).toBe('fallback');
+	});
+
+	it('separates hover preview from click-pinned node selection', () => {
+		expect(resolveBridgeSelection('conformal', 'causal')).toBe('causal');
+		expect(resolveBridgeSelection('conformal', null)).toBe('conformal');
+		expect(resolveBridgeSelection(null, null)).toBeNull();
 	});
 });

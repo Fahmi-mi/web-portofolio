@@ -40,15 +40,23 @@ describe('portfolio dataset & filter helpers', () => {
 		]);
 	});
 
-	it('computes verified RAGTruth conformal statistics for alpha 0.10 and 0.05', () => {
+	it('computes verified RAGTruth conformal statistics proportionally for alpha 0.10 and 0.05', () => {
 		const a10 = getConformalStats(0.1);
 		const a05 = getConformalStats(0.05);
 
 		expect(a10.alphaLabel).toBe('alpha = 0.10');
 		expect(a10.falseAcceptRate).toBe('4.15%');
+		expect(a10.bandHeight).toBe(27);
 		expect(a05.alphaLabel).toBe('alpha = 0.05');
 		expect(a05.falseAcceptRate).toBe('1.96%');
-		expect(a05.bandHeight).toBeLessThan(a10.bandHeight);
+		expect(a05.bandHeight).toBe(13);
+	});
+
+	it('keeps SystemsBridge edges strictly grounded in verified project stacks', () => {
+		const edgePairs = SYSTEM_BRIDGE_EDGES.map((edge) => `${edge.from}->${edge.to}`);
+		expect(edgePairs).not.toContain('conformal->laravel');
+		expect(edgePairs).not.toContain('causal->airflow');
+		expect(edgePairs).not.toContain('agents->laravel');
 	});
 
 	it('returns hero domain metadata for each core capability', () => {

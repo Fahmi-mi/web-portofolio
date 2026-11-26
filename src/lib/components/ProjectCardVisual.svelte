@@ -36,21 +36,21 @@
 		</div>
 		<svg viewBox="0 0 360 132" class="h-auto w-full" role="img" aria-label="RAGTruth conformal false-accept comparison">
 			<line x1="16" y1="108" x2="344" y2="108" stroke="#111317" stroke-width="1.2" />
-			<rect x="24" y="20" width="94" height="88" fill="#D8D4CA" />
-			<text x="24" y="14" font-family="JetBrains Mono" font-size="10" fill="#4B525A">
+			<rect x="20" y="20" width="90" height="88" fill="#D8D4CA" />
+			<text x="20" y="14" font-family="JetBrains Mono" font-size="10" fill="#4B525A">
 				13.52% Heuristic
 			</text>
 
 			<rect
-				x="146"
+				x="136"
 				y={108 - stats.bandHeight}
-				width="94"
+				width="90"
 				height={stats.bandHeight}
 				fill="#0F766E"
 			/>
 			<text
-				x="146"
-				y={102 - stats.bandHeight}
+				x="136"
+				y={100 - stats.bandHeight}
 				font-family="JetBrains Mono"
 				font-size="10.5"
 				font-weight="600"
@@ -59,14 +59,14 @@
 				{stats.falseAcceptRate} Conformal
 			</text>
 
-			<rect x="262" y="28" width="82" height="80" fill="#FAF9F5" stroke="#111317" stroke-width="1" />
-			<text x="270" y="54" font-family="JetBrains Mono" font-size="9.5" fill="#111317">
+			<rect x="248" y="28" width="96" height="80" fill="#FAF9F5" stroke="#111317" stroke-width="1" />
+			<text x="258" y="54" font-family="JetBrains Mono" font-size="9.5" fill="#111317">
 				RouterBench
 			</text>
-			<text x="270" y="72" font-family="JetBrains Mono" font-size="11" font-weight="700" fill="#0F766E">
+			<text x="258" y="72" font-family="JetBrains Mono" font-size="10.5" font-weight="600" fill="#0F766E">
 				96.14% Qual
 			</text>
-			<text x="270" y="88" font-family="JetBrains Mono" font-size="9.5" fill="#D9482B">
+			<text x="258" y="88" font-family="JetBrains Mono" font-size="9.5" font-weight="600" fill="#B8381E">
 				-8.50% Cost
 			</text>
 		</svg>
@@ -88,7 +88,7 @@
 				DR-Learner: $2,679.37 (+75%)
 			</text>
 
-			<rect x="16" y="52" width="146" height="24" fill="#D9482B" />
+			<rect x="16" y="52" width="146" height="24" fill="#B8381E" />
 			<text x="170" y="68" font-family="JetBrains Mono" font-size="10.5" fill="#111317">
 				Propensity: $1,529.02
 			</text>
@@ -129,9 +129,9 @@
 			<text x="274" y="36" font-family="JetBrains Mono" font-size="9.5" fill="#E6EAF0">TimescaleDB</text>
 			<text x="274" y="50" font-family="JetBrains Mono" font-size="8.5" fill="#9CA3AF">+ Redis 5m</text>
 
-			<rect x="76" y="82" width="208" height="34" fill="#1A1F29" stroke="#4B525A" />
-			<text x="88" y="103" font-family="JetBrains Mono" font-size="9.5" fill="#E6EAF0">
-				4 Airflow DAGs: 1m / 5m / 1h OHLCV
+			<rect x="66" y="82" width="228" height="34" fill="#1A1F29" stroke="#4B525A" />
+			<text x="80" y="103" font-family="JetBrains Mono" font-size="9.5" fill="#E6EAF0">
+				4 Airflow DAGs (1m / 5m / 1h OHLCV)
 			</text>
 		</svg>
 		<div class="font-mono-tech mt-1 text-[11px] text-[var(--vitrine-muted)]">
@@ -149,7 +149,7 @@
 	<div class="border-b border-[var(--rule)] bg-[var(--vitrine)] px-4 py-3 text-[var(--vitrine-ink)]">
 		<div class="font-mono-tech flex items-center justify-between text-[11px]">
 			<span class="text-[var(--vitrine-ok)]">workspace // linux-tty</span>
-			<span class="text-[var(--vitrine-muted)]">Svelte Tiling Shell</span>
+			<span class="text-[var(--vitrine-muted)]">Svelte Linux Workspace</span>
 		</div>
 	</div>
 {:else if variant === 'trello'}
