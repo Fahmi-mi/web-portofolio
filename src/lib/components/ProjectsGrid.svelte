@@ -1,5 +1,4 @@
 <script lang="ts">
-	import ProjectCardVisual from '$lib/components/ProjectCardVisual.svelte';
 	import {
 		filterFeaturedProjects,
 		filterSecondaryProjects,
@@ -16,17 +15,7 @@
 	interface ArchiveProjectCard {
 		id: string;
 		title: string;
-		badge: string;
-		period: string;
-		visualVariant:
-			| 'conformal'
-			| 'causal'
-			| 'equisentinel'
-			| 'tabular'
-			| 'glzr'
-			| 'trello'
-			| 'api'
-			| 'web';
+		categoryLabel: 'Data Science & AI' | 'Software Eng';
 		summary: string;
 		keyResult?: string;
 		stack: string[];
@@ -38,9 +27,7 @@
 		...featured.map((p) => ({
 			id: p.id,
 			title: p.title,
-			badge: `${p.code} | Data Science & AI`,
-			period: p.period,
-			visualVariant: p.visualVariant,
+			categoryLabel: 'Data Science & AI' as const,
 			summary: p.summary,
 			keyResult: p.highlights[0],
 			stack: p.stack,
@@ -49,9 +36,8 @@
 		...secondary.map((p) => ({
 			id: p.id,
 			title: p.title,
-			badge: p.category === 'ds-ai' ? 'Data Science & AI' : 'Software Eng',
-			period: p.period,
-			visualVariant: p.visualVariant,
+			categoryLabel:
+				p.category === 'ds-ai' ? ('Data Science & AI' as const) : ('Software Eng' as const),
 			summary: p.summary,
 			stack: p.stack,
 			repoUrl: p.repoUrl,
@@ -67,7 +53,7 @@
 </script>
 
 <section id="projects" class="scroll-mt-16 border-b border-[var(--rule)] bg-[var(--bg-bone)]">
-	<div class="w-full px-6 py-16 sm:px-10 lg:px-14 lg:py-20 xl:px-20">
+	<div class="w-full px-6 py-20 sm:px-10 lg:px-14 lg:py-24 xl:px-20">
 		<div class="flex flex-col justify-between gap-6 border-b border-[var(--ink)] pb-6 md:flex-row md:items-end">
 			<div>
 				<h2 class="font-display text-3xl font-extrabold tracking-tight text-[var(--ink)] sm:text-4xl">
@@ -101,23 +87,19 @@
 		<div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
 			{#each unifiedProjects as project (project.id)}
 				<article class="flex flex-col justify-between border border-[var(--rule)] bg-[var(--bg-plate)] transition-colors duration-200 hover:border-[var(--ink)]">
-					<div>
-						<ProjectCardVisual variant={project.visualVariant} />
-						<div class="p-6 sm:p-7">
-							<h3 class="font-display text-lg font-bold leading-snug text-[var(--ink)] sm:text-xl">
-								{project.title}
-							</h3>
-							<div class="font-mono-tech mt-1.5 flex items-center justify-between gap-2 text-[11px] text-[var(--ink-muted)] uppercase">
-								<span class="font-semibold text-[var(--teal)]">{project.badge}</span>
-								<span>{project.period}</span>
-							</div>
-							<p class="mt-3 text-sm leading-relaxed text-[#2A2E35]">{project.summary}</p>
-							{#if project.keyResult}
-								<p class="mt-3 border-l border-[var(--rule)] pl-3 text-xs leading-relaxed text-[var(--ink-muted)]">
-									{project.keyResult}
-								</p>
-							{/if}
+					<div class="p-6 sm:p-7">
+						<h3 class="font-display text-lg font-bold leading-snug text-[var(--ink)] sm:text-xl">
+							{project.title}
+						</h3>
+						<div class="font-mono-tech mt-1.5 text-[11px] font-semibold text-[var(--teal)] uppercase">
+							{project.categoryLabel}
 						</div>
+						<p class="mt-3 text-sm leading-relaxed text-[#2A2E35]">{project.summary}</p>
+						{#if project.keyResult}
+							<p class="mt-3 border-l border-[var(--rule)] pl-3 text-xs leading-relaxed text-[var(--ink-muted)]">
+								{project.keyResult}
+							</p>
+						{/if}
 					</div>
 
 					<div class="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--rule)] px-6 py-4 sm:px-7">
