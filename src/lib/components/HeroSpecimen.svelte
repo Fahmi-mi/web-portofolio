@@ -1,9 +1,7 @@
 <script lang="ts">
 	import NeuralCanvas from '$lib/components/NeuralCanvas.svelte';
-	import TelemetryVitrine from '$lib/components/TelemetryVitrine.svelte';
 	import {
 		HERO_DOMAINS,
-		HERO_TELEMETRY_LINES,
 		PROFILE,
 		getHeroDomainSummary,
 		type HeroDomainId
@@ -64,7 +62,7 @@
 				</div>
 				<div>
 					<div class="font-mono-tech text-[11px] tracking-[0.05em] text-[var(--ink-muted)] uppercase">
-						National Honors
+						Competitions &amp; Honors
 					</div>
 					<div class="font-display mt-1 text-2xl font-bold text-[var(--ink)] tabular-nums">
 						2 Podiums
@@ -116,12 +114,4 @@
 			</div>
 		</div>
 	</div>
-
-	<TelemetryVitrine
-		title="Isolated Telemetry Vitrine"
-		subtitle="Verified Model & Stream Traces"
-		lines={HERO_TELEMETRY_LINES}
-		rightLabel="Career Archive"
-		rightSublabel="Data Science, AI & Software Eng"
-	/>
 </section>
