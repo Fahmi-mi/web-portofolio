@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.svelte-kit/
+.env
+.env.*
+!.env.example
+
+# Local planning, context, and design-tooling artifacts (excluded per workflow)
+.impeccable/
+docs/superpowers/
+.superpowers/
+PORTFOLIO_CONTEXT.md
+/Fahmi Haqqul Ihsan-CV.pdf
