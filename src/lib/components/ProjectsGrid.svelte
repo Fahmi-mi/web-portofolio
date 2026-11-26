@@ -21,7 +21,7 @@
 </script>
 
 <section id="projects" class="border-b border-[var(--rule)] bg-[var(--bg-bone)]">
-	<div class="mx-auto max-w-[1360px] px-5 py-16 sm:px-8 lg:py-20">
+	<div class="w-full px-6 py-16 sm:px-10 lg:px-14 lg:py-20 xl:px-20">
 		<div class="flex flex-col justify-between gap-6 border-b border-[var(--ink)] pb-6 md:flex-row md:items-end">
 			<div>
 				<h2 class="font-display text-3xl font-extrabold tracking-tight text-[var(--ink)] sm:text-4xl">

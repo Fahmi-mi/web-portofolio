@@ -31,6 +31,16 @@ export function resolveBridgeSelection(
 	return hoveredNodeId ?? pinnedNodeId;
 }
 
+export function clampScrollStage(index: number, total: number): number {
+	if (total <= 0) return 0;
+	return Math.max(0, Math.min(index, total - 1));
+}
+
+export function computeBipartitePath(y1: number, y2: number, width: number): string {
+	const midX = Math.round(width / 2);
+	return `M 0 ${Math.round(y1)} C ${midX} ${Math.round(y1)}, ${midX} ${Math.round(y2)}, ${width} ${Math.round(y2)}`;
+}
+
 export function getProjectCounts(filter: ProjectFilter): {
 	featured: number;
 	secondary: number;
