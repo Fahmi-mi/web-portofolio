@@ -46,21 +46,21 @@
 			<div class="mt-10 grid grid-cols-1 gap-5 border-t border-[var(--rule)] pt-5 sm:grid-cols-3">
 				<div>
 					<div class="font-mono-tech text-[11px] tracking-[0.05em] text-[var(--ink-muted)] uppercase">
-						Conformal (alpha = 0.05)
+						AI &amp; Causal R&amp;D
 					</div>
 					<div class="font-display mt-1 text-2xl font-bold text-[var(--ink)] tabular-nums">
 						1.96% FAR
 					</div>
-					<div class="mt-0.5 text-sm text-[var(--ink-muted)]">Down from 13.52% on RAGTruth</div>
+					<div class="mt-0.5 text-sm text-[var(--ink-muted)]">Conformal bounds &amp; $2,679.37 uplift</div>
 				</div>
 				<div>
 					<div class="font-mono-tech text-[11px] tracking-[0.05em] text-[var(--ink-muted)] uppercase">
-						Causal DR-Learner
+						Client &amp; SWE Delivery
 					</div>
 					<div class="font-display mt-1 text-2xl font-bold text-[var(--ink)] tabular-nums">
-						$2,679.37
+						3 Client Apps
 					</div>
-					<div class="mt-0.5 text-sm text-[var(--ink-muted)]">+75% net profit vs propensity</div>
+					<div class="mt-0.5 text-sm text-[var(--ink-muted)]">Production web platforms &amp; 4 SWE tools</div>
 				</div>
 				<div>
 					<div class="font-mono-tech text-[11px] tracking-[0.05em] text-[var(--ink-muted)] uppercase">
