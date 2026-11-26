@@ -31,7 +31,7 @@
 							<div
 								class="group flex shrink-0 items-center gap-2.5 border border-[var(--rule)] bg-[var(--bg-plate)] px-4 py-2.5 transition-colors duration-200 hover:border-[var(--ink)]"
 							>
-								<SkillIcon iconKey={skill.iconKey} />
+								<SkillIcon iconSrc={skill.iconSrc} />
 								<span class="font-mono-tech text-xs font-medium text-[var(--ink)] whitespace-nowrap">
 									{skill.name}
 								</span>
@@ -42,7 +42,7 @@
 								aria-hidden="true"
 								class="marquee-duplicate group flex shrink-0 items-center gap-2.5 border border-[var(--rule)] bg-[var(--bg-plate)] px-4 py-2.5 transition-colors duration-200 hover:border-[var(--ink)]"
 							>
-								<SkillIcon iconKey={skill.iconKey} />
+								<SkillIcon iconSrc={skill.iconSrc} />
 								<span class="font-mono-tech text-xs font-medium text-[var(--ink)] whitespace-nowrap">
 									{skill.name}
 								</span>
@@ -60,7 +60,7 @@
 							<div
 								class="group flex shrink-0 items-center gap-2.5 border border-[var(--rule)] bg-[var(--bg-plate)] px-4 py-2.5 transition-colors duration-200 hover:border-[var(--ink)]"
 							>
-								<SkillIcon iconKey={skill.iconKey} />
+								<SkillIcon iconSrc={skill.iconSrc} />
 								<span class="font-mono-tech text-xs font-medium text-[var(--ink)] whitespace-nowrap">
 									{skill.name}
 								</span>
@@ -71,7 +71,7 @@
 								aria-hidden="true"
 								class="marquee-duplicate group flex shrink-0 items-center gap-2.5 border border-[var(--rule)] bg-[var(--bg-plate)] px-4 py-2.5 transition-colors duration-200 hover:border-[var(--ink)]"
 							>
-								<SkillIcon iconKey={skill.iconKey} />
+								<SkillIcon iconSrc={skill.iconSrc} />
 								<span class="font-mono-tech text-xs font-medium text-[var(--ink)] whitespace-nowrap">
 									{skill.name}
 								</span>

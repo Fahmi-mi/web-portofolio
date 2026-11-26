@@ -83,6 +83,12 @@ describe('portfolio dataset & filter helpers', () => {
 		const allSkillNames = SKILL_GROUPS.flatMap((g) => g.items);
 		const marqueeNames = [...MARQUEE_ROWS.top, ...MARQUEE_ROWS.bottom].map((s) => s.name);
 		expect(marqueeNames.sort()).toEqual([...allSkillNames].sort());
+		const bundledIcons = new Set(
+			Object.keys(import.meta.glob('../static/icons/*')).map((p) => p.replace('../static', ''))
+		);
+		for (const item of [...MARQUEE_ROWS.top, ...MARQUEE_ROWS.bottom]) {
+			expect(bundledIcons.has(item.iconSrc)).toBe(true);
+		}
 		expect(SYSTEM_BRIDGE_NODES.length).toBeGreaterThanOrEqual(7);
 		expect(SYSTEM_BRIDGE_EDGES.length).toBeGreaterThanOrEqual(6);
 		expect(HERO_TELEMETRY_LINES.length).toBeGreaterThanOrEqual(3);

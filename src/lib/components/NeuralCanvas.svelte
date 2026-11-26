@@ -11,6 +11,12 @@
 	let canvasEl = $state<HTMLCanvasElement | null>(null);
 	let containerEl = $state<HTMLDivElement | null>(null);
 	let pointer = { x: -999, y: -999, active: false };
+	let renderCurrentFrame: (() => void) | null = null;
+
+	$effect(() => {
+		activeDomain;
+		renderCurrentFrame?.();
+	});
 
 	interface NodeDef {
 		layer: number;
@@ -78,14 +84,18 @@
 		let height = 300;
 
 		const resize = () => {
-			const rect = container.getBoundingClientRect();
-			width = Math.max(280, Math.round(rect.width));
-			height = Math.max(240, Math.round(rect.height));
+			// Read inner box via clientWidth/clientHeight so canvas never triggers ResizeObserver growth loops.
+			const nextWidth = Math.max(280, container.clientWidth);
+			const nextHeight = Math.max(240, container.clientHeight);
 			const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-			canvas.width = Math.round(width * dpr);
-			canvas.height = Math.round(height * dpr);
-			canvas.style.width = `${width}px`;
-			canvas.style.height = `${height}px`;
+			const targetW = Math.round(nextWidth * dpr);
+			const targetH = Math.round(nextHeight * dpr);
+			width = nextWidth;
+			height = nextHeight;
+			if (canvas.width !== targetW || canvas.height !== targetH) {
+				canvas.width = targetW;
+				canvas.height = targetH;
+			}
 			ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 		};
 
@@ -197,11 +207,17 @@
 		};
 
 		resize();
+		renderCurrentFrame = () => drawFrame(reduced ? 0 : performance.now());
 		startLoop();
 
-		const ro = new ResizeObserver(() => {
+		const ro = new ResizeObserver((entries) => {
+			const entry = entries[0];
+			if (!entry) return;
+			const nextW = Math.max(280, Math.round(entry.contentRect.width));
+			const nextH = Math.max(240, Math.round(entry.contentRect.height));
+			if (nextW === width && nextH === height) return;
 			resize();
-			drawFrame(performance.now());
+			renderCurrentFrame?.();
 		});
 		ro.observe(container);
 
@@ -222,6 +238,7 @@
 		media.addEventListener('change', onMotion);
 
 		return () => {
+			renderCurrentFrame = null;
 			window.cancelAnimationFrame(rafId);
 			ro.disconnect();
 			io.disconnect();
@@ -232,12 +249,12 @@
 
 <div
 	bind:this={containerEl}
-	class="relative h-[280px] w-full border border-[var(--ink)] bg-[var(--bg-plate)] sm:h-[310px]"
+	class="relative h-[280px] w-full overflow-hidden border border-[var(--ink)] bg-[var(--bg-plate)] sm:h-[310px]"
 >
 	<canvas
 		bind:this={canvasEl}
 		aria-label="Animated neural routing and causal calibration network"
-		class="block h-full w-full"
+		class="absolute inset-0 block h-full w-full"
 		onpointermove={(e) => {
 			const rect = e.currentTarget.getBoundingClientRect();
 			pointer = { x: e.clientX - rect.left, y: e.clientY - rect.top, active: true };
