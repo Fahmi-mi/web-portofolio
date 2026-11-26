@@ -94,7 +94,7 @@ export interface ScrollStage {
 
 export interface MarqueeSkill {
 	name: string;
-	iconKey: string;
+	iconSrc: string;
 }
 
 export const PROFILE = {
@@ -516,38 +516,38 @@ export const SCROLL_STAGES: ScrollStage[] = [
 
 export const MARQUEE_ROWS: { top: MarqueeSkill[]; bottom: MarqueeSkill[] } = {
 	top: [
-		{ name: 'Python', iconKey: 'python' },
-		{ name: 'SQL', iconKey: 'database' },
-		{ name: 'TypeScript', iconKey: 'code' },
-		{ name: 'Go', iconKey: 'terminal' },
-		{ name: 'PHP', iconKey: 'server' },
-		{ name: 'pandas', iconKey: 'table' },
-		{ name: 'Polars', iconKey: 'bolt' },
-		{ name: 'NumPy', iconKey: 'matrix' },
-		{ name: 'SciPy', iconKey: 'wave' },
-		{ name: 'scikit-learn', iconKey: 'scatter' },
-		{ name: 'LightGBM', iconKey: 'tree' },
-		{ name: 'EconML', iconKey: 'branch' },
-		{ name: 'MAPIE', iconKey: 'shield' },
-		{ name: 'PyTorch', iconKey: 'neural' },
-		{ name: 'Matplotlib', iconKey: 'chart' }
+		{ name: 'Python', iconSrc: '/icons/python.svg' },
+		{ name: 'SQL', iconSrc: '/icons/sql.svg' },
+		{ name: 'TypeScript', iconSrc: '/icons/typescript.svg' },
+		{ name: 'Go', iconSrc: '/icons/go.svg' },
+		{ name: 'PHP', iconSrc: '/icons/php.svg' },
+		{ name: 'pandas', iconSrc: '/icons/pandas.svg' },
+		{ name: 'Polars', iconSrc: '/icons/polars.svg' },
+		{ name: 'NumPy', iconSrc: '/icons/numpy.svg' },
+		{ name: 'SciPy', iconSrc: '/icons/scipy.svg' },
+		{ name: 'scikit-learn', iconSrc: '/icons/scikit-learn.svg' },
+		{ name: 'LightGBM', iconSrc: '/icons/lightgbm.svg' },
+		{ name: 'EconML', iconSrc: '/icons/econml.png' },
+		{ name: 'MAPIE', iconSrc: '/icons/mapie.png' },
+		{ name: 'PyTorch', iconSrc: '/icons/pytorch.svg' },
+		{ name: 'Matplotlib', iconSrc: '/icons/matplotlib.svg' }
 	],
 	bottom: [
-		{ name: 'Seaborn', iconKey: 'chart' },
-		{ name: 'LangGraph', iconKey: 'graph' },
-		{ name: 'LangChain', iconKey: 'link' },
-		{ name: 'FastAPI', iconKey: 'bolt' },
-		{ name: 'Laravel', iconKey: 'layers' },
-		{ name: 'Streamlit', iconKey: 'sliders' },
-		{ name: 'Apache Airflow', iconKey: 'workflow' },
-		{ name: 'DuckDB', iconKey: 'database' },
-		{ name: 'PostgreSQL', iconKey: 'database' },
-		{ name: 'TimescaleDB', iconKey: 'clock' },
-		{ name: 'Redis', iconKey: 'cache' },
-		{ name: 'FAISS', iconKey: 'vector' },
-		{ name: 'Docker', iconKey: 'box' },
-		{ name: 'Git', iconKey: 'branch' },
-		{ name: 'pytest', iconKey: 'check' }
+		{ name: 'Seaborn', iconSrc: '/icons/seaborn.svg' },
+		{ name: 'LangGraph', iconSrc: '/icons/langgraph.svg' },
+		{ name: 'LangChain', iconSrc: '/icons/langchain.svg' },
+		{ name: 'FastAPI', iconSrc: '/icons/fastapi.svg' },
+		{ name: 'Laravel', iconSrc: '/icons/laravel.svg' },
+		{ name: 'Streamlit', iconSrc: '/icons/streamlit.svg' },
+		{ name: 'Apache Airflow', iconSrc: '/icons/apache-airflow.svg' },
+		{ name: 'DuckDB', iconSrc: '/icons/duckdb.svg' },
+		{ name: 'PostgreSQL', iconSrc: '/icons/postgresql.svg' },
+		{ name: 'TimescaleDB', iconSrc: '/icons/timescaledb.svg' },
+		{ name: 'Redis', iconSrc: '/icons/redis.svg' },
+		{ name: 'FAISS', iconSrc: '/icons/faiss.svg' },
+		{ name: 'Docker', iconSrc: '/icons/docker.svg' },
+		{ name: 'Git', iconSrc: '/icons/git.svg' },
+		{ name: 'pytest', iconSrc: '/icons/pytest.svg' }
 	]
 };
 
