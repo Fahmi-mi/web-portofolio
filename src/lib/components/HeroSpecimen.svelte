@@ -11,90 +11,88 @@
 	const domainSummary = $derived(getHeroDomainSummary(activeDomain));
 </script>
 
-<section id="top" class="border-b border-[var(--rule)] bg-[var(--bg-bone)]">
-	<div class="grid w-full grid-cols-1 lg:grid-cols-[1.04fr_0.96fr]">
-		<div
-			class="flex flex-col justify-between border-b border-[var(--rule)] px-6 py-10 sm:px-10 sm:py-12 lg:border-r lg:border-b-0 lg:px-14 xl:px-20"
-		>
+<section id="top" class="border-b border-[var(--rule)]/80">
+	<div class="grid w-full grid-cols-1 items-center gap-10 px-6 py-14 sm:px-10 sm:py-16 lg:grid-cols-[1.02fr_0.98fr] lg:gap-14 lg:px-14 lg:py-20 xl:px-20">
+		<div class="flex flex-col justify-between">
 			<div>
 				<h1
-					class="font-display text-5xl leading-[0.94] font-extrabold tracking-[-0.035em] text-[var(--ink)] uppercase sm:text-6xl xl:text-[78px]"
+					class="font-display text-4xl leading-[1.03] font-extrabold tracking-[-0.03em] text-[var(--ink)] sm:text-5xl xl:text-[62px]"
 				>
-					Fahmi<br />Haqqul<br />Ihsan
+					Building AI systems and resilient software end to end.
 				</h1>
-				<p class="mt-6 max-w-[60ch] text-lg leading-relaxed text-[#2A2E35] sm:text-[20px]">
-					{PROFILE.bio}
+				<p class="mt-5 max-w-[58ch] text-lg leading-relaxed text-[var(--ink-muted)] sm:text-[19px]">
+					I&apos;m {PROFILE.name}, a {PROFILE.bio}
 				</p>
-				<div class="mt-7 flex flex-wrap gap-3">
+				<div class="mt-8 flex flex-wrap gap-3">
 					<a
 						href="#projects"
-						class="font-mono-tech bg-[var(--vermilion)] px-5 py-3 text-xs font-semibold tracking-[0.06em] text-[var(--bg-plate)] uppercase transition-colors hover:bg-[#9A2D16]"
+						class="font-mono-tech rounded-full bg-[var(--teal)] px-6 py-3 text-xs font-semibold text-[var(--bg-plate)] transition-colors hover:bg-[#0B5E58]"
 					>
 						Explore All Projects
 					</a>
 					<a
 						href="#contact"
-						class="font-mono-tech border border-[var(--ink)] bg-[var(--bg-plate)] px-5 py-3 text-xs font-medium tracking-[0.05em] text-[var(--ink)] uppercase transition-colors hover:bg-[var(--ink)] hover:text-[var(--bg-plate)]"
+						class="font-mono-tech rounded-full border border-[var(--rule)] bg-[var(--bg-plate)] px-6 py-3 text-xs font-medium text-[var(--ink)] transition-colors hover:border-[var(--ink)]"
 					>
 						Email / GitHub / LinkedIn
 					</a>
 				</div>
 			</div>
 
-			<div class="mt-10 grid grid-cols-1 gap-5 border-t border-[var(--rule)] pt-5 sm:grid-cols-3">
-				<div>
-					<div class="font-mono-tech text-[11px] tracking-[0.05em] text-[var(--ink-muted)] uppercase">
+			<div class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
+				<div class="rounded-2xl border border-[var(--rule)] bg-[var(--bg-plate)] p-4">
+					<div class="font-mono-tech text-[11px] font-medium text-[var(--ink-muted)]">
 						AI &amp; Causal R&amp;D
 					</div>
 					<div class="font-display mt-1 text-2xl font-bold text-[var(--ink)] tabular-nums">
 						1.96% FAR
 					</div>
-					<div class="mt-0.5 text-sm text-[var(--ink-muted)]">Conformal bounds &amp; $2,679.37 uplift</div>
+					<div class="mt-0.5 text-xs text-[var(--ink-muted)]">Conformal bounds &amp; $2,679.37 uplift</div>
 				</div>
-				<div>
-					<div class="font-mono-tech text-[11px] tracking-[0.05em] text-[var(--ink-muted)] uppercase">
+				<div class="rounded-2xl border border-[var(--rule)] bg-[var(--bg-plate)] p-4">
+					<div class="font-mono-tech text-[11px] font-medium text-[var(--ink-muted)]">
 						Client &amp; SWE Delivery
 					</div>
 					<div class="font-display mt-1 text-2xl font-bold text-[var(--ink)] tabular-nums">
 						3 Client Apps
 					</div>
-					<div class="mt-0.5 text-sm text-[var(--ink-muted)]">Production web platforms &amp; 4 SWE tools</div>
+					<div class="mt-0.5 text-xs text-[var(--ink-muted)]">Web platforms &amp; 4 open-source tools</div>
 				</div>
-				<div>
-					<div class="font-mono-tech text-[11px] tracking-[0.05em] text-[var(--ink-muted)] uppercase">
+				<div class="rounded-2xl border border-[var(--rule)] bg-[var(--bg-plate)] p-4">
+					<div class="font-mono-tech text-[11px] font-medium text-[var(--ink-muted)]">
 						Competitions &amp; Honors
 					</div>
 					<div class="font-display mt-1 text-2xl font-bold text-[var(--ink)] tabular-nums">
 						2 Podiums
 					</div>
-					<div class="mt-0.5 text-sm text-[var(--ink-muted)]">UNS Data Viz &amp; UI Datathon</div>
+					<div class="mt-0.5 text-xs text-[var(--ink-muted)]">UNS Data Viz &amp; UI Datathon</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="specimen-dot-grid flex flex-col justify-between px-6 py-8 sm:px-10 sm:py-10 lg:px-14 xl:px-16">
-			<div class="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--ink)] pb-3">
-				<span class="font-mono-tech text-xs font-medium tracking-[0.04em] text-[var(--ink)] uppercase">
-					Live Inference &amp; Calibration Network
+		<div class="rounded-3xl border border-[var(--rule)] bg-[var(--bg-plate)] p-5 sm:p-7">
+			<div class="flex flex-wrap items-center justify-between gap-2 pb-3">
+				<span class="font-mono-tech text-xs font-medium text-[var(--ink-muted)]">
+					Interactive Neural &amp; Pipeline Topology
 				</span>
-				<span class="font-mono-tech text-xs font-semibold text-[var(--teal)]">
+				<span class="font-mono-tech rounded-full bg-[var(--bg-bone)] px-3 py-1 text-[11px] font-semibold text-[var(--teal)]">
 					{domainSummary.label}
 				</span>
 			</div>
 
-			<div class="my-4 flex flex-wrap gap-2" role="group" aria-label="Select capability domain">
+			<div class="mb-4 flex flex-wrap gap-2" role="group" aria-label="Select capability domain">
 				{#each HERO_DOMAINS as domain}
 					<button
 						type="button"
 						aria-pressed={activeDomain === domain.id}
 						onclick={() => (activeDomain = domain.id)}
-						class="font-mono-tech border px-3 py-1.5 text-xs tracking-[0.04em] uppercase transition-colors"
+						class="font-mono-tech rounded-full border px-3.5 py-1.5 text-xs font-medium transition-colors"
 						class:border-[var(--ink)]={activeDomain === domain.id}
 						class:bg-[var(--ink)]={activeDomain === domain.id}
 						class:text-[var(--bg-plate)]={activeDomain === domain.id}
 						class:border-[var(--rule)]={activeDomain !== domain.id}
-						class:bg-[var(--bg-plate)]={activeDomain !== domain.id}
-						class:text-[var(--ink)]={activeDomain !== domain.id}
+						class:bg-[var(--bg-bone)]={activeDomain !== domain.id}
+						class:text-[var(--ink-muted)]={activeDomain !== domain.id}
 					>
 						{domain.label}
 					</button>
@@ -103,12 +101,12 @@
 
 			<NeuralCanvas {activeDomain} />
 
-			<div class="mt-4 border-t border-[var(--rule)] pt-3">
+			<div class="mt-4 rounded-2xl bg-[var(--bg-bone)] p-4">
 				<div class="font-mono-tech text-xs font-semibold text-[var(--ink)]">
 					{domainSummary.linkedProject}
 				</div>
 				<div class="mt-1 text-sm text-[var(--ink-muted)]">{domainSummary.roleNote}</div>
-				<div class="font-mono-tech mt-1.5 text-xs text-[var(--teal)]">
+				<div class="font-mono-tech mt-1.5 text-xs font-medium text-[var(--teal)]">
 					{domainSummary.highlightMetric}
 				</div>
 			</div>

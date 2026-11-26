@@ -21,19 +21,19 @@
 	class="sticky top-0 z-40 border-b border-[var(--rule)] bg-[var(--bg-bone)]/95"
 	aria-label="Primary navigation"
 >
-	<div class="flex h-14 w-full items-center justify-between px-6 sm:px-10 lg:px-14 xl:px-20">
+	<div class="flex h-16 w-full items-center justify-between px-6 sm:px-10 lg:px-14 xl:px-20">
 		<a
 			href="#top"
-			class="font-mono-tech text-xs font-semibold tracking-[0.08em] text-[var(--ink)] uppercase"
+			class="font-display text-sm font-bold tracking-tight text-[var(--ink)]"
 		>
-			{PROFILE.shortBrand}
+			{PROFILE.name}
 		</a>
 
 		<nav class="hidden items-center gap-7 md:flex" aria-label="Desktop sections">
 			{#each navLinks as link}
 				<a
 					href={link.href}
-					class="font-mono-tech text-xs tracking-[0.06em] text-[var(--ink-muted)] uppercase transition-colors hover:text-[var(--ink)]"
+					class="text-sm font-medium text-[var(--ink-muted)] transition-colors hover:text-[var(--ink)]"
 				>
 					{link.label}
 				</a>
@@ -41,7 +41,7 @@
 			<a
 				href={PROFILE.cvPath}
 				download={PROFILE.cvDownloadName}
-				class="font-mono-tech border border-[var(--ink)] bg-[var(--ink)] px-3.5 py-1.5 text-xs font-semibold tracking-[0.04em] text-[var(--bg-plate)] uppercase transition-colors hover:border-[var(--teal)] hover:bg-[var(--teal)]"
+				class="font-mono-tech rounded-full bg-[var(--ink)] px-4 py-2 text-xs font-semibold text-[var(--bg-plate)] transition-colors hover:bg-[var(--teal)]"
 			>
 				Download CV
 			</a>
@@ -51,13 +51,13 @@
 			<a
 				href={PROFILE.cvPath}
 				download={PROFILE.cvDownloadName}
-				class="font-mono-tech border border-[var(--ink)] bg-[var(--ink)] px-3 py-1.5 text-[11px] font-semibold tracking-[0.04em] text-[var(--bg-plate)] uppercase"
+				class="font-mono-tech rounded-full bg-[var(--ink)] px-3.5 py-1.5 text-[11px] font-semibold text-[var(--bg-plate)]"
 			>
 				CV.pdf
 			</a>
 			<button
 				type="button"
-				class="font-mono-tech border border-[var(--rule)] bg-[var(--bg-plate)] px-3 py-1.5 text-[11px] font-medium tracking-[0.05em] text-[var(--ink)] uppercase"
+				class="font-mono-tech rounded-full border border-[var(--rule)] bg-[var(--bg-plate)] px-3.5 py-1.5 text-[11px] font-medium text-[var(--ink)]"
 				aria-expanded={menuOpen}
 				aria-controls="mobile-nav-drawer"
 				onclick={() => (menuOpen = !menuOpen)}
@@ -70,7 +70,7 @@
 	{#if menuOpen}
 		<nav
 			id="mobile-nav-drawer"
-			class="border-t border-[var(--rule)] bg-[var(--bg-plate)] px-6 py-4 md:hidden"
+			class="mx-4 mb-3 rounded-2xl border border-[var(--rule)] bg-[var(--bg-plate)] px-5 py-4 md:hidden"
 			aria-label="Mobile sections"
 		>
 			<div class="flex flex-col gap-3">
@@ -78,7 +78,7 @@
 					<a
 						href={link.href}
 						onclick={() => (menuOpen = false)}
-						class="font-mono-tech border-b border-[var(--rule)] pb-2 text-xs tracking-[0.06em] text-[var(--ink)] uppercase"
+						class="border-b border-[var(--rule)] pb-2 text-sm font-medium text-[var(--ink)] last:border-b-0 last:pb-0"
 					>
 						{link.label}
 					</a>

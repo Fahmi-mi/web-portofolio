@@ -1,11 +1,11 @@
 @import 'tailwindcss';
 
 :root {
-	--bg-bone: #f6f5f0;
-	--bg-plate: #faf9f5;
+	--bg-bone: #f7f7f4;
+	--bg-plate: #ffffff;
 	--ink: #111317;
 	--ink-muted: #4b525a;
-	--rule: #d8d4ca;
+	--rule: #e4e4df;
 	--teal: #0f766e;
 	--vermilion: #b8381e;
 	--vitrine: #1e242c;
@@ -63,10 +63,25 @@
 	font-variant-numeric: tabular-nums;
 }
 
-.specimen-dot-grid {
-	background-color: var(--bg-bone);
-	background-image: radial-gradient(#cfcac0 1px, transparent 1px);
-	background-size: 18px 18px;
+.spotlight-card {
+	position: relative;
+	isolation: isolate;
+}
+
+.spotlight-card::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	background: radial-gradient(
+		260px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+		var(--spot-color, rgba(15, 118, 110, 0.08)),
+		transparent 70%
+	);
+	opacity: var(--spot-opacity, 0);
+	transition: opacity 280ms ease;
+	pointer-events: none;
+	z-index: -1;
 }
 
 .marquee-mask {
@@ -135,5 +150,9 @@
 
 	.marquee-duplicate {
 		display: none !important;
+	}
+
+	.spotlight-card::before {
+		display: none;
 	}
 }

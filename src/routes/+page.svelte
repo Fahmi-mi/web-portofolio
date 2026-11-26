@@ -5,6 +5,7 @@
 	import ProjectsGrid from '$lib/components/ProjectsGrid.svelte';
 	import ExperienceHonors from '$lib/components/ExperienceHonors.svelte';
 	import SkillsContact from '$lib/components/SkillsContact.svelte';
+	import ScrollThread from '$lib/components/ScrollThread.svelte';
 </script>
 
 <svelte:head>
@@ -12,7 +13,8 @@
 </svelte:head>
 
 <TopNav />
-<main>
+<main class="relative isolate">
+	<ScrollThread />
 	<HeroSpecimen />
 	<ScrollyArchitecture />
 	<ProjectsGrid />
