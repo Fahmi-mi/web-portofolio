@@ -3,6 +3,8 @@
 	import HeroSpecimen from '$lib/components/HeroSpecimen.svelte';
 	import SystemsBridge from '$lib/components/SystemsBridge.svelte';
 	import ProjectsGrid from '$lib/components/ProjectsGrid.svelte';
+	import ExperienceHonors from '$lib/components/ExperienceHonors.svelte';
+	import SkillsContact from '$lib/components/SkillsContact.svelte';
 </script>
 
 <svelte:head>
@@ -14,6 +16,6 @@
 	<HeroSpecimen />
 	<SystemsBridge />
 	<ProjectsGrid />
-	<section id="experience" aria-label="Experience and Honors"></section>
-	<section id="contact" aria-label="Technical Stack and Contact"></section>
+	<ExperienceHonors />
+	<SkillsContact />
 </main>
