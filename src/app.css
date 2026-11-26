@@ -1,0 +1,83 @@
+@import 'tailwindcss';
+
+:root {
+	--bg-bone: #f6f5f0;
+	--bg-plate: #faf9f5;
+	--ink: #111317;
+	--ink-muted: #4b525a;
+	--rule: #d8d4ca;
+	--teal: #0f766e;
+	--vermilion: #b8381e;
+	--vitrine: #12151c;
+	--vitrine-ink: #e6eaf0;
+	--vitrine-muted: #9ca3af;
+	--vitrine-ok: #34d399;
+	--vitrine-alert: #f87171;
+}
+
+@layer base {
+	html {
+		background-color: var(--bg-bone);
+		color: var(--ink);
+		font-family: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+		scroll-behavior: smooth;
+		scrollbar-color: #b7b1a4 var(--bg-bone);
+		scrollbar-width: thin;
+	}
+
+	body {
+		min-height: 100vh;
+		overflow-x: clip;
+		background-color: var(--bg-bone);
+		color: var(--ink);
+		-webkit-font-smoothing: antialiased;
+	}
+
+	::selection {
+		background-color: var(--teal);
+		color: var(--bg-plate);
+	}
+
+	a,
+	button {
+		text-underline-offset: 4px;
+	}
+
+	:focus-visible {
+		outline: 2px solid var(--teal);
+		outline-offset: 2px;
+	}
+}
+
+.font-display {
+	font-family: 'Archivo', system-ui, -apple-system, sans-serif;
+}
+
+.font-mono-tech {
+	font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+	font-variant-numeric: tabular-nums;
+}
+
+.tabular-nums {
+	font-variant-numeric: tabular-nums;
+}
+
+.specimen-dot-grid {
+	background-color: var(--bg-bone);
+	background-image: radial-gradient(#cfcac0 1px, transparent 1px);
+	background-size: 18px 18px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}
