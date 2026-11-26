@@ -2,6 +2,7 @@
 	import TopNav from '$lib/components/TopNav.svelte';
 	import HeroSpecimen from '$lib/components/HeroSpecimen.svelte';
 	import SystemsBridge from '$lib/components/SystemsBridge.svelte';
+	import ProjectsGrid from '$lib/components/ProjectsGrid.svelte';
 </script>
 
 <svelte:head>
@@ -12,7 +13,7 @@
 <main>
 	<HeroSpecimen />
 	<SystemsBridge />
-	<section id="projects" aria-label="Selected Projects"></section>
+	<ProjectsGrid />
 	<section id="experience" aria-label="Experience and Honors"></section>
 	<section id="contact" aria-label="Technical Stack and Contact"></section>
 </main>
