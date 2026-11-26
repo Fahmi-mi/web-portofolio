@@ -104,7 +104,7 @@
 		</div>
 
 		<div class="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
-			<div class="space-y-8 lg:space-y-[36vh] lg:pt-[8vh] lg:pb-[22vh]">
+			<div class="space-y-8 lg:space-y-44 lg:pt-6 lg:pb-16">
 				{#each SCROLL_STAGES as stage, idx (stage.id)}
 					<article
 						bind:this={stepEls[idx]}
@@ -165,7 +165,7 @@
 
 					<!-- Layered smooth cross-fade stage plates -->
 					<div class="relative my-5 grid overflow-hidden">
-						<!-- Stage 01 -->
+						<!-- Stage 01: Statistical ML & Causal Modeling -->
 						<div
 							aria-hidden={activeIndex !== 0}
 							class="col-start-1 row-start-1 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
@@ -177,36 +177,46 @@
 							class:scale-[0.985]={activeIndex !== 0}
 							class:pointer-events-none={activeIndex !== 0}
 						>
-							<svg viewBox="0 0 560 320" class="h-auto w-full border border-[var(--rule)] bg-[var(--bg-plate)] p-3" role="img" aria-label="Conformal prediction band and Pareto routing diagram">
-								<line x1="40" y1="286" x2="520" y2="286" stroke="#D8D4CA" stroke-width="1" />
-								<line x1="40" y1="30" x2="40" y2="286" stroke="#D8D4CA" stroke-width="1" />
+							<svg viewBox="0 0 560 320" class="h-auto w-full border border-[var(--rule)] bg-[var(--bg-plate)] p-3" role="img" aria-label="Statistical ML conformal calibration and causal profit curves">
+								<line x1="48" y1="274" x2="520" y2="274" stroke="#111317" stroke-width="1.3" />
+								<line x1="48" y1="30" x2="48" y2="274" stroke="#111317" stroke-width="1.3" />
 								<path
-									d="M 40 292 C 160 264, 250 172, 510 88 L 510 34 C 350 75, 250 110, 40 248 Z"
+									d="M 48 266 C 175 232, 290 150, 512 72 L 512 42 C 320 96, 185 186, 48 238 Z"
 									fill="#0F766E"
-									fill-opacity="0.13"
+									fill-opacity="0.12"
 								/>
 								<path
-									d="M 40 270 C 160 235, 250 140, 510 56"
+									d="M 48 274 C 165 140, 315 76, 512 52"
 									fill="none"
 									stroke="#0F766E"
 									stroke-width="3"
 									class="scrolly-curve"
 									class:is-drawn={activeIndex === 0}
 								/>
-								<line x1="285" y1="24" x2="285" y2="286" stroke="#B8381E" stroke-dasharray="5 5" stroke-width="1.5" />
-								<circle cx="155" cy="224" r="6" fill="#111317" />
-								<circle cx="285" cy="145" r="8" fill="#0F766E" />
-								<circle cx="425" cy="84" r="7" fill="#B8381E" />
-								<text x="52" y="48" font-family="JetBrains Mono" font-size="11" fill="#111317">
-									CONFORMAL ACCEPTANCE BAND (alpha 0.05 = 1.96% FAR)
+								<path
+									d="M 48 274 C 175 190, 320 142, 512 132"
+									fill="none"
+									stroke="#B8381E"
+									stroke-width="2.2"
+									class="scrolly-curve"
+									class:is-drawn={activeIndex === 0}
+								/>
+								<circle cx="512" cy="52" r="7" fill="#0F766E" />
+								<circle cx="512" cy="132" r="6" fill="#B8381E" />
+								<circle cx="268" cy="148" r="6" fill="#111317" />
+								<text x="60" y="46" font-family="JetBrains Mono" font-size="10.5" font-weight="600" fill="#111317">
+									CONFORMAL: 13.52% down to 1.96% FAR
 								</text>
-								<text x="296" y="274" font-family="JetBrains Mono" font-size="10.5" fill="#B8381E">
-									96.14% FRONTIER QUALITY (-8.50% COST)
+								<text x="512" y="34" text-anchor="end" font-family="JetBrains Mono" font-size="10.5" font-weight="600" fill="#0F766E">
+									DR-LEARNER: $2,679.37 | 96.14% QUAL
+								</text>
+								<text x="512" y="154" text-anchor="end" font-family="JetBrains Mono" font-size="10" fill="#B8381E">
+									PROPENSITY: $1,529.02
 								</text>
 							</svg>
 						</div>
 
-						<!-- Stage 02 -->
+						<!-- Stage 02: Streaming Agents & ML Data Pipelines -->
 						<div
 							aria-hidden={activeIndex !== 1}
 							class="col-start-1 row-start-1 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
@@ -218,66 +228,16 @@
 							class:scale-[0.985]={activeIndex !== 1}
 							class:pointer-events-none={activeIndex !== 1}
 						>
-							<svg viewBox="0 0 560 320" class="h-auto w-full border border-[var(--rule)] bg-[var(--bg-plate)] p-3" role="img" aria-label="Causal uplift cumulative profit frontier">
-								<line x1="48" y1="276" x2="520" y2="276" stroke="#111317" stroke-width="1.5" />
-								<line x1="48" y1="28" x2="48" y2="276" stroke="#111317" stroke-width="1.5" />
-								<line x1="48" y1="276" x2="510" y2="208" stroke="#9CA3AF" stroke-dasharray="5 5" stroke-width="1.8" />
-								<path
-									d="M 48 276 C 175 185, 310 128, 510 118"
-									fill="none"
-									stroke="#B8381E"
-									stroke-width="2.4"
-									class="scrolly-curve"
-									class:is-drawn={activeIndex === 1}
-								/>
-								<path
-									d="M 48 276 C 165 130, 310 68, 510 46"
-									fill="none"
-									stroke="#0F766E"
-									stroke-width="3.2"
-									class="scrolly-curve"
-									class:is-drawn={activeIndex === 1}
-								/>
-								<circle cx="510" cy="46" r="7" fill="#0F766E" />
-								<circle cx="510" cy="118" r="6" fill="#B8381E" />
-								<text x="275" y="40" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#0F766E">
-									DR-LEARNER: $2,679.37 (+75%)
-								</text>
-								<text x="295" y="140" font-family="JetBrains Mono" font-size="10.5" fill="#B8381E">
-									PROPENSITY: $1,529.02
-								</text>
-								<text x="330" y="232" font-family="JetBrains Mono" font-size="10.5" fill="#4B525A">
-									RANDOM: $679.37
-								</text>
-							</svg>
-						</div>
-
-						<!-- Stage 03: refined balanced stream + agent + Airflow DAG plate -->
-						<div
-							aria-hidden={activeIndex !== 2}
-							class="col-start-1 row-start-1 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
-							class:opacity-100={activeIndex === 2}
-							class:translate-y-0={activeIndex === 2}
-							class:scale-100={activeIndex === 2}
-							class:opacity-0={activeIndex !== 2}
-							class:translate-y-3={activeIndex !== 2}
-							class:scale-[0.985]={activeIndex !== 2}
-							class:pointer-events-none={activeIndex !== 2}
-						>
-							<svg viewBox="0 0 560 320" class="h-auto w-full border border-[var(--ink)] bg-[var(--vitrine)] p-3" role="img" aria-label="EquiSentinel streaming and Airflow DAG architecture">
-								<!-- Header strip inside telemetry plate -->
+							<svg viewBox="0 0 560 320" class="h-auto w-full border border-[var(--ink)] bg-[var(--vitrine)] p-3" role="img" aria-label="Streaming event bus, LangGraph worker, Airflow DAGs, and tabular MLflow pipeline">
 								<text x="24" y="28" font-family="JetBrains Mono" font-size="10" fill="#A3AEBC">
-									EVENT BUS  /  REASONING WORKER  /  TIME-SERIES &amp; FEATURE STORE
+									EVENT BUS  /  REASONING WORKER  /  AIRFLOW &amp; TABULAR MLOPS
 								</text>
 
-								<!-- Horizontal streaming flow connectors -->
 								<line x1="168" y1="98" x2="208" y2="98" stroke="#7FD4C2" stroke-width="2" stroke-dasharray="5 4" />
 								<line x1="352" y1="98" x2="392" y2="98" stroke="#E8A394" stroke-width="2" stroke-dasharray="5 4" />
-								<!-- Airflow feed into TimescaleDB / Worker -->
 								<path d="M 280 198 L 280 140" fill="none" stroke="#A3AEBC" stroke-width="1.5" stroke-dasharray="4 4" />
 								<path d="M 464 198 L 464 140" fill="none" stroke="#7FD4C2" stroke-width="1.5" stroke-dasharray="4 4" />
 
-								<!-- Node 1: NATS / Go Gateway -->
 								<rect x="24" y="56" width="144" height="84" fill="#262E38" stroke="#7FD4C2" stroke-width="1.5" />
 								<text x="96" y="84" text-anchor="middle" font-family="JetBrains Mono" font-size="11.5" font-weight="600" fill="#E5E7EB">
 									NATS / Go
@@ -289,7 +249,6 @@
 									&gt;3% | &gt;5x Vol
 								</text>
 
-								<!-- Node 2: LangGraph 5-Stage -->
 								<rect x="208" y="56" width="144" height="84" fill="#262E38" stroke="#E8A394" stroke-width="1.5" />
 								<text x="280" y="84" text-anchor="middle" font-family="JetBrains Mono" font-size="11.5" font-weight="600" fill="#E5E7EB">
 									LangGraph
@@ -301,7 +260,6 @@
 									HITL + Cache Guard
 								</text>
 
-								<!-- Node 3: TimescaleDB + Redis -->
 								<rect x="392" y="56" width="144" height="84" fill="#262E38" stroke="#A3AEBC" stroke-width="1.5" />
 								<text x="464" y="84" text-anchor="middle" font-family="JetBrains Mono" font-size="11.5" font-weight="600" fill="#E5E7EB">
 									TimescaleDB
@@ -313,16 +271,89 @@
 									5m Hot Window
 								</text>
 
-								<!-- Bottom ETL Layer: Apache Airflow -->
 								<rect x="24" y="198" width="512" height="92" fill="#262E38" stroke="#64748B" stroke-width="1.5" />
 								<text x="280" y="226" text-anchor="middle" font-family="JetBrains Mono" font-size="11.5" font-weight="600" fill="#E5E7EB">
-									4 Apache Airflow ETL DAGs (1m / 5m / 1h Cadence)
+									4 Apache Airflow DAGs (1m / 5m / 1h) + Tabular MLflow Pipeline
 								</text>
 								<text x="280" y="248" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#7FD4C2">
-									SMA / EMA / RSI / Bollinger Features | feature_store_ai Backfill
+									Parquet | LightGBM / XGBoost / CatBoost | feature_store_ai
 								</text>
 								<text x="280" y="272" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" fill="#A3AEBC">
-									Paired with Production Laravel Queues, RBAC &amp; Web Failover Architecture
+									Validated with Pydantic contracts &amp; automated pytest verification
+								</text>
+							</svg>
+						</div>
+
+						<!-- Stage 03: Production Web, APIs & CLI Tooling -->
+						<div
+							aria-hidden={activeIndex !== 2}
+							class="col-start-1 row-start-1 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+							class:opacity-100={activeIndex === 2}
+							class:translate-y-0={activeIndex === 2}
+							class:scale-100={activeIndex === 2}
+							class:opacity-0={activeIndex !== 2}
+							class:translate-y-3={activeIndex !== 2}
+							class:scale-[0.985]={activeIndex !== 2}
+							class:pointer-events-none={activeIndex !== 2}
+						>
+							<svg viewBox="0 0 560 320" class="h-auto w-full border border-[var(--rule)] bg-[var(--bg-plate)] p-3" role="img" aria-label="Production web systems, REST APIs, and open-source developer tools topology">
+								<text x="24" y="28" font-family="JetBrains Mono" font-size="10" fill="#4B525A">
+									CLIENT WEB PLATFORMS  |  REST APIS  |  OPEN-SOURCE WORKSPACE &amp; CLIS
+								</text>
+
+								<!-- Left Column: Client & Backend Production -->
+								<rect x="24" y="48" width="246" height="68" fill="#FAF9F5" stroke="#111317" stroke-width="1.3" />
+								<text x="38" y="72" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#111317">
+									Smart School Platform
+								</text>
+								<text x="38" y="92" font-family="JetBrains Mono" font-size="9.5" fill="#0F766E">
+									Laravel Queues | Livewire | LLM Pipeline
+								</text>
+
+								<rect x="24" y="130" width="246" height="68" fill="#FAF9F5" stroke="#111317" stroke-width="1.3" />
+								<text x="38" y="154" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#111317">
+									Localive &amp; Jogja Tour
+								</text>
+								<text x="38" y="174" font-family="JetBrains Mono" font-size="9.5" fill="#0F766E">
+									ID/EN CMS + RBAC | MySQL + JSON Failover
+								</text>
+
+								<rect x="24" y="212" width="246" height="72" fill="#FAF9F5" stroke="#D8D4CA" stroke-width="1.3" />
+								<text x="38" y="238" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#111317">
+									tentang-dental-be
+								</text>
+								<text x="38" y="258" font-family="JetBrains Mono" font-size="9.5" fill="#4B525A">
+									Laravel REST API | Scramble OpenAPI Docs
+								</text>
+
+								<!-- Center Bridge Lines -->
+								<line x1="270" y1="82" x2="290" y2="82" stroke="#0F766E" stroke-width="1.5" />
+								<line x1="270" y1="164" x2="290" y2="164" stroke="#B8381E" stroke-width="1.5" />
+								<line x1="270" y1="248" x2="290" y2="248" stroke="#4B525A" stroke-width="1.5" />
+
+								<!-- Right Column: Open-Source & Interactive Web -->
+								<rect x="290" y="48" width="246" height="68" fill="#1E242C" stroke="#1E242C" stroke-width="1.3" />
+								<text x="304" y="72" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#E5E7EB">
+									glzr (Linux Workspace)
+								</text>
+								<text x="304" y="92" font-family="JetBrains Mono" font-size="9.5" fill="#7FD4C2">
+									Svelte | Terminal-First Layout Tooling
+								</text>
+
+								<rect x="290" y="130" width="246" height="68" fill="#1E242C" stroke="#1E242C" stroke-width="1.3" />
+								<text x="304" y="154" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#E5E7EB">
+									trello-cli
+								</text>
+								<text x="304" y="174" font-family="JetBrains Mono" font-size="9.5" fill="#E8A394">
+									TypeScript + Ink Interactive Board TUI
+								</text>
+
+								<rect x="290" y="212" width="246" height="72" fill="#FAF9F5" stroke="#B8381E" stroke-width="1.3" />
+								<text x="304" y="238" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#111317">
+									snapshoot
+								</text>
+								<text x="304" y="258" font-family="JetBrains Mono" font-size="9.5" fill="#B8381E">
+									Live Browser Canvas Web App
 								</text>
 							</svg>
 						</div>
