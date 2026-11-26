@@ -6,7 +6,9 @@ import {
 	HERO_TELEMETRY_LINES,
 	HONOR_ITEMS,
 	LEADERSHIP_ITEM,
+	MARQUEE_ROWS,
 	PROFILE,
+	SCROLL_STAGES,
 	SECONDARY_PROJECTS,
 	SKILL_GROUPS,
 	SYSTEM_BRIDGE_EDGES,
@@ -75,6 +77,12 @@ describe('portfolio dataset & filter helpers', () => {
 		expect(HONOR_ITEMS).toHaveLength(2);
 		expect(LEADERSHIP_ITEM.organization).toBe('ASSETS UGM');
 		expect(SKILL_GROUPS).toHaveLength(3);
+		expect(SCROLL_STAGES).toHaveLength(3);
+		expect(MARQUEE_ROWS.top.length).toBeGreaterThanOrEqual(14);
+		expect(MARQUEE_ROWS.bottom.length).toBeGreaterThanOrEqual(14);
+		const allSkillNames = SKILL_GROUPS.flatMap((g) => g.items);
+		const marqueeNames = [...MARQUEE_ROWS.top, ...MARQUEE_ROWS.bottom].map((s) => s.name);
+		expect(marqueeNames.sort()).toEqual([...allSkillNames].sort());
 		expect(SYSTEM_BRIDGE_NODES.length).toBeGreaterThanOrEqual(7);
 		expect(SYSTEM_BRIDGE_EDGES.length).toBeGreaterThanOrEqual(6);
 		expect(HERO_TELEMETRY_LINES.length).toBeGreaterThanOrEqual(3);

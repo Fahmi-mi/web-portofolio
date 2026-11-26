@@ -81,6 +81,22 @@ export interface SkillGroup {
 	items: string[];
 }
 
+export interface ScrollStage {
+	id: 'neural-router' | 'causal-frontier' | 'stream-dag';
+	step: string;
+	title: string;
+	subtitle: string;
+	description: string;
+	metricLabel: string;
+	metricValue: string;
+	stack: string[];
+}
+
+export interface MarqueeSkill {
+	name: string;
+	iconKey: string;
+}
+
 export const PROFILE = {
 	name: 'Fahmi Haqqul Ihsan',
 	shortBrand: 'FAHMI.IHSAN',
@@ -461,6 +477,79 @@ export const SKILL_GROUPS: SkillGroup[] = [
 		]
 	}
 ];
+
+export const SCROLL_STAGES: ScrollStage[] = [
+	{
+		id: 'neural-router',
+		step: 'Stage 01',
+		title: 'Conformal Calibration & Cost-Quality Routing',
+		subtitle: 'Guaranteeing LLM reliability before answers reach users',
+		description:
+			'Split conformal prediction via MAPIE wraps LightGBM scorers to bound hallucination false-accept rates on RAGTruth while learned Pareto routing preserves frontier quality at lower inference cost.',
+		metricLabel: 'RAGTruth (n=2,700) / RouterBench (n=7,214)',
+		metricValue: '1.96% FAR at alpha=0.05 | 96.14% Quality',
+		stack: ['MAPIE', 'LightGBM', 'FAISS', 'FastAPI']
+	},
+	{
+		id: 'causal-frontier',
+		step: 'Stage 02',
+		title: 'Causal Uplift & Constrained Allocation',
+		subtitle: 'Optimizing incremental treatment value under real budgets',
+		description:
+			'Doubly-robust uplift estimation (EconML DR-Learner) separates true persuadables from baseline responders across 64k Hillstrom RCT records, feeding LP/MILP budget allocation and PSI drift checks.',
+		metricLabel: 'Hillstrom RCT ($2,500 Budget)',
+		metricValue: '$2,679.37 Net Profit | Qini 0.0368',
+		stack: ['EconML', 'DuckDB', 'Polars', 'SciPy/PuLP']
+	},
+	{
+		id: 'stream-dag',
+		step: 'Stage 03',
+		title: 'Event-Driven Agents & Production Pipelines',
+		subtitle: 'Shipping low-latency analytics and verified client systems',
+		description:
+			'Go services ingest Protobuf events over NATS JetStream into a 5-stage LangGraph reasoning worker backed by TimescaleDB and 4 Airflow ETL DAGs, complementing production Laravel platforms.',
+		metricLabel: 'EquiSentinel + Freelance Backends',
+		metricValue: '>3% Price / >5x Vol Triggers | 4 Airflow DAGs',
+		stack: ['Go', 'NATS JetStream', 'LangGraph', 'Airflow']
+	}
+];
+
+export const MARQUEE_ROWS: { top: MarqueeSkill[]; bottom: MarqueeSkill[] } = {
+	top: [
+		{ name: 'Python', iconKey: 'python' },
+		{ name: 'SQL', iconKey: 'database' },
+		{ name: 'TypeScript', iconKey: 'code' },
+		{ name: 'Go', iconKey: 'terminal' },
+		{ name: 'PHP', iconKey: 'server' },
+		{ name: 'pandas', iconKey: 'table' },
+		{ name: 'Polars', iconKey: 'bolt' },
+		{ name: 'NumPy', iconKey: 'matrix' },
+		{ name: 'SciPy', iconKey: 'wave' },
+		{ name: 'scikit-learn', iconKey: 'scatter' },
+		{ name: 'LightGBM', iconKey: 'tree' },
+		{ name: 'EconML', iconKey: 'branch' },
+		{ name: 'MAPIE', iconKey: 'shield' },
+		{ name: 'PyTorch', iconKey: 'neural' },
+		{ name: 'Matplotlib', iconKey: 'chart' }
+	],
+	bottom: [
+		{ name: 'Seaborn', iconKey: 'chart' },
+		{ name: 'LangGraph', iconKey: 'graph' },
+		{ name: 'LangChain', iconKey: 'link' },
+		{ name: 'FastAPI', iconKey: 'bolt' },
+		{ name: 'Laravel', iconKey: 'layers' },
+		{ name: 'Streamlit', iconKey: 'sliders' },
+		{ name: 'Apache Airflow', iconKey: 'workflow' },
+		{ name: 'DuckDB', iconKey: 'database' },
+		{ name: 'PostgreSQL', iconKey: 'database' },
+		{ name: 'TimescaleDB', iconKey: 'clock' },
+		{ name: 'Redis', iconKey: 'cache' },
+		{ name: 'FAISS', iconKey: 'vector' },
+		{ name: 'Docker', iconKey: 'box' },
+		{ name: 'Git', iconKey: 'branch' },
+		{ name: 'pytest', iconKey: 'check' }
+	]
+};
 
 export function filterFeaturedProjects(filter: ProjectFilter): FeaturedProject[] {
 	if (filter === 'swe') return [];

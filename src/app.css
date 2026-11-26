@@ -8,11 +8,12 @@
 	--rule: #d8d4ca;
 	--teal: #0f766e;
 	--vermilion: #b8381e;
-	--vitrine: #12151c;
-	--vitrine-ink: #e6eaf0;
-	--vitrine-muted: #9ca3af;
-	--vitrine-ok: #34d399;
-	--vitrine-alert: #f87171;
+	--vitrine: #1e242c;
+	--vitrine-panel: #262e38;
+	--vitrine-ink: #e5e7eb;
+	--vitrine-muted: #a3aebc;
+	--vitrine-ok: #7fd4c2;
+	--vitrine-alert: #e8a394;
 }
 
 @layer base {
@@ -68,6 +69,44 @@
 	background-size: 18px 18px;
 }
 
+.marquee-mask {
+	mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+	-webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+@keyframes marquee-left {
+	from {
+		transform: translate3d(0, 0, 0);
+	}
+	to {
+		transform: translate3d(-50%, 0, 0);
+	}
+}
+
+@keyframes marquee-right {
+	from {
+		transform: translate3d(-50%, 0, 0);
+	}
+	to {
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+.marquee-track-left {
+	animation: marquee-left 42s linear infinite;
+	will-change: transform;
+}
+
+.marquee-track-right {
+	animation: marquee-right 44s linear infinite;
+	will-change: transform;
+}
+
+.marquee-row:hover .marquee-track-left,
+.marquee-row:hover .marquee-track-right {
+	animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
 	html {
 		scroll-behavior: auto;
@@ -79,5 +118,22 @@
 		animation-duration: 0.01ms !important;
 		animation-iteration-count: 1 !important;
 		transition-duration: 0.01ms !important;
+	}
+
+	.marquee-mask {
+		mask-image: none;
+		-webkit-mask-image: none;
+	}
+
+	.marquee-track-left,
+	.marquee-track-right {
+		animation: none !important;
+		transform: none !important;
+		width: auto !important;
+		flex-wrap: wrap;
+	}
+
+	.marquee-duplicate {
+		display: none !important;
 	}
 }

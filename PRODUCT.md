@@ -12,12 +12,12 @@ SvelteKit (`@sveltejs/adapter-static` outputting to `dist/`) + Tailwind CSS + li
 
 ## Users
 
-- **Primary:** Technical recruiters, hiring managers, and Data Science / AI / Software Engineering leads evaluating Fahmi Haqqul Ihsan for next-semester internship roles.
-- **Secondary:** Engineering peers and potential freelance clients reviewing technical depth and live repositories.
+- **Primary:** Engineering peers, technical leads, research collaborators, and prospective project partners reviewing Fahmi Haqqul Ihsan's career archive across Data Science, AI, and Software Engineering.
+- **Secondary:** Open-source maintainers and freelance clients inspecting live repositories and shipped production platforms.
 
 ## Product Purpose
 
-Showcase Fahmi Haqqul Ihsan's verified Data Science & AI Engineering (primary) and Software Engineering (secondary) work, production freelance systems, and national competition awards on `fahmiihsan.my.id`, converting visitor attention into internship interviews, repository exploration, and CV downloads.
+Document Fahmi Haqqul Ihsan's verified Data Science & AI Engineering (primary) and Software Engineering (secondary) career record, production freelance systems, and national competition awards on `fahmiihsan.my.id`, allowing technical visitors to inspect architecture benchmarks, repositories, and downloadable CV history cleanly.
 
 ## Positioning
 

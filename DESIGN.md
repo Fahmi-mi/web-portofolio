@@ -9,11 +9,11 @@ colors:
   hairline-rule: "#D8D4CA"
   teal-signal: "#0F766E"
   vermilion-cutoff: "#B8381E"
-  vitrine-obsidian: "#12151C"
-  vitrine-ink: "#E6EAF0"
-  vitrine-muted: "#9CA3AF"
-  vitrine-ok: "#34D399"
-  vitrine-alert: "#F87171"
+  vitrine-obsidian: "#1E242C"
+  vitrine-ink: "#E5E7EB"
+  vitrine-muted: "#A3AEBC"
+  vitrine-ok: "#7FD4C2"
+  vitrine-alert: "#E8A394"
 typography:
   display:
     fontFamily: "Archivo, system-ui, -apple-system, sans-serif"
@@ -108,8 +108,8 @@ A restrained high-contrast palette anchored on warm exhibition bone and drafting
 - **Vermilion Cutoff** (`#B8381E`): Marks the primary hero action, live deployment links, and baseline comparison thresholds while preserving >= 4.5:1 WCAG AA contrast.
 
 ### Secondary
-- **Vitrine Emerald** (`#34D399`): Highlights passing execution traces, streaming nodes, and the primary email-copy action inside isolated dark vitrines.
-- **Vitrine Coral** (`#F87171`): Marks anomaly thresholds and multi-stage agent triggers inside isolated dark telemetry blocks.
+- **Vitrine Mint** (`#7FD4C2`): Highlights passing execution traces, streaming nodes, and the primary email-copy action inside isolated dark vitrines.
+- **Vitrine Coral** (`#E8A394`): Marks anomaly thresholds and multi-stage agent triggers inside isolated dark telemetry blocks.
 
 ### Neutral
 - **Bone Ground** (`#F6F5F0`): Primary page canvas and secondary dot-grid base.
@@ -117,9 +117,9 @@ A restrained high-contrast palette anchored on warm exhibition bone and drafting
 - **Drafting Ink** (`#111317`): Primary headings, strong structural borders, and active filter buttons.
 - **Slate Muted** (`#4B525A`): Supporting descriptions, metadata, and secondary labels.
 - **Hairline Rule** (`#D8D4CA`): Structural dividers and non-active container borders.
-- **Vitrine Obsidian** (`#12151C`): Isolated dark container ground for live system logs, EquiSentinel DAGs, and the closing contact band.
+- **Vitrine Slate** (`#1E242C`): Softened charcoal-slate container ground for live system logs, EquiSentinel DAGs, and the closing career-archive footer.
 
-**The Isolated Vitrine Rule.** Dark surfaces (`#12151C`) appear only for self-contained system traces, CLI headers, and the closing contact band—never as a full-page mode switch.
+**The Isolated Vitrine Rule.** Dark slate surfaces (`#1E242C`) appear only for self-contained system traces, CLI headers, and the closing contact band—never as a full-page mode switch.
 
 ## Typography
 
@@ -140,11 +140,11 @@ A restrained high-contrast palette anchored on warm exhibition bone and drafting
 
 ## Layout
 
-Content lives inside a `1360px` max-width container with `20px` (`px-5`) mobile padding and `32px` (`px-8`) tablet/desktop padding. Sections alternate rhythm cleanly: asymmetric split hero (`1.06fr / 0.94fr`) anchored by a full-width dark vitrine, `0.88fr / 1.12fr` About-to-Systems bridge, 3-column featured DS/AI grid paired with a zero-orphan 2-column secondary grid, `1.2fr / 0.8fr` Experience and Honors ledger, and a 3-column Technical Stack matrix above the closing contact footer.
+Content spans full viewport width with generous edge gutters (`px-6` mobile, `sm:px-10`, `lg:px-14`, `xl:px-20`). Sections alternate rhythm cleanly: an asymmetric split hero pairing editorial identity with an interactive Canvas 2D neural inference visual and bottom vitrine, a sticky two-column scrollytelling architecture walkthrough (`#pipeline`), a non-flickering About-to-Systems bipartite bridge, a 3-column featured DS/AI grid paired with a multi-column secondary grid, an Experience and Honors ledger, and a dual-row alternating-direction icon marquee for Technical Stack above the closing archive footer.
 
 ## Elevation & Depth
 
-Strictly flat tonal layering with zero drop shadows and zero `backdrop-filter: blur` layers. Depth and separation rely exclusively on surface value shifts (`#F6F5F0` vs. `#FAF9F5` vs. `#12151C`) and `1px` crisp borders (`#D8D4CA` at rest, `#111317` on featured frames and active states).
+Strictly flat tonal layering with zero drop shadows and zero `backdrop-filter: blur` layers. Depth and separation rely exclusively on surface value shifts (`#F6F5F0` vs. `#FAF9F5` vs. `#1E242C`) and `1px` crisp borders (`#D8D4CA` at rest, `#111317` on featured frames and active states).
 
 **The Zero-Shadow Rule.** Elevation is communicated through border contrast and surface inversion, never through blurred shadows or glassmorphism.
 

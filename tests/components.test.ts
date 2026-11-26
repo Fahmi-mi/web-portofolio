@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { SYSTEM_BRIDGE_EDGES } from '../src/lib/data/portfolio';
 import {
+	clampScrollStage,
+	computeBipartitePath,
 	copyEmailSafely,
 	getConnectedEdges,
 	getDomainTopologyHighlight,
@@ -68,5 +70,15 @@ describe('component interaction helpers', () => {
 		expect(resolveBridgeSelection('conformal', 'causal')).toBe('causal');
 		expect(resolveBridgeSelection('conformal', null)).toBe('conformal');
 		expect(resolveBridgeSelection(null, null)).toBeNull();
+	});
+
+	it('clamps scrollytelling stage indices and builds smooth horizontal bezier paths', () => {
+		expect(clampScrollStage(-1, 3)).toBe(0);
+		expect(clampScrollStage(1, 3)).toBe(1);
+		expect(clampScrollStage(5, 3)).toBe(2);
+
+		const path = computeBipartitePath(36, 102, 160);
+		expect(path).toContain('M 0 36');
+		expect(path).toContain('160 102');
 	});
 });

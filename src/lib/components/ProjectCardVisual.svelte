@@ -113,24 +113,24 @@
 			</span>
 		</div>
 		<svg viewBox="0 0 360 132" class="h-auto w-full" role="img" aria-label="EquiSentinel streaming architecture schematic">
-			<line x1="94" y1="38" x2="132" y2="38" stroke="#34D399" stroke-width="1.8" />
-			<line x1="228" y1="38" x2="266" y2="38" stroke="#F87171" stroke-width="1.8" />
-			<line x1="180" y1="58" x2="180" y2="82" stroke="#9CA3AF" stroke-width="1.5" stroke-dasharray="3 3" />
+			<line x1="94" y1="38" x2="132" y2="38" stroke="#7FD4C2" stroke-width="1.8" />
+			<line x1="228" y1="38" x2="266" y2="38" stroke="#E8A394" stroke-width="1.8" />
+			<line x1="180" y1="58" x2="180" y2="82" stroke="#A3AEBC" stroke-width="1.5" stroke-dasharray="3 3" />
 
-			<rect x="12" y="18" width="82" height="40" fill="#1A1F29" stroke="#34D399" />
-			<text x="20" y="36" font-family="JetBrains Mono" font-size="9.5" fill="#E6EAF0">NATS / Go</text>
-			<text x="20" y="50" font-family="JetBrains Mono" font-size="8.5" fill="#34D399">Protobuf</text>
+			<rect x="12" y="18" width="82" height="40" fill="#262E38" stroke="#7FD4C2" />
+			<text x="20" y="36" font-family="JetBrains Mono" font-size="9.5" fill="#E5E7EB">NATS / Go</text>
+			<text x="20" y="50" font-family="JetBrains Mono" font-size="8.5" fill="#7FD4C2">Protobuf</text>
 
-			<rect x="132" y="18" width="96" height="40" fill="#1A1F29" stroke="#F87171" />
-			<text x="140" y="36" font-family="JetBrains Mono" font-size="9.5" fill="#E6EAF0">LangGraph</text>
-			<text x="140" y="50" font-family="JetBrains Mono" font-size="8.5" fill="#F87171">5-Stage AI</text>
+			<rect x="132" y="18" width="96" height="40" fill="#262E38" stroke="#E8A394" />
+			<text x="140" y="36" font-family="JetBrains Mono" font-size="9.5" fill="#E5E7EB">LangGraph</text>
+			<text x="140" y="50" font-family="JetBrains Mono" font-size="8.5" fill="#E8A394">5-Stage AI</text>
 
-			<rect x="266" y="18" width="82" height="40" fill="#1A1F29" stroke="#9CA3AF" />
-			<text x="274" y="36" font-family="JetBrains Mono" font-size="9.5" fill="#E6EAF0">TimescaleDB</text>
-			<text x="274" y="50" font-family="JetBrains Mono" font-size="8.5" fill="#9CA3AF">+ Redis 5m</text>
+			<rect x="266" y="18" width="82" height="40" fill="#262E38" stroke="#A3AEBC" />
+			<text x="274" y="36" font-family="JetBrains Mono" font-size="9.5" fill="#E5E7EB">TimescaleDB</text>
+			<text x="274" y="50" font-family="JetBrains Mono" font-size="8.5" fill="#A3AEBC">+ Redis 5m</text>
 
-			<rect x="66" y="82" width="228" height="34" fill="#1A1F29" stroke="#4B525A" />
-			<text x="80" y="103" font-family="JetBrains Mono" font-size="9.5" fill="#E6EAF0">
+			<rect x="66" y="82" width="228" height="34" fill="#262E38" stroke="#64748B" />
+			<text x="80" y="103" font-family="JetBrains Mono" font-size="9.5" fill="#E5E7EB">
 				4 Airflow DAGs (1m / 5m / 1h OHLCV)
 			</text>
 		</svg>
