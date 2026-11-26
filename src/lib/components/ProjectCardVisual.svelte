@@ -20,68 +20,52 @@
 </script>
 
 {#if variant === 'conformal'}
-	<div class="specimen-dot-grid border-b border-[var(--rule)] px-4 py-3">
-		<div class="flex flex-wrap items-center justify-between gap-2">
-			<span class="font-mono-tech text-[11px] font-semibold text-[var(--teal)]">
-				{stats.falseAcceptRate} FAR ({stats.alphaLabel}) | 96.14% Quality (-8.50% Cost)
-			</span>
-			<button
-				type="button"
-				onclick={() => (alpha = toggleConformalAlpha(alpha))}
-				aria-pressed={alpha === 0.05}
-				class="font-mono-tech border border-[var(--ink)] bg-[var(--bg-plate)] px-2 py-0.5 text-[11px] font-medium text-[var(--ink)] transition-colors hover:bg-[var(--ink)] hover:text-[var(--bg-plate)]"
-			>
-				alpha={alpha === 0.1 ? '0.05' : '0.10'}
-			</button>
-		</div>
+	<div class="font-mono-tech flex flex-wrap items-center justify-between gap-2 border-b border-[var(--rule)] px-6 py-2.5 text-[11px] sm:px-7">
+		<span class="font-semibold text-[var(--teal)]">
+			{stats.falseAcceptRate} FAR ({stats.alphaLabel}) | 96.14% Quality (-8.50% Cost)
+		</span>
+		<button
+			type="button"
+			onclick={() => (alpha = toggleConformalAlpha(alpha))}
+			aria-pressed={alpha === 0.05}
+			class="font-mono-tech border border-[var(--rule)] bg-[var(--bg-bone)] px-2 py-0.5 text-[11px] font-medium text-[var(--ink)] transition-colors hover:border-[var(--ink)]"
+		>
+			alpha={alpha === 0.1 ? '0.05' : '0.10'}
+		</button>
 	</div>
 {:else if variant === 'causal'}
-	<div class="specimen-dot-grid border-b border-[var(--rule)] px-4 py-3">
-		<div class="font-mono-tech flex flex-wrap items-center justify-between gap-2 text-[11px]">
-			<span class="font-semibold text-[var(--teal)]">DR-Learner $2,679.37 (+75%)</span>
-			<span class="text-[var(--ink-muted)]">Qini 0.0368 | Hillstrom n=64k</span>
-		</div>
+	<div class="font-mono-tech flex flex-wrap items-center justify-between gap-2 border-b border-[var(--rule)] px-6 py-2.5 text-[11px] sm:px-7">
+		<span class="font-semibold text-[var(--teal)]">DR-Learner $2,679.37 (+75%)</span>
+		<span class="text-[var(--ink-muted)]">Qini 0.0368 | Hillstrom n=64k</span>
 	</div>
 {:else if variant === 'equisentinel'}
-	<div class="border-b border-[var(--rule)] bg-[var(--vitrine)] px-4 py-3 text-[var(--vitrine-ink)]">
-		<div class="font-mono-tech flex flex-wrap items-center justify-between gap-2 text-[11px]">
-			<span class="font-semibold text-[var(--vitrine-ok)]">Go NATS / 5-Stage LangGraph / Airflow</span>
-			<span class="text-[var(--vitrine-alert)]">&gt;3% Price / &gt;5x Vol</span>
-		</div>
+	<div class="font-mono-tech flex flex-wrap items-center justify-between gap-2 border-b border-[var(--rule)] px-6 py-2.5 text-[11px] sm:px-7">
+		<span class="font-semibold text-[var(--teal)]">Go NATS / 5-Stage LangGraph / Airflow</span>
+		<span class="text-[var(--vermilion)]">&gt;3% Price / &gt;5x Vol</span>
 	</div>
 {:else if variant === 'tabular'}
-	<div class="specimen-dot-grid border-b border-[var(--rule)] px-4 py-3">
-		<div class="font-mono-tech flex flex-wrap items-center justify-between gap-2 text-[11px] text-[var(--ink-muted)]">
-			<span class="font-semibold text-[var(--teal)]">Parquet | LightGBM / XGBoost / CatBoost</span>
-			<span>MLflow + pytest</span>
-		</div>
+	<div class="font-mono-tech flex flex-wrap items-center justify-between gap-2 border-b border-[var(--rule)] px-6 py-2.5 text-[11px] sm:px-7">
+		<span class="font-semibold text-[var(--teal)]">Parquet | LightGBM / XGBoost / CatBoost</span>
+		<span class="text-[var(--ink-muted)]">MLflow + pytest</span>
 	</div>
 {:else if variant === 'glzr'}
-	<div class="border-b border-[var(--rule)] bg-[var(--vitrine)] px-4 py-3 text-[var(--vitrine-ink)]">
-		<div class="font-mono-tech flex flex-wrap items-center justify-between gap-2 text-[11px]">
-			<span class="text-[var(--vitrine-ok)]">workspace // linux-tty</span>
-			<span class="text-[var(--vitrine-muted)]">Svelte Linux Workspace</span>
-		</div>
+	<div class="font-mono-tech flex flex-wrap items-center justify-between gap-2 border-b border-[var(--rule)] px-6 py-2.5 text-[11px] sm:px-7">
+		<span class="font-semibold text-[var(--ink)]">Linux Tiling Workspace</span>
+		<span class="text-[var(--ink-muted)]">Svelte Open Source</span>
 	</div>
 {:else if variant === 'trello'}
-	<div class="border-b border-[var(--rule)] bg-[var(--vitrine)] px-4 py-3 text-[var(--vitrine-ink)]">
-		<div class="font-mono-tech flex flex-wrap items-center justify-between gap-2 text-[11px]">
-			<span class="text-[var(--vitrine-ok)]">tui // [todo] [doing] [done]</span>
-			<span class="text-[var(--vitrine-muted)]">TypeScript + Ink</span>
-		</div>
+	<div class="font-mono-tech flex flex-wrap items-center justify-between gap-2 border-b border-[var(--rule)] px-6 py-2.5 text-[11px] sm:px-7">
+		<span class="font-semibold text-[var(--ink)]">Terminal Kanban TUI</span>
+		<span class="text-[var(--ink-muted)]">TypeScript + Ink</span>
 	</div>
 {:else if variant === 'api'}
-	<div class="border-b border-[var(--rule)] bg-[var(--bg-bone)] px-4 py-3">
-		<div class="font-mono-tech flex flex-wrap items-center justify-between gap-2 text-[11px] text-[var(--ink-muted)]">
-			<span>REST API // Scramble OpenAPI</span>
-			<span class="text-[var(--teal)]">PHP / Laravel</span>
-		</div>
+	<div class="font-mono-tech flex flex-wrap items-center justify-between gap-2 border-b border-[var(--rule)] px-6 py-2.5 text-[11px] sm:px-7">
+		<span class="font-semibold text-[var(--ink)]">Clinic CMS &amp; REST API</span>
+		<span class="text-[var(--ink-muted)]">Laravel + Scramble OpenAPI</span>
 	</div>
 {:else}
-	<div class="border-b border-[var(--rule)] bg-[var(--bg-bone)] px-4 py-3">
-		<div class="font-mono-tech flex flex-wrap items-center justify-between gap-2 text-[11px] text-[var(--ink-muted)]">
-			<span>Browser Canvas // Photobooth</span>
-			<span class="text-[var(--teal)]">Live Deployment</span>
-		</div>
+	<div class="font-mono-tech flex flex-wrap items-center justify-between gap-2 border-b border-[var(--rule)] px-6 py-2.5 text-[11px] sm:px-7">
+		<span class="font-semibold text-[var(--ink)]">Browser Photobooth</span>
+		<span class="text-[var(--vermilion)]">Live Web Deployment</span>
 	</div>
 {/if}
