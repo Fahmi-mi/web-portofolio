@@ -3,7 +3,9 @@ import { SYSTEM_BRIDGE_EDGES } from '../src/lib/data/portfolio';
 import {
 	getConnectedEdges,
 	getDomainTopologyHighlight,
-	nextTraceIndex
+	getProjectCounts,
+	nextTraceIndex,
+	toggleConformalAlpha
 } from '../src/lib/utils/interactions';
 
 describe('component interaction helpers', () => {
@@ -28,5 +30,16 @@ describe('component interaction helpers', () => {
 		expect(conformalEdges.every((edge) => edge.from === 'conformal' || edge.to === 'conformal')).toBe(
 			true
 		);
+	});
+
+	it('computes exact featured and secondary project counts per filter', () => {
+		expect(getProjectCounts('all')).toEqual({ featured: 3, secondary: 5, total: 8 });
+		expect(getProjectCounts('ds-ai')).toEqual({ featured: 3, secondary: 1, total: 4 });
+		expect(getProjectCounts('swe')).toEqual({ featured: 0, secondary: 4, total: 4 });
+	});
+
+	it('toggles conformal alpha between 0.10 and 0.05', () => {
+		expect(toggleConformalAlpha(0.1)).toBe(0.05);
+		expect(toggleConformalAlpha(0.05)).toBe(0.1);
 	});
 });

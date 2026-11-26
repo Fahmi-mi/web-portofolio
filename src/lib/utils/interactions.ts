@@ -1,7 +1,11 @@
 import {
+	filterFeaturedProjects,
+	filterSecondaryProjects,
 	getHeroDomainSummary,
 	type BridgeEdge,
-	type HeroDomainId
+	type ConformalAlpha,
+	type HeroDomainId,
+	type ProjectFilter
 } from '$lib/data/portfolio';
 
 export function nextTraceIndex(current: number, total: number, reducedMotion: boolean): number {
@@ -18,4 +22,18 @@ export function getDomainTopologyHighlight(domainId: HeroDomainId): string[] {
 export function getConnectedEdges(nodeId: string | null, edges: BridgeEdge[]): BridgeEdge[] {
 	if (!nodeId) return edges;
 	return edges.filter((edge) => edge.from === nodeId || edge.to === nodeId);
+}
+
+export function getProjectCounts(filter: ProjectFilter): {
+	featured: number;
+	secondary: number;
+	total: number;
+} {
+	const featured = filterFeaturedProjects(filter).length;
+	const secondary = filterSecondaryProjects(filter).length;
+	return { featured, secondary, total: featured + secondary };
+}
+
+export function toggleConformalAlpha(current: ConformalAlpha): ConformalAlpha {
+	return current === 0.1 ? 0.05 : 0.1;
 }
