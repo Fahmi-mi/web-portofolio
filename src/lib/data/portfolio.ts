@@ -327,7 +327,7 @@ export const SECONDARY_PROJECTS: SecondaryProject[] = [
 	},
 	{
 		id: 'glzr',
-		title: 'glzr',
+		title: 'Glzr',
 		period: 'Open Source',
 		category: 'swe',
 		visualVariant: 'glzr',
@@ -338,7 +338,7 @@ export const SECONDARY_PROJECTS: SecondaryProject[] = [
 	},
 	{
 		id: 'trello-cli',
-		title: 'trello-cli',
+		title: 'Trello CLI',
 		period: 'Open Source',
 		category: 'swe',
 		visualVariant: 'trello',
@@ -349,7 +349,7 @@ export const SECONDARY_PROJECTS: SecondaryProject[] = [
 	},
 	{
 		id: 'tentang-dental-be',
-		title: 'tentang-dental-be',
+		title: 'Tentang Dental Backend',
 		period: 'Backend System',
 		category: 'swe',
 		visualVariant: 'api',
@@ -360,7 +360,7 @@ export const SECONDARY_PROJECTS: SecondaryProject[] = [
 	},
 	{
 		id: 'snapshoot',
-		title: 'snapshoot',
+		title: 'Snapshoot',
 		period: 'Web App',
 		category: 'swe',
 		visualVariant: 'web',
@@ -412,16 +412,16 @@ export const EXPERIENCE_ITEMS: ExperienceItem[] = [
 
 export const HONOR_ITEMS: HonorItem[] = [
 	{
-		title: '3rd Place Winner (National), Data Visualization Competition',
+		title: '3rd Place Winner, Data Visualization Competition',
 		organizer: 'Pingfest IT Venture UNS',
 		date: 'October 2025',
-		rank: 'National 3rd'
+		rank: '3rd'
 	},
 	{
-		title: '2nd Runner-Up (National), Datathon',
+		title: '2nd Runner-Up, Datathon',
 		organizer: 'RISTEK Fasilkom Universitas Indonesia',
 		date: 'September 2025',
-		rank: 'National Top 3'
+		rank: 'Top 3'
 	}
 ];
 
