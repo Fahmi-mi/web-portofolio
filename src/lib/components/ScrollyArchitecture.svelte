@@ -104,12 +104,12 @@
 		</div>
 
 		<div class="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
-			<div class="space-y-8 lg:space-y-24 lg:pb-16">
+			<div class="space-y-8 lg:space-y-[36vh] lg:pt-[8vh] lg:pb-[22vh]">
 				{#each SCROLL_STAGES as stage, idx (stage.id)}
 					<article
 						bind:this={stepEls[idx]}
 						data-stage-index={idx}
-						class="border p-6 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+						class="border p-6 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
 						class:border-[var(--ink)]={activeIndex === idx}
 						class:bg-[var(--bg-plate)]={activeIndex === idx}
 						class:opacity-100={activeIndex === idx}
@@ -145,7 +145,7 @@
 				{/each}
 			</div>
 
-			<div class="lg:sticky lg:top-20">
+			<div class="lg:sticky lg:top-24">
 				<div class="specimen-dot-grid border border-[var(--ink)] p-6">
 					<!-- Continuous scroll progress track + shared live title bar -->
 					<div class="border-b border-[var(--ink)] pb-3">
@@ -168,7 +168,7 @@
 						<!-- Stage 01 -->
 						<div
 							aria-hidden={activeIndex !== 0}
-							class="col-start-1 row-start-1 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+							class="col-start-1 row-start-1 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
 							class:opacity-100={activeIndex === 0}
 							class:translate-y-0={activeIndex === 0}
 							class:scale-100={activeIndex === 0}
@@ -209,7 +209,7 @@
 						<!-- Stage 02 -->
 						<div
 							aria-hidden={activeIndex !== 1}
-							class="col-start-1 row-start-1 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+							class="col-start-1 row-start-1 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
 							class:opacity-100={activeIndex === 1}
 							class:translate-y-0={activeIndex === 1}
 							class:scale-100={activeIndex === 1}
@@ -255,7 +255,7 @@
 						<!-- Stage 03: refined balanced stream + agent + Airflow DAG plate -->
 						<div
 							aria-hidden={activeIndex !== 2}
-							class="col-start-1 row-start-1 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+							class="col-start-1 row-start-1 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
 							class:opacity-100={activeIndex === 2}
 							class:translate-y-0={activeIndex === 2}
 							class:scale-100={activeIndex === 2}
@@ -341,7 +341,7 @@
 	.scrolly-curve {
 		stroke-dasharray: 900;
 		stroke-dashoffset: 900;
-		transition: stroke-dashoffset 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+		transition: stroke-dashoffset 1.1s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
 	.scrolly-curve.is-drawn {

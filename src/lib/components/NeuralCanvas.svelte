@@ -103,14 +103,11 @@
 			ctx.clearRect(0, 0, width, height);
 			const t = reduced ? 0 : timeMs * 0.001;
 
-			const coords = NODES.map((n, idx) => {
-				const drift = reduced ? 0 : Math.sin(t * 1.4 + idx * 0.9) * 3;
-				return {
-					x: n.rx * width,
-					y: n.ry * height + drift,
-					...n
-				};
-			});
+			const coords = NODES.map((n) => ({
+				x: n.rx * width,
+				y: n.ry * height,
+				...n
+			}));
 
 			for (let i = 0; i < EDGES.length; i++) {
 				const edge = EDGES[i];
