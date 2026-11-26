@@ -8,7 +8,7 @@
 </script>
 
 <svelte:head>
-	<title>Fahmi Haqqul Ihsan — Data Science, AI &amp; Software Engineering</title>
+	<title>Fahmi Haqqul Ihsan</title>
 </svelte:head>
 
 <TopNav />
