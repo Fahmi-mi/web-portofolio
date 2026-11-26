@@ -5,6 +5,7 @@
 
 	const navLinks = [
 		{ href: '#about', label: 'About' },
+		{ href: '#pipeline', label: 'Architecture' },
 		{ href: '#projects', label: 'Projects' },
 		{ href: '#experience', label: 'Experience' },
 		{ href: '#contact', label: 'Contact' }
@@ -21,7 +22,7 @@
 	class="sticky top-0 z-40 border-b border-[var(--rule)] bg-[var(--bg-bone)]/95"
 	aria-label="Primary navigation"
 >
-	<div class="mx-auto flex h-14 max-w-[1360px] items-center justify-between px-5 sm:px-8">
+	<div class="flex h-14 w-full items-center justify-between px-6 sm:px-10 lg:px-14 xl:px-20">
 		<a
 			href="#top"
 			class="font-mono-tech text-xs font-semibold tracking-[0.08em] text-[var(--ink)] uppercase"
@@ -70,7 +71,7 @@
 	{#if menuOpen}
 		<nav
 			id="mobile-nav-drawer"
-			class="border-t border-[var(--rule)] bg-[var(--bg-plate)] px-5 py-4 md:hidden"
+			class="border-t border-[var(--rule)] bg-[var(--bg-plate)] px-6 py-4 md:hidden"
 			aria-label="Mobile sections"
 		>
 			<div class="flex flex-col gap-3">

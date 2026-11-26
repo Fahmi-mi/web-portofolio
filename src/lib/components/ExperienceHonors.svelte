@@ -3,7 +3,7 @@
 </script>
 
 <section id="experience" class="border-b border-[var(--rule)] bg-[var(--bg-plate)]">
-	<div class="mx-auto max-w-[1360px] px-5 py-16 sm:px-8 lg:py-20">
+	<div class="w-full px-6 py-16 sm:px-10 lg:px-14 lg:py-20 xl:px-20">
 		<div class="border-b border-[var(--ink)] pb-6">
 			<h2 class="font-display text-3xl font-extrabold tracking-tight text-[var(--ink)] sm:text-4xl">
 				Experience &amp; National Honors
@@ -79,15 +79,15 @@
 					<div class="mt-3 space-y-2.5 font-mono-tech text-xs leading-relaxed">
 						<div>
 							<span class="text-[var(--vitrine-ok)]">[smart-school]</span>
-							<span class="text-slate-300"> Laravel Queues + Prompt-Injection Guard + DashboardService</span>
+							<span class="text-[#D5DBE3]"> Laravel Queues + Prompt-Injection Guard + DashboardService</span>
 						</div>
 						<div>
 							<span class="text-[var(--vitrine-ok)]">[localive-api]</span>
-							<span class="text-slate-300"> Bilingual ID/EN CMS + RBAC + Image Pipeline</span>
+							<span class="text-[#D5DBE3]"> Bilingual ID/EN CMS + RBAC + Image Pipeline</span>
 						</div>
 						<div>
 							<span class="text-[var(--vitrine-alert)]">[jogja-tour]</span>
-							<span class="text-slate-300"> PHP/MySQL + cache/testimoni.json Failover</span>
+							<span class="text-[#D5DBE3]"> PHP/MySQL + cache/testimoni.json Failover</span>
 						</div>
 					</div>
 				</div>
@@ -109,7 +109,7 @@
 						<line x1="20" y1="42" x2="320" y2="42" stroke="#D8D4CA" stroke-width="1.5" />
 						<line x1="20" y1="42" x2="275" y2="42" stroke="#0F766E" stroke-width="2.5" />
 						<circle cx="95" cy="42" r="6" fill="#0F766E" />
-						<circle cx="245" cy="42" r="6" fill="#D9482B" />
+						<circle cx="245" cy="42" r="6" fill="#B8381E" />
 						<text x="54" y="22" font-family="JetBrains Mono" font-size="9.5" fill="#111317">
 							Sep 2025: UI Datathon
 						</text>

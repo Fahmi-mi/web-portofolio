@@ -15,8 +15,8 @@
 		title,
 		subtitle,
 		lines,
-		rightLabel = 'Internship Ready',
-		rightSublabel = 'Data Science & AI / SWE'
+		rightLabel = 'Career Archive',
+		rightSublabel = 'Data Science, AI & Software Eng'
 	}: Props = $props();
 
 	let rootEl = $state<HTMLElement | null>(null);
@@ -61,10 +61,10 @@
 	aria-label={title}
 >
 	<div
-		class="mx-auto grid max-w-[1360px] grid-cols-1 gap-5 px-5 py-5 sm:px-8 lg:grid-cols-[240px_1fr_220px] lg:items-center lg:gap-8"
+		class="grid w-full grid-cols-1 gap-5 px-6 py-5 sm:px-10 lg:grid-cols-[240px_1fr_240px] lg:items-center lg:gap-8 lg:px-14 xl:px-20"
 	>
 		<div>
-			<div class="font-display text-base font-bold text-white">{subtitle}</div>
+			<div class="font-display text-base font-bold text-[#F3F4F6]">{subtitle}</div>
 			<div class="font-mono-tech mt-1 text-[11px] font-medium tracking-[0.06em] text-[var(--vitrine-ok)] uppercase">
 				{title}
 			</div>
@@ -78,7 +78,7 @@
 					class:border-transparent={idx !== activeIndex || reducedMotion}
 				>
 					<span class="text-[var(--vitrine-ok)]">[{line.tag}]</span>
-					<span class="text-slate-200"> {line.message} </span>
+					<span class="text-[#D5DBE3]"> {line.message} </span>
 					<span
 						class={line.tone === 'alert'
 							? 'text-[var(--vitrine-alert)]'
@@ -91,7 +91,7 @@
 		</div>
 
 		<div class="font-mono-tech text-xs text-[var(--vitrine-muted)] lg:text-right">
-			<strong class="block text-sm font-semibold text-white">{rightLabel}</strong>
+			<strong class="block text-sm font-semibold text-[#F3F4F6]">{rightLabel}</strong>
 			<span>{rightSublabel}</span>
 		</div>
 	</div>

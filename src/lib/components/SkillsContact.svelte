@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { PROFILE, SKILL_GROUPS } from '$lib/data/portfolio';
+	import { MARQUEE_ROWS, PROFILE } from '$lib/data/portfolio';
 	import { copyEmailSafely } from '$lib/utils/interactions';
+	import SkillIcon from '$lib/components/SkillIcon.svelte';
 
 	let copyState = $state<'idle' | 'copied' | 'fallback'>('idle');
 
@@ -11,45 +12,89 @@
 </script>
 
 <section id="skills" class="border-b border-[var(--rule)] bg-[var(--bg-bone)]">
-	<div class="mx-auto max-w-[1360px] px-5 py-16 sm:px-8 lg:py-20">
+	<div class="w-full px-6 py-16 sm:px-10 lg:px-14 lg:py-20 xl:px-20">
 		<div class="border-b border-[var(--ink)] pb-6">
 			<h2 class="font-display text-3xl font-extrabold tracking-tight text-[var(--ink)] sm:text-4xl">
 				Technical Stack
 			</h2>
-			<p class="mt-2 max-w-[62ch] text-base text-[var(--ink-muted)]">
-				Core languages, statistical ML tooling, and production data infrastructure.
+			<p class="mt-2 max-w-[68ch] text-base text-[var(--ink-muted)]">
+				Languages, statistical ML frameworks, causal toolchains, and production data infrastructure.
 			</p>
 		</div>
 
-		<div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
-			{#each SKILL_GROUPS as group}
-				<div class="border border-[var(--rule)] bg-[var(--bg-plate)] p-5">
-					<h3 class="font-mono-tech border-b border-[var(--rule)] pb-2.5 text-xs font-semibold tracking-[0.06em] text-[var(--teal)] uppercase">
-						{group.category}
-					</h3>
-					<div class="mt-4 flex flex-wrap gap-2">
-						{#each group.items as skill}
-							<span class="font-mono-tech border border-[var(--rule)] bg-[var(--bg-bone)] px-2.5 py-1 text-xs text-[var(--ink)]">
-								{skill}
-							</span>
+		<div class="mt-8 space-y-4">
+			<!-- Row 1: drifts left; pauses on hover -->
+			<div class="marquee-row overflow-hidden py-1">
+				<div class="marquee-mask overflow-hidden">
+					<div class="marquee-track-left flex w-max items-center gap-3 pr-3">
+						{#each MARQUEE_ROWS.top as skill}
+							<div
+								class="group flex shrink-0 items-center gap-2.5 border border-[var(--rule)] bg-[var(--bg-plate)] px-4 py-2.5 transition-colors duration-200 hover:border-[var(--ink)]"
+							>
+								<SkillIcon iconKey={skill.iconKey} />
+								<span class="font-mono-tech text-xs font-medium text-[var(--ink)] whitespace-nowrap">
+									{skill.name}
+								</span>
+							</div>
+						{/each}
+						{#each MARQUEE_ROWS.top as skill}
+							<div
+								aria-hidden="true"
+								class="marquee-duplicate group flex shrink-0 items-center gap-2.5 border border-[var(--rule)] bg-[var(--bg-plate)] px-4 py-2.5 transition-colors duration-200 hover:border-[var(--ink)]"
+							>
+								<SkillIcon iconKey={skill.iconKey} />
+								<span class="font-mono-tech text-xs font-medium text-[var(--ink)] whitespace-nowrap">
+									{skill.name}
+								</span>
+							</div>
 						{/each}
 					</div>
 				</div>
-			{/each}
+			</div>
+
+			<!-- Row 2: drifts right cleanly opposite Row 1 -->
+			<div class="marquee-row overflow-hidden py-1">
+				<div class="marquee-mask overflow-hidden">
+					<div class="marquee-track-right flex w-max items-center gap-3 pr-3">
+						{#each MARQUEE_ROWS.bottom as skill}
+							<div
+								class="group flex shrink-0 items-center gap-2.5 border border-[var(--rule)] bg-[var(--bg-plate)] px-4 py-2.5 transition-colors duration-200 hover:border-[var(--ink)]"
+							>
+								<SkillIcon iconKey={skill.iconKey} />
+								<span class="font-mono-tech text-xs font-medium text-[var(--ink)] whitespace-nowrap">
+									{skill.name}
+								</span>
+							</div>
+						{/each}
+						{#each MARQUEE_ROWS.bottom as skill}
+							<div
+								aria-hidden="true"
+								class="marquee-duplicate group flex shrink-0 items-center gap-2.5 border border-[var(--rule)] bg-[var(--bg-plate)] px-4 py-2.5 transition-colors duration-200 hover:border-[var(--ink)]"
+							>
+								<SkillIcon iconKey={skill.iconKey} />
+								<span class="font-mono-tech text-xs font-medium text-[var(--ink)] whitespace-nowrap">
+									{skill.name}
+								</span>
+							</div>
+						{/each}
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </section>
 
 <footer id="contact" class="bg-[var(--vitrine)] text-[var(--vitrine-ink)]">
-	<div class="mx-auto max-w-[1360px] px-5 py-14 sm:px-8 lg:py-16">
-		<div class="grid grid-cols-1 gap-8 border-b border-slate-800 pb-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+	<div class="w-full px-6 py-14 sm:px-10 lg:px-14 lg:py-16 xl:px-20">
+		<div class="grid grid-cols-1 gap-8 border-b border-slate-700/80 pb-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
 			<div>
 				<h2 class="font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-					Available for Internship
+					Engineering Archive &amp; Correspondence
 				</h2>
-				<p class="mt-3 max-w-[60ch] text-base leading-relaxed text-slate-300">
-					Seeking next-semester internship opportunities in {PROFILE.primaryRole} (primary) and
-					{PROFILE.secondaryRole} (secondary). Reach out via email or inspect repositories directly.
+				<p class="mt-3 max-w-[64ch] text-base leading-relaxed text-slate-300">
+					This site serves as a living career archive of {PROFILE.primaryRole} and
+					{PROFILE.secondaryRole} work, research experiments, and shipped systems. Reach out directly for
+					technical discussion or inspect the repositories below.
 				</p>
 			</div>
 
@@ -57,7 +102,7 @@
 				<button
 					type="button"
 					onclick={handleCopyEmail}
-					class="font-mono-tech border border-[var(--vitrine-ok)] bg-[var(--vitrine-ok)] px-4 py-2.5 text-xs font-semibold tracking-[0.04em] text-[#09120E] uppercase transition-colors hover:bg-emerald-300"
+					class="font-mono-tech border border-[var(--vitrine-ok)] bg-[var(--vitrine-ok)] px-4 py-2.5 text-xs font-semibold tracking-[0.04em] text-[#0E1716] uppercase transition-colors hover:bg-[#99dfd0]"
 				>
 					{#if copyState === 'copied'}
 						Email Copied
@@ -76,14 +121,14 @@
 				</span>
 				<a
 					href={`mailto:${PROFILE.email}`}
-					class="font-mono-tech border border-slate-600 px-4 py-2.5 text-xs font-medium tracking-[0.04em] text-white uppercase transition-colors hover:border-white"
+					class="font-mono-tech border border-slate-500 px-4 py-2.5 text-xs font-medium tracking-[0.04em] text-slate-100 uppercase transition-colors hover:border-white hover:text-white"
 				>
 					Send Email
 				</a>
 				<a
 					href={PROFILE.cvPath}
 					download={PROFILE.cvDownloadName}
-					class="font-mono-tech border border-white bg-white px-4 py-2.5 text-xs font-semibold tracking-[0.04em] text-[var(--vitrine)] uppercase transition-colors hover:bg-slate-200"
+					class="font-mono-tech border border-slate-100 bg-slate-100 px-4 py-2.5 text-xs font-semibold tracking-[0.04em] text-[var(--vitrine)] uppercase transition-colors hover:bg-white"
 				>
 					Download CV.pdf
 				</a>

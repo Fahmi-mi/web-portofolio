@@ -1,32 +1,30 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import {
 		LEADERSHIP_ITEM,
 		PROFILE,
 		SYSTEM_BRIDGE_EDGES,
 		SYSTEM_BRIDGE_NODES
 	} from '$lib/data/portfolio';
-	import { getConnectedEdges, resolveBridgeSelection } from '$lib/utils/interactions';
+	import {
+		computeBipartitePath,
+		getConnectedEdges,
+		resolveBridgeSelection
+	} from '$lib/utils/interactions';
 
 	let pinnedNodeId = $state<string | null>('conformal');
 	let hoveredNodeId = $state<string | null>(null);
 
+	let gridContainerEl = $state<HTMLDivElement | null>(null);
+	let gapColEl = $state<HTMLDivElement | null>(null);
+	let nodeRefs: Record<string, HTMLButtonElement | undefined> = {};
+
+	let svgHeight = $state(280);
+	let gapWidth = $state(140);
+	let nodeCenters = $state<Record<string, number>>({});
+
 	const mlNodes = SYSTEM_BRIDGE_NODES.filter((node) => node.side === 'ml');
 	const systemNodes = SYSTEM_BRIDGE_NODES.filter((node) => node.side === 'system');
-
-	const mlY: Record<string, number> = {
-		conformal: 36,
-		causal: 102,
-		agents: 168,
-		'llm-pipeline': 234
-	};
-
-	const sysY: Record<string, number> = {
-		fastapi: 28,
-		duckdb: 80,
-		streaming: 132,
-		airflow: 184,
-		laravel: 236
-	};
 
 	const activeNodeId = $derived(resolveBridgeSelection(pinnedNodeId, hoveredNodeId));
 	const activeEdges = $derived(getConnectedEdges(activeNodeId, SYSTEM_BRIDGE_EDGES));
@@ -38,53 +36,56 @@
 		return activeEdges.some((edge) => edge.from === from && edge.to === to);
 	}
 
-	function isNodeConnected(nodeId: string): boolean {
-		if (!activeNodeId) return true;
-		if (activeNodeId === nodeId) return true;
-		return activeEdges.some((edge) => edge.from === nodeId || edge.to === nodeId);
-	}
-
 	function togglePin(nodeId: string) {
 		pinnedNodeId = pinnedNodeId === nodeId ? null : nodeId;
 	}
+
+	function measurePositions() {
+		if (!gridContainerEl || !gapColEl) return;
+		const containerRect = gridContainerEl.getBoundingClientRect();
+		const gapRect = gapColEl.getBoundingClientRect();
+
+		svgHeight = Math.max(220, Math.round(containerRect.height));
+		gapWidth = Math.max(80, Math.round(gapRect.width));
+
+		const nextCenters: Record<string, number> = {};
+		for (const node of SYSTEM_BRIDGE_NODES) {
+			const btn = nodeRefs[node.id];
+			if (!btn) continue;
+			const rect = btn.getBoundingClientRect();
+			nextCenters[node.id] = rect.top - containerRect.top + rect.height / 2;
+		}
+		nodeCenters = nextCenters;
+	}
+
+	onMount(() => {
+		measurePositions();
+		const ro = new ResizeObserver(() => measurePositions());
+		if (gridContainerEl) ro.observe(gridContainerEl);
+		window.addEventListener('resize', measurePositions);
+
+		return () => {
+			ro.disconnect();
+			window.removeEventListener('resize', measurePositions);
+		};
+	});
 </script>
 
 <section id="about" class="border-b border-[var(--rule)] bg-[var(--bg-plate)]">
-	<div class="mx-auto grid max-w-[1360px] grid-cols-1 gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.88fr_1.12fr] lg:py-20">
-		<div class="flex flex-col justify-between gap-8">
-			<div>
-				<h2 class="font-display text-3xl font-extrabold tracking-tight text-[var(--ink)] sm:text-4xl">
-					About &amp; Engineering Bridge
-				</h2>
-				<p class="mt-5 max-w-[65ch] text-lg leading-relaxed text-[#2A2E35]">
-					I am pursuing a {PROFILE.degree} at {PROFILE.university} ({PROFILE.studyPeriod}, GPA {PROFILE.gpa}),
-					building systems where statistical guarantees meet resilient backend execution.
-				</p>
-				<p class="mt-4 max-w-[65ch] text-base leading-relaxed text-[var(--ink-muted)]">
-					Across research benchmarks and production freelance engagements, I pair calibration frameworks
-					like MAPIE and EconML with FastAPI, Go, NATS JetStream, Apache Airflow, and Laravel. At
-					{LEADERSHIP_ITEM.organization}, I also mentor junior students in practical ML and AI engineering.
-				</p>
-			</div>
-
-			<div class="grid grid-cols-1 gap-4 border-t border-[var(--rule)] pt-6 sm:grid-cols-2">
-				<div>
-					<div class="font-display text-lg font-bold text-[var(--ink)]">
-						{PROFILE.primaryRole}
-					</div>
-					<div class="font-mono-tech mt-0.5 text-[11px] tracking-[0.06em] text-[var(--ink-muted)] uppercase">
-						Primary Internship Target
-					</div>
-				</div>
-				<div>
-					<div class="font-display text-lg font-bold text-[var(--ink)]">
-						{PROFILE.secondaryRole}
-					</div>
-					<div class="font-mono-tech mt-0.5 text-[11px] tracking-[0.06em] text-[var(--ink-muted)] uppercase">
-						Secondary Internship Target
-					</div>
-				</div>
-			</div>
+	<div class="grid w-full grid-cols-1 gap-10 px-6 py-16 sm:px-10 lg:grid-cols-[0.82fr_1.18fr] lg:px-14 lg:py-20 xl:px-20">
+		<div class="flex flex-col justify-center">
+			<h2 class="font-display text-3xl font-extrabold tracking-tight text-[var(--ink)] sm:text-4xl">
+				About &amp; Engineering Bridge
+			</h2>
+			<p class="mt-5 max-w-[65ch] text-lg leading-relaxed text-[#2A2E35]">
+				I am pursuing a {PROFILE.degree} at {PROFILE.university}, building systems where statistical
+				guarantees meet resilient backend execution.
+			</p>
+			<p class="mt-4 max-w-[65ch] text-base leading-relaxed text-[var(--ink-muted)]">
+				Across research benchmarks and production freelance engagements, I pair calibration frameworks
+				like MAPIE and EconML with FastAPI, Go, NATS JetStream, Apache Airflow, and Laravel. At
+				{LEADERSHIP_ITEM.organization}, I also mentor junior students in practical ML and AI engineering.
+			</p>
 		</div>
 
 		<div class="border border-[var(--rule)] bg-[var(--bg-bone)] p-5 sm:p-6">
@@ -104,78 +105,83 @@
 				</button>
 			</div>
 
-			<div class="mt-5 grid grid-cols-1 gap-4 md:grid-cols-[1fr_140px_1fr] md:items-center">
-				<div class="space-y-2.5" role="group" aria-label="ML and AI methodology nodes">
+			<div
+				bind:this={gridContainerEl}
+				onmouseleave={() => (hoveredNodeId = null)}
+				role="region"
+				aria-label="Interactive ML to production integration graph"
+				class="mt-5 grid grid-cols-1 gap-4 md:grid-cols-[1fr_140px_1fr] md:items-center lg:grid-cols-[1fr_170px_1fr]"
+			>
+				<div class="space-y-3" role="group" aria-label="ML and AI methodology nodes">
 					<div class="font-mono-tech text-[11px] font-semibold tracking-[0.06em] text-[var(--teal)] uppercase">
 						Analytical Rigor
 					</div>
 					{#each mlNodes as node}
-						{@const connected = isNodeConnected(node.id)}
 						{@const selected = activeNodeId === node.id}
 						<button
+							bind:this={nodeRefs[node.id]}
 							type="button"
 							aria-pressed={pinnedNodeId === node.id}
 							onmouseenter={() => (hoveredNodeId = node.id)}
-							onmouseleave={() => (hoveredNodeId = null)}
 							onfocus={() => (hoveredNodeId = node.id)}
 							onblur={() => (hoveredNodeId = null)}
 							onclick={() => togglePin(node.id)}
-							class="w-full border px-3.5 py-2.5 text-left transition-colors"
+							class="w-full border px-3.5 py-3 text-left transition-colors duration-150"
 							class:border-[var(--teal)]={selected}
 							class:bg-[var(--ink)]={selected}
 							class:text-[var(--bg-plate)]={selected}
 							class:border-[var(--rule)]={!selected}
-							class:bg-[var(--bg-plate)]={!selected && connected}
-							class:bg-[var(--bg-bone)]={!selected && !connected}
-							class:text-[var(--ink)]={!selected && connected}
-							class:text-[var(--ink-muted)]={!selected && !connected}
+							class:bg-[var(--bg-plate)]={!selected}
+							class:text-[var(--ink)]={!selected}
 						>
 							<span class="font-mono-tech block text-xs font-semibold">{node.label}</span>
 						</button>
 					{/each}
 				</div>
 
-				<div class="hidden md:block">
-					<svg viewBox="0 0 140 264" class="h-[248px] w-full" aria-hidden="true">
+				<div bind:this={gapColEl} class="hidden h-full md:block">
+					<svg
+						viewBox={`0 0 ${gapWidth} ${svgHeight}`}
+						class="block h-full w-full overflow-visible"
+						aria-hidden="true"
+					>
 						{#each SYSTEM_BRIDGE_EDGES as edge}
-							{@const y1 = mlY[edge.from] ?? 132}
-							{@const y2 = sysY[edge.to] ?? 132}
+							{@const y1 = nodeCenters[edge.from] ?? svgHeight / 2}
+							{@const y2 = nodeCenters[edge.to] ?? svgHeight / 2}
 							{@const active = isEdgeActive(edge.from, edge.to)}
 							<path
-								d="M 4 {y1} C 68 {y1}, 72 {y2}, 136 {y2}"
+								d={computeBipartitePath(y1, y2, gapWidth)}
 								fill="none"
-								stroke={active ? '#0F766E' : '#CFCAC0'}
-								stroke-width={active ? '2.5' : '1.2'}
+								stroke={active ? '#0F766E' : '#C8C3B8'}
+								stroke-width={active ? '2.4' : '1.2'}
 								stroke-opacity={active ? '1' : '0.65'}
+								class="transition-[stroke,stroke-opacity] duration-200"
 							/>
 						{/each}
 					</svg>
 				</div>
 
-				<div class="space-y-2" role="group" aria-label="Production runtime nodes">
+				<div class="space-y-2.5" role="group" aria-label="Production runtime nodes">
 					<div class="font-mono-tech text-[11px] font-semibold tracking-[0.06em] text-[var(--vermilion)] uppercase">
 						Production Runtime
 					</div>
 					{#each systemNodes as node}
-						{@const connected = isNodeConnected(node.id)}
 						{@const selected = activeNodeId === node.id}
 						<button
+							bind:this={nodeRefs[node.id]}
 							type="button"
 							aria-pressed={pinnedNodeId === node.id}
 							onmouseenter={() => (hoveredNodeId = node.id)}
-							onmouseleave={() => (hoveredNodeId = null)}
 							onfocus={() => (hoveredNodeId = node.id)}
 							onblur={() => (hoveredNodeId = null)}
 							onclick={() => togglePin(node.id)}
-							class="w-full border px-3.5 py-2 text-left transition-colors"
+							class="w-full border px-3.5 py-2.5 text-left transition-colors duration-150"
 							class:border-[var(--vermilion)]={selected}
 							class:bg-[var(--ink)]={selected}
 							class:text-[var(--bg-plate)]={selected}
 							class:border-[var(--rule)]={!selected}
-							class:bg-[var(--bg-plate)]={!selected && connected}
-							class:bg-[var(--bg-bone)]={!selected && !connected}
-							class:text-[var(--ink)]={!selected && connected}
-							class:text-[var(--ink-muted)]={!selected && !connected}
+							class:bg-[var(--bg-plate)]={!selected}
+							class:text-[var(--ink)]={!selected}
 						>
 							<span class="font-mono-tech block text-xs font-semibold">{node.label}</span>
 						</button>
@@ -183,7 +189,7 @@
 				</div>
 			</div>
 
-			<div class="mt-5 border-t border-[var(--rule)] pt-4">
+			<div class="mt-5 min-h-[144px] border-t border-[var(--rule)] pt-4">
 				{#if activeNode}
 					<div class="text-sm font-semibold text-[var(--ink)]">{activeNode.detail}</div>
 				{:else}
