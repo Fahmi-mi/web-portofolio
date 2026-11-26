@@ -82,7 +82,7 @@ export interface SkillGroup {
 }
 
 export interface ScrollStage {
-	id: 'neural-router' | 'causal-frontier' | 'stream-dag';
+	id: 'statistical-causal' | 'data-streaming' | 'software-tooling';
 	step: string;
 	title: string;
 	subtitle: string;
@@ -135,9 +135,9 @@ export const HERO_DOMAINS: HeroDomain[] = [
 	{
 		id: 'production-systems',
 		label: 'Production Systems',
-		roleNote: 'Event-driven streaming, multi-stage LLM agents, and client web APIs',
-		highlightMetric: '5-stage LangGraph worker, 4 Airflow DAGs, NATS Protobuf & Go gateway',
-		linkedProject: 'EquiSentinel & Freelance Production Platforms',
+		roleNote: 'Event-driven streaming, multi-stage LLM agents, Laravel backends, and Linux/CLI tools',
+		highlightMetric: '3 shipped client platforms, 5-stage LangGraph worker, 4 open-source SWE repos',
+		linkedProject: 'EquiSentinel, Client Platforms & CLI Tooling',
 		nodes: ['sys-go-nats', 'ml-langgraph', 'sys-airflow']
 	}
 ];
@@ -145,20 +145,20 @@ export const HERO_DOMAINS: HeroDomain[] = [
 export const HERO_TELEMETRY_LINES: TelemetryLine[] = [
 	{
 		tag: 'conformal-router',
-		message: 'RAGTruth n=2,700 calibrated via MAPIE + LightGBM (Brier 0.1734)',
-		outcome: 'false-accept 13.52% down to 4.15% (alpha 0.10) and 1.96% (alpha 0.05)',
+		message: 'RAGTruth n=2,700 (MAPIE + LightGBM) & RouterBench Pareto routing (n=7,214)',
+		outcome: '1.96% false-accept (alpha 0.05) / 96.14% frontier quality at -8.50% cost',
 		tone: 'ok'
 	},
 	{
-		tag: 'causal-policy',
-		message: 'Hillstrom RCT 64k records at $2,500 budget ($15/visit, $0.50/email)',
-		outcome: 'DR-Learner AUUC 0.0213 / Qini 0.0368 / $2,679.37 net profit',
+		tag: 'causal-and-mlops',
+		message: 'Hillstrom RCT 64k DR-Learner ($2,500 budget) & Parquet ensemble MLflow pipeline',
+		outcome: '$2,679.37 net profit (+75% vs propensity) / LightGBM + XGBoost + pytest',
 		tone: 'ok'
 	},
 	{
-		tag: 'equisentinel',
-		message: 'NATS JetStream Protobuf stream triggers (>3% price / >5x volume)',
-		outcome: 'Go gateway / 5-stage LangGraph DeepSeek / 5m Redis + TimescaleDB',
+		tag: 'production-swe',
+		message: 'Go NATS + LangGraph streaming, Smart School Laravel Queues, Localive & glzr',
+		outcome: '3 production client deployments / REST APIs / Svelte & TypeScript CLIs',
 		tone: 'alert'
 	}
 ];
@@ -480,37 +480,37 @@ export const SKILL_GROUPS: SkillGroup[] = [
 
 export const SCROLL_STAGES: ScrollStage[] = [
 	{
-		id: 'neural-router',
+		id: 'statistical-causal',
 		step: 'Stage 01',
-		title: 'Conformal Calibration & Cost-Quality Routing',
-		subtitle: 'Guaranteeing LLM reliability before answers reach users',
+		title: 'Statistical ML & Causal Modeling',
+		subtitle: 'Calibrated uncertainty bounds and treatment optimization',
 		description:
-			'Split conformal prediction via MAPIE wraps LightGBM scorers to bound hallucination false-accept rates on RAGTruth while learned Pareto routing preserves frontier quality at lower inference cost.',
-		metricLabel: 'RAGTruth (n=2,700) / RouterBench (n=7,214)',
-		metricValue: '1.96% FAR at alpha=0.05 | 96.14% Quality',
-		stack: ['MAPIE', 'LightGBM', 'FAISS', 'FastAPI']
+			'Pairs split conformal prediction (MAPIE + LightGBM) on RAGTruth and RouterBench Pareto routing with doubly-robust uplift estimation (EconML DR-Learner + PuLP) across 64k Hillstrom records.',
+		metricLabel: 'Verified Research Benchmarks',
+		metricValue: '1.96% FAR (alpha 0.05) | $2,679.37 Net Profit',
+		stack: ['MAPIE', 'LightGBM', 'EconML', 'PuLP']
 	},
 	{
-		id: 'causal-frontier',
+		id: 'data-streaming',
 		step: 'Stage 02',
-		title: 'Causal Uplift & Constrained Allocation',
-		subtitle: 'Optimizing incremental treatment value under real budgets',
+		title: 'Streaming Agents & ML Data Pipelines',
+		subtitle: 'Event-driven ingestion, ETL DAGs, and reproducible training',
 		description:
-			'Doubly-robust uplift estimation (EconML DR-Learner) separates true persuadables from baseline responders across 64k Hillstrom RCT records, feeding LP/MILP budget allocation and PSI drift checks.',
-		metricLabel: 'Hillstrom RCT ($2,500 Budget)',
-		metricValue: '$2,679.37 Net Profit | Qini 0.0368',
-		stack: ['EconML', 'DuckDB', 'Polars', 'SciPy/PuLP']
+			'Ingests Protobuf ticks over Go and NATS JetStream into a 5-stage LangGraph worker, TimescaleDB hypertables, and 4 Apache Airflow DAGs—alongside Parquet/MLflow ensemble pipelines.',
+		metricLabel: 'EquiSentinel + End-to-End ML Pipeline',
+		metricValue: '4 Airflow DAGs (1m/5m/1h) | Parquet + MLflow + pytest',
+		stack: ['Go', 'LangGraph', 'Apache Airflow', 'TimescaleDB']
 	},
 	{
-		id: 'stream-dag',
+		id: 'software-tooling',
 		step: 'Stage 03',
-		title: 'Event-Driven Agents & Production Pipelines',
-		subtitle: 'Shipping low-latency analytics and verified client systems',
+		title: 'Production Web, APIs & CLI Tooling',
+		subtitle: 'Full-stack client platforms, REST backends, and developer tools',
 		description:
-			'Go services ingest Protobuf events over NATS JetStream into a 5-stage LangGraph reasoning worker backed by TimescaleDB and 4 Airflow ETL DAGs, complementing production Laravel platforms.',
-		metricLabel: 'EquiSentinel + Freelance Backends',
-		metricValue: '>3% Price / >5x Vol Triggers | 4 Airflow DAGs',
-		stack: ['Go', 'NATS JetStream', 'LangGraph', 'Airflow']
+			'Delivers production Laravel, Livewire, and MySQL platforms for schools, tourism CMS, and dental REST APIs alongside Svelte/TypeScript tooling including glzr, trello-cli, and snapshoot.',
+		metricLabel: 'Client & Open-Source Delivery',
+		metricValue: '3 Client Production Sites | 4 Shipped SWE Tools',
+		stack: ['Laravel', 'TypeScript', 'Svelte', 'MySQL']
 	}
 ];
 
