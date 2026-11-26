@@ -297,63 +297,66 @@
 							class:pointer-events-none={activeIndex !== 2}
 						>
 							<svg viewBox="0 0 560 320" class="h-auto w-full border border-[var(--rule)] bg-[var(--bg-plate)] p-3" role="img" aria-label="Production web systems, REST APIs, and open-source developer tools topology">
-								<text x="24" y="28" font-family="JetBrains Mono" font-size="10" fill="#4B525A">
-									CLIENT WEB PLATFORMS  |  REST APIS  |  OPEN-SOURCE WORKSPACE &amp; CLIS
+								<text x="142" y="28" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" font-weight="600" fill="#4B525A">
+									CLIENT WEB &amp; REST APIS
+								</text>
+								<text x="418" y="28" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" font-weight="600" fill="#4B525A">
+									OPEN-SOURCE &amp; WEB TOOLS
 								</text>
 
 								<!-- Left Column: Client & Backend Production -->
-								<rect x="24" y="48" width="246" height="68" fill="#FAF9F5" stroke="#111317" stroke-width="1.3" />
-								<text x="38" y="72" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#111317">
+								<rect x="18" y="46" width="248" height="72" fill="#FAF9F5" stroke="#111317" stroke-width="1.3" />
+								<text x="142" y="75" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#111317">
 									Smart School Platform
 								</text>
-								<text x="38" y="92" font-family="JetBrains Mono" font-size="9.5" fill="#0F766E">
-									Laravel Queues | Livewire | LLM Pipeline
+								<text x="142" y="96" text-anchor="middle" font-family="JetBrains Mono" font-size="9.2" fill="#0F766E">
+									Laravel Queues | Livewire | LLM
 								</text>
 
-								<rect x="24" y="130" width="246" height="68" fill="#FAF9F5" stroke="#111317" stroke-width="1.3" />
-								<text x="38" y="154" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#111317">
+								<rect x="18" y="132" width="248" height="72" fill="#FAF9F5" stroke="#111317" stroke-width="1.3" />
+								<text x="142" y="161" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#111317">
 									Localive &amp; Jogja Tour
 								</text>
-								<text x="38" y="174" font-family="JetBrains Mono" font-size="9.5" fill="#0F766E">
-									ID/EN CMS + RBAC | MySQL + JSON Failover
+								<text x="142" y="182" text-anchor="middle" font-family="JetBrains Mono" font-size="9.2" fill="#0F766E">
+									ID/EN CMS | MySQL + JSON SEO
 								</text>
 
-								<rect x="24" y="212" width="246" height="72" fill="#FAF9F5" stroke="#D8D4CA" stroke-width="1.3" />
-								<text x="38" y="238" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#111317">
+								<rect x="18" y="218" width="248" height="74" fill="#FAF9F5" stroke="#D8D4CA" stroke-width="1.3" />
+								<text x="142" y="248" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#111317">
 									tentang-dental-be
 								</text>
-								<text x="38" y="258" font-family="JetBrains Mono" font-size="9.5" fill="#4B525A">
-									Laravel REST API | Scramble OpenAPI Docs
+								<text x="142" y="269" text-anchor="middle" font-family="JetBrains Mono" font-size="9.2" fill="#4B525A">
+									Laravel REST API | OpenAPI
 								</text>
 
-								<!-- Center Bridge Lines -->
-								<line x1="270" y1="82" x2="290" y2="82" stroke="#0F766E" stroke-width="1.5" />
-								<line x1="270" y1="164" x2="290" y2="164" stroke="#B8381E" stroke-width="1.5" />
-								<line x1="270" y1="248" x2="290" y2="248" stroke="#4B525A" stroke-width="1.5" />
+								<!-- Center Bridge Connectors -->
+								<line x1="266" y1="82" x2="294" y2="82" stroke="#0F766E" stroke-width="1.5" stroke-dasharray="4 3" />
+								<line x1="266" y1="168" x2="294" y2="168" stroke="#B8381E" stroke-width="1.5" stroke-dasharray="4 3" />
+								<line x1="266" y1="255" x2="294" y2="255" stroke="#4B525A" stroke-width="1.5" stroke-dasharray="4 3" />
 
 								<!-- Right Column: Open-Source & Interactive Web -->
-								<rect x="290" y="48" width="246" height="68" fill="#1E242C" stroke="#1E242C" stroke-width="1.3" />
-								<text x="304" y="72" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#E5E7EB">
-									glzr (Linux Workspace)
+								<rect x="294" y="46" width="248" height="72" fill="#1E242C" stroke="#1E242C" stroke-width="1.3" />
+								<text x="418" y="75" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#E5E7EB">
+									glzr
 								</text>
-								<text x="304" y="92" font-family="JetBrains Mono" font-size="9.5" fill="#7FD4C2">
-									Svelte | Terminal-First Layout Tooling
+								<text x="418" y="96" text-anchor="middle" font-family="JetBrains Mono" font-size="9.2" fill="#7FD4C2">
+									Svelte Linux Workspace
 								</text>
 
-								<rect x="290" y="130" width="246" height="68" fill="#1E242C" stroke="#1E242C" stroke-width="1.3" />
-								<text x="304" y="154" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#E5E7EB">
+								<rect x="294" y="132" width="248" height="72" fill="#1E242C" stroke="#1E242C" stroke-width="1.3" />
+								<text x="418" y="161" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#E5E7EB">
 									trello-cli
 								</text>
-								<text x="304" y="174" font-family="JetBrains Mono" font-size="9.5" fill="#E8A394">
-									TypeScript + Ink Interactive Board TUI
+								<text x="418" y="182" text-anchor="middle" font-family="JetBrains Mono" font-size="9.2" fill="#E8A394">
+									TypeScript + Ink Board TUI
 								</text>
 
-								<rect x="290" y="212" width="246" height="72" fill="#FAF9F5" stroke="#B8381E" stroke-width="1.3" />
-								<text x="304" y="238" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#111317">
+								<rect x="294" y="218" width="248" height="74" fill="#FAF9F5" stroke="#B8381E" stroke-width="1.3" />
+								<text x="418" y="248" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#111317">
 									snapshoot
 								</text>
-								<text x="304" y="258" font-family="JetBrains Mono" font-size="9.5" fill="#B8381E">
-									Live Browser Canvas Web App
+								<text x="418" y="269" text-anchor="middle" font-family="JetBrains Mono" font-size="9.2" fill="#B8381E">
+									Browser Canvas Photobooth
 								</text>
 							</svg>
 						</div>
