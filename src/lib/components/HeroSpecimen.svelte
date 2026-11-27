@@ -1,117 +1,68 @@
 <script lang="ts">
 	import NeuralCanvas from '$lib/components/NeuralCanvas.svelte';
-	import {
-		HERO_DOMAINS,
-		PROFILE,
-		getHeroDomainSummary,
-		type HeroDomainId
-	} from '$lib/data/portfolio';
+	import { PROFILE } from '$lib/data/portfolio';
+	import { PORTFOLIO_GRAPH_NODES, type GraphNodeDef } from '$lib/utils/graph3d';
 
-	let activeDomain = $state<HeroDomainId>('statistical-ml');
-	const domainSummary = $derived(getHeroDomainSummary(activeDomain));
+	interface Props {
+		onSelectNode?: (node: GraphNodeDef) => void;
+	}
+
+	let { onSelectNode }: Props = $props();
+
+	let hoveredNode = $state<GraphNodeDef | null>(null);
+
+	const activeInspectorNode = $derived(hoveredNode ?? PORTFOLIO_GRAPH_NODES[1]);
 </script>
 
 <section id="top" class="border-b border-[var(--rule)] bg-[var(--bg-bone)]">
-	<div class="grid w-full grid-cols-1 lg:grid-cols-[1.04fr_0.96fr]">
-		<div
-			class="flex flex-col justify-between border-b border-[var(--rule)] px-6 py-10 sm:px-10 sm:py-12 lg:border-r lg:border-b-0 lg:px-14 xl:px-20"
-		>
-			<div>
-				<h1
-					class="font-display text-5xl leading-[0.94] font-extrabold tracking-[-0.035em] text-[var(--ink)] uppercase sm:text-6xl xl:text-[78px]"
+	<div class="grid w-full grid-cols-1 items-center gap-8 px-6 py-12 sm:px-10 sm:py-14 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10 lg:px-14 lg:py-16 xl:px-20">
+		<div class="flex flex-col justify-center">
+			<h1
+				class="hero-reveal font-display text-5xl leading-[0.95] font-extrabold tracking-[-0.035em] text-[var(--ink)] sm:text-6xl xl:text-[74px]"
+			>
+				Fahmi<br />Haqqul<br />Ihsan
+			</h1>
+			<p
+				style="animation-delay: 80ms"
+				class="hero-reveal mt-6 max-w-[58ch] text-lg leading-relaxed text-[var(--ink-muted)] sm:text-[19px]"
+			>
+				{PROFILE.bio}
+			</p>
+			<div style="animation-delay: 140ms" class="hero-reveal mt-8">
+				<a
+					href="#projects"
+					class="font-mono-tech inline-block rounded-full bg-[var(--vermilion)] px-6 py-3 text-xs font-semibold text-[var(--bg-plate)] shadow-[0_10px_24px_-12px_rgba(184,56,30,0.6)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#9A2D16] active:scale-[0.98]"
 				>
-					Fahmi<br />Haqqul<br />Ihsan
-				</h1>
-				<p class="mt-6 max-w-[60ch] text-lg leading-relaxed text-[#2A2E35] sm:text-[20px]">
-					{PROFILE.bio}
-				</p>
-				<div class="mt-7 flex flex-wrap gap-3">
-					<a
-						href="#projects"
-						class="font-mono-tech bg-[var(--vermilion)] px-5 py-3 text-xs font-semibold tracking-[0.06em] text-[var(--bg-plate)] uppercase transition-colors hover:bg-[#9A2D16]"
-					>
-						Explore All Projects
-					</a>
-					<a
-						href="#contact"
-						class="font-mono-tech border border-[var(--ink)] bg-[var(--bg-plate)] px-5 py-3 text-xs font-medium tracking-[0.05em] text-[var(--ink)] uppercase transition-colors hover:bg-[var(--ink)] hover:text-[var(--bg-plate)]"
-					>
-						Email / GitHub / LinkedIn
-					</a>
-				</div>
-			</div>
-
-			<div class="mt-10 grid grid-cols-1 gap-5 border-t border-[var(--rule)] pt-5 sm:grid-cols-3">
-				<div>
-					<div class="font-mono-tech text-[11px] tracking-[0.05em] text-[var(--ink-muted)] uppercase">
-						AI &amp; Causal R&amp;D
-					</div>
-					<div class="font-display mt-1 text-2xl font-bold text-[var(--ink)] tabular-nums">
-						1.96% FAR
-					</div>
-					<div class="mt-0.5 text-sm text-[var(--ink-muted)]">Conformal bounds &amp; $2,679.37 uplift</div>
-				</div>
-				<div>
-					<div class="font-mono-tech text-[11px] tracking-[0.05em] text-[var(--ink-muted)] uppercase">
-						Client &amp; SWE Delivery
-					</div>
-					<div class="font-display mt-1 text-2xl font-bold text-[var(--ink)] tabular-nums">
-						3 Client Apps
-					</div>
-					<div class="mt-0.5 text-sm text-[var(--ink-muted)]">Production web platforms &amp; 4 SWE tools</div>
-				</div>
-				<div>
-					<div class="font-mono-tech text-[11px] tracking-[0.05em] text-[var(--ink-muted)] uppercase">
-						Competitions &amp; Honors
-					</div>
-					<div class="font-display mt-1 text-2xl font-bold text-[var(--ink)] tabular-nums">
-						2 Podiums
-					</div>
-					<div class="mt-0.5 text-sm text-[var(--ink-muted)]">UNS Data Viz &amp; UI Datathon</div>
-				</div>
+					Explore All Projects
+				</a>
 			</div>
 		</div>
 
-		<div class="specimen-dot-grid flex flex-col justify-between px-6 py-8 sm:px-10 sm:py-10 lg:px-14 xl:px-16">
-			<div class="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--ink)] pb-3">
-				<span class="font-mono-tech text-xs font-medium tracking-[0.04em] text-[var(--ink)] uppercase">
-					Live Inference &amp; Calibration Network
-				</span>
-				<span class="font-mono-tech text-xs font-semibold text-[var(--teal)]">
-					{domainSummary.label}
-				</span>
-			</div>
+		<!-- Borderless 3D interactive portfolio constellation floating cleanly over bone background -->
+		<div style="animation-delay: 110ms" class="hero-reveal flex flex-col">
+			<NeuralCanvas
+				onHoverNode={(node) => (hoveredNode = node)}
+				{onSelectNode}
+			/>
 
-			<div class="my-4 flex flex-wrap gap-2" role="group" aria-label="Select capability domain">
-				{#each HERO_DOMAINS as domain}
-					<button
-						type="button"
-						aria-pressed={activeDomain === domain.id}
-						onclick={() => (activeDomain = domain.id)}
-						class="font-mono-tech border px-3 py-1.5 text-xs tracking-[0.04em] uppercase transition-colors"
-						class:border-[var(--ink)]={activeDomain === domain.id}
-						class:bg-[var(--ink)]={activeDomain === domain.id}
-						class:text-[var(--bg-plate)]={activeDomain === domain.id}
-						class:border-[var(--rule)]={activeDomain !== domain.id}
-						class:bg-[var(--bg-plate)]={activeDomain !== domain.id}
-						class:text-[var(--ink)]={activeDomain !== domain.id}
-					>
-						{domain.label}
-					</button>
-				{/each}
-			</div>
-
-			<NeuralCanvas {activeDomain} />
-
-			<div class="mt-4 border-t border-[var(--rule)] pt-3">
-				<div class="font-mono-tech text-xs font-semibold text-[var(--ink)]">
-					{domainSummary.linkedProject}
+			{#key activeInspectorNode.id}
+				<div class="panel-swap-enter border-t border-[var(--rule)] pt-3">
+					<div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+						<span class="font-mono-tech text-xs font-semibold text-[var(--ink)]">
+							{activeInspectorNode.label}
+						</span>
+						<span class="font-mono-tech text-[11px] font-medium text-[var(--teal)]">
+							{activeInspectorNode.metric}
+						</span>
+					</div>
+					<div class="mt-0.5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 text-xs text-[var(--ink-muted)]">
+						<span>{activeInspectorNode.roleNote}</span>
+						<span class="font-mono-tech hidden text-[11px] text-[var(--ink-muted)]/80 sm:inline">
+							Drag to orbit · Click node
+						</span>
+					</div>
 				</div>
-				<div class="mt-1 text-sm text-[var(--ink-muted)]">{domainSummary.roleNote}</div>
-				<div class="font-mono-tech mt-1.5 text-xs text-[var(--teal)]">
-					{domainSummary.highlightMetric}
-				</div>
-			</div>
+			{/key}
 		</div>
 	</div>
 </section>
