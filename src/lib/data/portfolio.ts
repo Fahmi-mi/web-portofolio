@@ -33,6 +33,13 @@ export interface BridgeEdge {
 	proof: string;
 }
 
+export interface ProjectMediaSpec {
+	type: 'image' | 'video';
+	src: string;
+	poster?: string;
+	alt: string;
+}
+
 export interface FeaturedProject {
 	id: 'ex-01' | 'ex-02' | 'ex-03';
 	code: string;
@@ -40,6 +47,7 @@ export interface FeaturedProject {
 	period: string;
 	category: 'ds-ai';
 	visualVariant: 'conformal' | 'causal' | 'equisentinel';
+	media?: ProjectMediaSpec;
 	summary: string;
 	highlights: string[];
 	stack: string[];
@@ -52,6 +60,7 @@ export interface SecondaryProject {
 	period: string;
 	category: ProjectCategory;
 	visualVariant: 'tabular' | 'glzr' | 'trello' | 'api' | 'web';
+	media?: ProjectMediaSpec;
 	summary: string;
 	stack: string[];
 	repoUrl: string;

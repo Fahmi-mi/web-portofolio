@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { flip } from 'svelte/animate';
+	import ProjectMedia from '$lib/components/ProjectMedia.svelte';
 	import {
 		filterFeaturedProjects,
 		filterSecondaryProjects,
-		type ProjectFilter
+		type ProjectFilter,
+		type ProjectMediaSpec
 	} from '$lib/data/portfolio';
-	import { getProjectCounts, updateCardSpotlight } from '$lib/utils/interactions';
+	import { getProjectCounts } from '$lib/utils/interactions';
 
 	interface Props {
 		externalSelection?: {
@@ -26,25 +28,29 @@
 		highlightedProjectId = externalSelection.projectId;
 	});
 
-	const featured = $derived(filterFeaturedProjects(activeFilter));
-	const secondary = $derived(filterSecondaryProjects(activeFilter));
-	const counts = $derived(getProjectCounts(activeFilter));
-
 	interface ArchiveProjectCard {
 		id: string;
 		title: string;
 		categoryLabel: 'Data Science & AI' | 'Software Eng';
+		visualVariant: 'conformal' | 'causal' | 'equisentinel' | 'tabular' | 'glzr' | 'trello' | 'api' | 'web';
+		media?: ProjectMediaSpec;
 		summary: string;
 		keyResult?: string;
 		repoUrl: string;
 		liveUrl?: string;
 	}
 
+	const featured = $derived(filterFeaturedProjects(activeFilter));
+	const secondary = $derived(filterSecondaryProjects(activeFilter));
+	const counts = $derived(getProjectCounts(activeFilter));
+
 	const unifiedProjects = $derived<ArchiveProjectCard[]>([
 		...featured.map((p) => ({
 			id: p.id,
 			title: p.title,
 			categoryLabel: 'Data Science & AI' as const,
+			visualVariant: p.visualVariant,
+			media: p.media,
 			summary: p.summary,
 			keyResult: p.highlights[0],
 			repoUrl: p.repoUrl
@@ -54,6 +60,8 @@
 			title: p.title,
 			categoryLabel:
 				p.category === 'ds-ai' ? ('Data Science & AI' as const) : ('Software Eng' as const),
+			visualVariant: p.visualVariant,
+			media: p.media,
 			summary: p.summary,
 			repoUrl: p.repoUrl,
 			liveUrl: p.liveUrl
@@ -102,50 +110,65 @@
 			</div>
 		</div>
 
-		<div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
+		<!-- Borderless editorial media-first grid -->
+		<div class="mt-12 grid grid-cols-1 gap-x-10 gap-y-14 md:grid-cols-2">
 			{#each unifiedProjects as project (project.id)}
 				<article
 					id={`project-${project.id}`}
 					animate:flip={{ duration: 280 }}
-					onpointermove={updateCardSpotlight}
-					class="clean-spotlight-card scroll-mt-24 flex flex-col justify-between rounded-2xl border bg-[var(--bg-plate)] p-6 hover:-translate-y-0.5 hover:border-[var(--teal)]/45 sm:p-7"
-					class:border-[var(--teal)]={highlightedProjectId === project.id}
-					class:shadow-[0_16px_36px_-20px_rgba(15,118,110,0.3)]={highlightedProjectId === project.id}
-					class:border-[var(--rule)]={highlightedProjectId !== project.id}
+					class="group scroll-mt-24 flex flex-col"
 				>
-					<div>
-						<span class="font-mono-tech inline-block rounded-full bg-[var(--bg-bone)] px-3 py-1 text-[11px] font-semibold text-[var(--teal)]">
-							{project.categoryLabel}
-						</span>
-						<h3 class="font-display mt-3 text-lg font-bold leading-snug text-[var(--ink)] sm:text-xl">
-							{project.title}
-						</h3>
-						<p class="mt-2.5 text-sm leading-relaxed text-[#2A2E35]">{project.summary}</p>
-						{#if project.keyResult}
-							<p class="mt-2.5 text-xs leading-relaxed text-[var(--ink-muted)]">
-								{project.keyResult}
-							</p>
-						{/if}
+					<div
+						class="aspect-[16/10] w-full overflow-hidden rounded-2xl shadow-[0_18px_40px_-22px_rgba(17,19,23,0.28)] transition-all duration-300"
+						class:ring-2={highlightedProjectId === project.id}
+						class:ring-[var(--teal)]={highlightedProjectId === project.id}
+						class:ring-offset-4={highlightedProjectId === project.id}
+						class:ring-offset-[var(--bg-bone)]={highlightedProjectId === project.id}
+					>
+						<ProjectMedia
+							variant={project.visualVariant}
+							title={project.title}
+							media={project.media}
+						/>
 					</div>
 
-					<div class="mt-5 flex flex-wrap items-center gap-3">
-						<a
-							href={project.repoUrl}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="font-mono-tech inline-block rounded-full border border-[var(--rule)] bg-[var(--bg-bone)] px-4 py-1.5 text-[11px] font-medium text-[var(--ink)] transition-colors hover:border-[var(--ink)] hover:bg-[var(--ink)] hover:text-[var(--bg-plate)]"
-						>
-							Repository
-						</a>
-						{#if project.liveUrl}
-							<a
-								href={project.liveUrl}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="font-mono-tech inline-block rounded-full bg-[var(--vermilion)] px-4 py-1.5 text-[11px] font-semibold text-[var(--bg-plate)] transition-colors hover:bg-[#9A2D16]"
-							>
-								Live Demo
-							</a>
+					<div class="pt-4">
+						<div class="flex flex-wrap items-center justify-between gap-2 font-mono-tech text-[11px]">
+							<span class="font-semibold text-[var(--teal)]">
+								{project.categoryLabel}
+							</span>
+
+							<div class="flex items-center gap-4">
+								<a
+									href={project.repoUrl}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="font-medium text-[var(--ink)] transition-colors hover:text-[var(--teal)] hover:underline"
+								>
+									Repository
+								</a>
+								{#if project.liveUrl}
+									<a
+										href={project.liveUrl}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="font-semibold text-[var(--vermilion)] transition-colors hover:underline"
+									>
+										Live Demo
+									</a>
+								{/if}
+							</div>
+						</div>
+
+						<h3 class="font-display mt-2 text-lg font-bold leading-snug text-[var(--ink)] sm:text-xl">
+							{project.title}
+						</h3>
+
+						<p class="mt-2 text-sm leading-relaxed text-[#2A2E35]">{project.summary}</p>
+						{#if project.keyResult}
+							<p class="mt-2 text-xs leading-relaxed text-[var(--ink-muted)]">
+								{project.keyResult}
+							</p>
 						{/if}
 					</div>
 				</article>

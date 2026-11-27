@@ -1,11 +1,7 @@
 <script lang="ts">
 	import NeuralCanvas from '$lib/components/NeuralCanvas.svelte';
 	import { PROFILE } from '$lib/data/portfolio';
-	import {
-		PORTFOLIO_GRAPH_NODES,
-		type GraphClusterId,
-		type GraphNodeDef
-	} from '$lib/utils/graph3d';
+	import { PORTFOLIO_GRAPH_NODES, type GraphNodeDef } from '$lib/utils/graph3d';
 
 	interface Props {
 		onSelectNode?: (node: GraphNodeDef) => void;
@@ -13,24 +9,9 @@
 
 	let { onSelectNode }: Props = $props();
 
-	let activeCluster = $state<GraphClusterId>('all');
 	let hoveredNode = $state<GraphNodeDef | null>(null);
 
-	const clusterDefaults: Record<GraphClusterId, GraphNodeDef> = {
-		all: PORTFOLIO_GRAPH_NODES[1],
-		'ai-ml': PORTFOLIO_GRAPH_NODES[1],
-		platforms: PORTFOLIO_GRAPH_NODES[7],
-		tooling: PORTFOLIO_GRAPH_NODES[12]
-	};
-
-	const activeInspectorNode = $derived(hoveredNode ?? clusterDefaults[activeCluster]);
-
-	const clusters: { id: GraphClusterId; label: string }[] = [
-		{ id: 'all', label: 'All (16)' },
-		{ id: 'ai-ml', label: 'AI & Causal ML' },
-		{ id: 'platforms', label: 'Platforms' },
-		{ id: 'tooling', label: 'Streams & CLI' }
-	];
+	const activeInspectorNode = $derived(hoveredNode ?? PORTFOLIO_GRAPH_NODES[1]);
 </script>
 
 <section id="top" class="border-b border-[var(--rule)] bg-[var(--bg-bone)]">
@@ -57,35 +38,9 @@
 			</div>
 		</div>
 
-		<!-- Borderless 3D interactive portfolio graph floating directly over bone background -->
+		<!-- Borderless 3D interactive portfolio constellation floating cleanly over bone background -->
 		<div style="animation-delay: 110ms" class="hero-reveal flex flex-col">
-			<div class="flex flex-wrap items-center justify-between gap-2 pb-1">
-				<div class="flex flex-wrap gap-1.5" role="group" aria-label="Filter 3D knowledge constellation cluster">
-					{#each clusters as cluster}
-						<button
-							type="button"
-							aria-pressed={activeCluster === cluster.id}
-							onclick={() => (activeCluster = cluster.id)}
-							class="font-mono-tech rounded-full border px-3 py-1 text-[11px] font-medium transition-all duration-200 active:scale-[0.97]"
-							class:border-[var(--ink)]={activeCluster === cluster.id}
-							class:bg-[var(--ink)]={activeCluster === cluster.id}
-							class:text-[var(--bg-plate)]={activeCluster === cluster.id}
-							class:border-[var(--rule)]={activeCluster !== cluster.id}
-							class:bg-[var(--bg-plate)]={activeCluster !== cluster.id}
-							class:text-[var(--ink-muted)]={activeCluster !== cluster.id}
-						>
-							{cluster.label}
-						</button>
-					{/each}
-				</div>
-
-				<span class="font-mono-tech hidden text-[11px] text-[var(--ink-muted)] sm:inline">
-					Drag to orbit · Click node
-				</span>
-			</div>
-
 			<NeuralCanvas
-				{activeCluster}
 				onHoverNode={(node) => (hoveredNode = node)}
 				{onSelectNode}
 			/>
@@ -100,8 +55,11 @@
 							{activeInspectorNode.metric}
 						</span>
 					</div>
-					<div class="mt-0.5 text-xs text-[var(--ink-muted)]">
-						{activeInspectorNode.roleNote}
+					<div class="mt-0.5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 text-xs text-[var(--ink-muted)]">
+						<span>{activeInspectorNode.roleNote}</span>
+						<span class="font-mono-tech hidden text-[11px] text-[var(--ink-muted)]/80 sm:inline">
+							Drag to orbit · Click node
+						</span>
 					</div>
 				</div>
 			{/key}

@@ -12,12 +12,12 @@
 	} from '$lib/utils/graph3d';
 
 	interface Props {
-		activeCluster: GraphClusterId;
+		activeCluster?: GraphClusterId;
 		onHoverNode?: (node: GraphNodeDef | null) => void;
 		onSelectNode?: (node: GraphNodeDef) => void;
 	}
 
-	let { activeCluster, onHoverNode, onSelectNode }: Props = $props();
+	let { activeCluster = 'all', onHoverNode, onSelectNode }: Props = $props();
 
 	let canvasEl = $state<HTMLCanvasElement | null>(null);
 	let containerEl = $state<HTMLDivElement | null>(null);
@@ -65,7 +65,8 @@
 
 		let yaw = -0.35;
 		let pitch = 0.22;
-		let velYaw = 0.0022;
+		const BASE_YAW_SPEED = 0.00065;
+		let velYaw = BASE_YAW_SPEED;
 		let pointer = { x: -999, y: -999, active: false };
 		let dragState: { startX: number; startY: number; baseYaw: number; basePitch: number; moved: number } | null = null;
 		let lastProjected: ProjectedNode[] = [];
@@ -114,7 +115,8 @@
 			const t = reduced ? 0 : timeMs * 0.001;
 
 			if (!reduced && !dragState) {
-				const slowFactor = hoveredNode ? 0.18 : 1;
+				const slowFactor = hoveredNode ? 0.15 : 1;
+				velYaw += (BASE_YAW_SPEED - velYaw) * 0.04;
 				yaw += velYaw * slowFactor;
 			}
 
@@ -207,7 +209,7 @@
 						(!focusId && activeCluster !== 'all' && a.cluster === activeCluster && b.cluster === activeCluster) ||
 						(!focusId && activeCluster === 'all' && i % 4 === 0));
 				if (shouldPulse) {
-					const u = (t * 0.42 + i * 0.23) % 1;
+					const u = (t * 0.24 + i * 0.23) % 1;
 					const inv = 1 - u;
 					const px = inv * inv * a.sx + 2 * inv * u * ctrlX + u * u * b.sx;
 					const py = inv * inv * a.sy + 2 * inv * u * ctrlY + u * u * b.sy;
@@ -346,7 +348,7 @@
 				dragState.moved = Math.hypot(dx, dy);
 				yaw = dragState.baseYaw + dx * 0.0085;
 				pitch = Math.max(-1.05, Math.min(1.05, dragState.basePitch + dy * 0.0065));
-				velYaw = Math.max(-0.014, Math.min(0.014, dx * 0.00018 || 0.0022));
+				velYaw = Math.max(-0.006, Math.min(0.006, dx * 0.00009 || BASE_YAW_SPEED));
 				if (reduced) renderCurrentFrame?.();
 			} else if (reduced) {
 				const hit = findNearestProjectedNode(lastProjected, px, py, 32);
