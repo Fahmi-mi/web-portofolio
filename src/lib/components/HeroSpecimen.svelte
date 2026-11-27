@@ -1,18 +1,40 @@
 <script lang="ts">
 	import NeuralCanvas from '$lib/components/NeuralCanvas.svelte';
+	import { PROFILE } from '$lib/data/portfolio';
 	import {
-		HERO_DOMAINS,
-		PROFILE,
-		getHeroDomainSummary,
-		type HeroDomainId
-	} from '$lib/data/portfolio';
+		PORTFOLIO_GRAPH_NODES,
+		type GraphClusterId,
+		type GraphNodeDef
+	} from '$lib/utils/graph3d';
 
-	let activeDomain = $state<HeroDomainId>('statistical-ml');
-	const domainSummary = $derived(getHeroDomainSummary(activeDomain));
+	interface Props {
+		onSelectNode?: (node: GraphNodeDef) => void;
+	}
+
+	let { onSelectNode }: Props = $props();
+
+	let activeCluster = $state<GraphClusterId>('all');
+	let hoveredNode = $state<GraphNodeDef | null>(null);
+
+	const clusterDefaults: Record<GraphClusterId, GraphNodeDef> = {
+		all: PORTFOLIO_GRAPH_NODES[1],
+		'ai-ml': PORTFOLIO_GRAPH_NODES[1],
+		platforms: PORTFOLIO_GRAPH_NODES[7],
+		tooling: PORTFOLIO_GRAPH_NODES[12]
+	};
+
+	const activeInspectorNode = $derived(hoveredNode ?? clusterDefaults[activeCluster]);
+
+	const clusters: { id: GraphClusterId; label: string }[] = [
+		{ id: 'all', label: 'All (16)' },
+		{ id: 'ai-ml', label: 'AI & Causal ML' },
+		{ id: 'platforms', label: 'Platforms' },
+		{ id: 'tooling', label: 'Streams & CLI' }
+	];
 </script>
 
 <section id="top" class="border-b border-[var(--rule)] bg-[var(--bg-bone)]">
-	<div class="grid w-full grid-cols-1 items-center gap-10 px-6 py-14 sm:px-10 sm:py-16 lg:grid-cols-[1.02fr_0.98fr] lg:gap-14 lg:px-14 lg:py-20 xl:px-20">
+	<div class="grid w-full grid-cols-1 items-center gap-8 px-6 py-12 sm:px-10 sm:py-14 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10 lg:px-14 lg:py-16 xl:px-20">
 		<div class="flex flex-col justify-center">
 			<h1
 				class="hero-reveal font-display text-5xl leading-[0.95] font-extrabold tracking-[-0.035em] text-[var(--ink)] sm:text-6xl xl:text-[74px]"
@@ -35,43 +57,51 @@
 			</div>
 		</div>
 
-		<div
-			style="animation-delay: 120ms"
-			class="hero-reveal rounded-3xl border border-[var(--rule)] bg-[var(--bg-plate)] p-5 shadow-[0_20px_48px_-24px_rgba(17,19,23,0.12)] sm:p-7"
-		>
-			<div class="pb-3 font-mono-tech text-xs font-medium text-[var(--ink-muted)]">
-				Live Inference &amp; Pipeline Network
+		<!-- Borderless 3D interactive portfolio graph floating directly over bone background -->
+		<div style="animation-delay: 110ms" class="hero-reveal flex flex-col">
+			<div class="flex flex-wrap items-center justify-between gap-2 pb-1">
+				<div class="flex flex-wrap gap-1.5" role="group" aria-label="Filter 3D knowledge constellation cluster">
+					{#each clusters as cluster}
+						<button
+							type="button"
+							aria-pressed={activeCluster === cluster.id}
+							onclick={() => (activeCluster = cluster.id)}
+							class="font-mono-tech rounded-full border px-3 py-1 text-[11px] font-medium transition-all duration-200 active:scale-[0.97]"
+							class:border-[var(--ink)]={activeCluster === cluster.id}
+							class:bg-[var(--ink)]={activeCluster === cluster.id}
+							class:text-[var(--bg-plate)]={activeCluster === cluster.id}
+							class:border-[var(--rule)]={activeCluster !== cluster.id}
+							class:bg-[var(--bg-plate)]={activeCluster !== cluster.id}
+							class:text-[var(--ink-muted)]={activeCluster !== cluster.id}
+						>
+							{cluster.label}
+						</button>
+					{/each}
+				</div>
+
+				<span class="font-mono-tech hidden text-[11px] text-[var(--ink-muted)] sm:inline">
+					Drag to orbit · Click node
+				</span>
 			</div>
 
-			<div class="mb-4 flex flex-wrap gap-2" role="group" aria-label="Select capability domain">
-				{#each HERO_DOMAINS as domain}
-					<button
-						type="button"
-						aria-pressed={activeDomain === domain.id}
-						onclick={() => (activeDomain = domain.id)}
-						class="font-mono-tech rounded-full border px-3.5 py-1.5 text-xs font-medium transition-all duration-200 active:scale-[0.97]"
-						class:border-[var(--ink)]={activeDomain === domain.id}
-						class:bg-[var(--ink)]={activeDomain === domain.id}
-						class:text-[var(--bg-plate)]={activeDomain === domain.id}
-						class:border-[var(--rule)]={activeDomain !== domain.id}
-						class:bg-[var(--bg-bone)]={activeDomain !== domain.id}
-						class:text-[var(--ink-muted)]={activeDomain !== domain.id}
-					>
-						{domain.label}
-					</button>
-				{/each}
-			</div>
+			<NeuralCanvas
+				{activeCluster}
+				onHoverNode={(node) => (hoveredNode = node)}
+				{onSelectNode}
+			/>
 
-			<NeuralCanvas {activeDomain} />
-
-			{#key activeDomain}
-				<div class="panel-swap-enter mt-4 rounded-2xl bg-[var(--bg-bone)] p-4">
-					<div class="font-mono-tech text-xs font-semibold text-[var(--ink)]">
-						{domainSummary.linkedProject}
+			{#key activeInspectorNode.id}
+				<div class="panel-swap-enter border-t border-[var(--rule)] pt-3">
+					<div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+						<span class="font-mono-tech text-xs font-semibold text-[var(--ink)]">
+							{activeInspectorNode.label}
+						</span>
+						<span class="font-mono-tech text-[11px] font-medium text-[var(--teal)]">
+							{activeInspectorNode.metric}
+						</span>
 					</div>
-					<div class="mt-1 text-sm text-[var(--ink-muted)]">{domainSummary.roleNote}</div>
-					<div class="font-mono-tech mt-1.5 text-xs font-medium text-[var(--teal)]">
-						{domainSummary.highlightMetric}
+					<div class="mt-0.5 text-xs text-[var(--ink-muted)]">
+						{activeInspectorNode.roleNote}
 					</div>
 				</div>
 			{/key}

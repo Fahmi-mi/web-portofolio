@@ -3,6 +3,12 @@
 	import { SCROLL_STAGES } from '$lib/data/portfolio';
 	import { clampScrollStage, updateCardSpotlight } from '$lib/utils/interactions';
 
+	interface Props {
+		externalStage?: { index: number; seq: number } | null;
+	}
+
+	let { externalStage = null }: Props = $props();
+
 	let activeIndex = $state(0);
 	let scrollProgress = $state(0);
 	let sectionEl = $state<HTMLElement | null>(null);
@@ -17,6 +23,11 @@
 		const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 		target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
 	}
+
+	$effect(() => {
+		if (!externalStage) return;
+		jumpToStage(externalStage.index);
+	});
 
 	onMount(() => {
 		let rafPending = false;

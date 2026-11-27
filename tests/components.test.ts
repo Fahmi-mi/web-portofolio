@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { SYSTEM_BRIDGE_EDGES } from '../src/lib/data/portfolio';
 import {
+	PORTFOLIO_GRAPH_EDGES,
+	PORTFOLIO_GRAPH_NODES,
+	findNearestProjectedNode,
+	projectPoint3D,
+	rotatePoint3D
+} from '../src/lib/utils/graph3d';
+import {
 	clampScrollStage,
 	computeBipartitePath,
 	copyEmailSafely,
@@ -80,5 +87,33 @@ describe('component interaction helpers', () => {
 		const path = computeBipartitePath(36, 102, 160);
 		expect(path).toContain('M 0 36');
 		expect(path).toContain('160 102');
+	});
+
+	it('projects and hit-tests the 3D portfolio constellation cleanly while preserving radial distance', () => {
+		const nodeIds = new Set(PORTFOLIO_GRAPH_NODES.map((n) => n.id));
+		expect(PORTFOLIO_GRAPH_NODES.length).toBe(16);
+		for (const edge of PORTFOLIO_GRAPH_EDGES) {
+			expect(nodeIds.has(edge.from)).toBe(true);
+			expect(nodeIds.has(edge.to)).toBe(true);
+		}
+
+		const rotated = rotatePoint3D(0.6, -0.4, 0.5, 0.45, 0.9);
+		expect(Math.hypot(rotated.rx, rotated.ry, rotated.rz)).toBeCloseTo(
+			Math.hypot(0.6, -0.4, 0.5),
+			5
+		);
+
+		const nearPt = projectPoint3D(0.2, 0.2, -0.6, 520, 420);
+		const farPt = projectPoint3D(0.2, 0.2, 0.6, 520, 420);
+		expect(nearPt.scale).toBeGreaterThan(farPt.scale);
+		expect(nearPt.depthAlpha).toBeGreaterThan(farPt.depthAlpha);
+
+		const projected = PORTFOLIO_GRAPH_NODES.map((n) => {
+			const rot = rotatePoint3D(n.x, n.y, n.z, 0.2, -0.35);
+			return { ...n, ...rot, ...projectPoint3D(rot.rx, rot.ry, rot.rz, 520, 420) };
+		});
+		const target = projected[0];
+		expect(findNearestProjectedNode(projected, target.sx + 2, target.sy - 2, 30)?.id).toBe(target.id);
+		expect(findNearestProjectedNode(projected, -200, -200, 30)).toBeNull();
 	});
 });

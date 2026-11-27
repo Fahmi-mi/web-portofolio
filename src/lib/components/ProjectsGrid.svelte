@@ -7,7 +7,24 @@
 	} from '$lib/data/portfolio';
 	import { getProjectCounts, updateCardSpotlight } from '$lib/utils/interactions';
 
+	interface Props {
+		externalSelection?: {
+			filter: ProjectFilter;
+			projectId: string | null;
+			seq: number;
+		} | null;
+	}
+
+	let { externalSelection = null }: Props = $props();
+
 	let activeFilter = $state<ProjectFilter>('all');
+	let highlightedProjectId = $state<string | null>(null);
+
+	$effect(() => {
+		if (!externalSelection) return;
+		activeFilter = externalSelection.filter;
+		highlightedProjectId = externalSelection.projectId;
+	});
 
 	const featured = $derived(filterFeaturedProjects(activeFilter));
 	const secondary = $derived(filterSecondaryProjects(activeFilter));
@@ -67,7 +84,10 @@
 					<button
 						type="button"
 						aria-pressed={activeFilter === tab.id}
-						onclick={() => (activeFilter = tab.id)}
+						onclick={() => {
+							activeFilter = tab.id;
+							highlightedProjectId = null;
+						}}
 						class="font-mono-tech rounded-full border px-4 py-2 text-xs font-medium transition-colors"
 						class:border-[var(--ink)]={activeFilter === tab.id}
 						class:bg-[var(--ink)]={activeFilter === tab.id}
@@ -85,9 +105,13 @@
 		<div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
 			{#each unifiedProjects as project (project.id)}
 				<article
+					id={`project-${project.id}`}
 					animate:flip={{ duration: 280 }}
 					onpointermove={updateCardSpotlight}
-					class="clean-spotlight-card flex flex-col justify-between rounded-2xl border border-[var(--rule)] bg-[var(--bg-plate)] p-6 hover:-translate-y-0.5 hover:border-[var(--teal)]/45 sm:p-7"
+					class="clean-spotlight-card scroll-mt-24 flex flex-col justify-between rounded-2xl border bg-[var(--bg-plate)] p-6 hover:-translate-y-0.5 hover:border-[var(--teal)]/45 sm:p-7"
+					class:border-[var(--teal)]={highlightedProjectId === project.id}
+					class:shadow-[0_16px_36px_-20px_rgba(15,118,110,0.3)]={highlightedProjectId === project.id}
+					class:border-[var(--rule)]={highlightedProjectId !== project.id}
 				>
 					<div>
 						<span class="font-mono-tech inline-block rounded-full bg-[var(--bg-bone)] px-3 py-1 text-[11px] font-semibold text-[var(--teal)]">

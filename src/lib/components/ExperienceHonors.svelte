@@ -3,10 +3,30 @@
 	import { EXPERIENCE_ITEMS, HONOR_ITEMS, LEADERSHIP_ITEM } from '$lib/data/portfolio';
 	import { updateCardSpotlight } from '$lib/utils/interactions';
 
+	interface Props {
+		externalSelection?: {
+			runIndex?: number;
+			honorIndex?: number;
+			seq: number;
+		} | null;
+	}
+
+	let { externalSelection = null }: Props = $props();
+
 	let activeRunIndex = $state(0);
 	let activeHonorIndex = $state(0);
 	let timelineEl = $state<HTMLDivElement | null>(null);
 	let timelineVisible = $state(false);
+
+	$effect(() => {
+		if (!externalSelection) return;
+		if (typeof externalSelection.runIndex === 'number') {
+			activeRunIndex = externalSelection.runIndex;
+		}
+		if (typeof externalSelection.honorIndex === 'number') {
+			activeHonorIndex = externalSelection.honorIndex;
+		}
+	});
 
 	onMount(() => {
 		if (!timelineEl) return;
@@ -160,7 +180,8 @@
 			<div class="space-y-4">
 				{#each EXPERIENCE_ITEMS as item, idx}
 					<article
-						class="clean-spotlight-card rounded-2xl border bg-[var(--bg-plate)] p-6"
+						id={`exp-run-${idx}`}
+						class="clean-spotlight-card scroll-mt-24 rounded-2xl border bg-[var(--bg-plate)] p-6"
 						class:border-[var(--teal)]={activeRunIndex === idx}
 						class:border-[var(--rule)]={activeRunIndex !== idx}
 						onpointerenter={() => (activeRunIndex = idx)}
@@ -214,7 +235,7 @@
 
 			<div class="flex flex-col gap-5">
 				<!-- Clean Minimal Honors Spotlight (zero smudges / watermarks) -->
-				<div class="rounded-2xl border border-[var(--rule)] bg-[var(--bg-plate)] p-6">
+				<div id="honors-spotlight" class="scroll-mt-24 rounded-2xl border border-[var(--rule)] bg-[var(--bg-plate)] p-6">
 					<div class="flex items-center justify-between border-b border-[var(--rule)] pb-3">
 						<span class="font-mono-tech text-xs font-semibold text-[var(--ink)]">
 							Honors
@@ -268,7 +289,8 @@
 
 				<!-- Clean ASSETS UGM Card -->
 				<article
-					class="clean-spotlight-card rounded-2xl border bg-[var(--bg-plate)] p-6"
+					id="exp-run-3"
+					class="clean-spotlight-card scroll-mt-24 rounded-2xl border bg-[var(--bg-plate)] p-6"
 					class:border-[var(--teal)]={activeRunIndex === 3}
 					class:border-[var(--rule)]={activeRunIndex !== 3}
 					onpointerenter={() => (activeRunIndex = 3)}
