@@ -67,3 +67,10 @@ export async function copyEmailSafely(
 		return 'fallback';
 	}
 }
+
+/** Sets cursor coordinates on a `.clean-spotlight-card` without touching layout. */
+export function updateCardSpotlight(event: PointerEvent & { currentTarget: HTMLElement }): void {
+	const rect = event.currentTarget.getBoundingClientRect();
+	event.currentTarget.style.setProperty('--spot-x', `${Math.round(event.clientX - rect.left)}px`);
+	event.currentTarget.style.setProperty('--spot-y', `${Math.round(event.clientY - rect.top)}px`);
+}
