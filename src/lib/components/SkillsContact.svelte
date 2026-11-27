@@ -89,12 +89,10 @@
 		<div class="grid grid-cols-1 gap-8 border-b border-slate-700/80 pb-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
 			<div>
 				<h2 class="font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-					Engineering Archive &amp; Correspondence
+					Let's Build Something Reliable
 				</h2>
 				<p class="mt-3 max-w-[64ch] text-base leading-relaxed text-slate-300">
-					This site serves as a living career archive of {PROFILE.primaryRole} and
-					{PROFILE.secondaryRole} work, research experiments, and shipped systems. Reach out directly for
-					technical discussion or inspect the repositories below.
+					Open to collaborating on AI systems, data pipelines, and backend engineering. Reach out directly by email or explore my code and resume below.
 				</p>
 			</div>
 

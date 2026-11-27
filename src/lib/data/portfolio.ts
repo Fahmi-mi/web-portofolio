@@ -116,7 +116,7 @@ export const PROFILE = {
 	gpa: '3.74 / 4.00',
 	primaryRole: 'Data Science & AI Engineering',
 	secondaryRole: 'Software Engineering',
-	bio: 'Software Engineering Technology undergraduate focusing on Data Science and AI Engineering. Experienced in causal ML, conformal LLM evaluation, and data pipelines, combining analytical rigor with backend engineering to ship production-ready systems.',
+	bio: 'I build calibrated AI systems, causal decision engines, and production web platforms, combining statistical rigor with backend and data engineering to turn complex workflows into reliable software.',
 	email: 'fahmihaqqulihsan@gmail.com',
 	linkedin: 'https://linkedin.com/in/fahmi-haqqul-ihsan-b13276326',
 	github: 'https://github.com/Fahmi-mi',
