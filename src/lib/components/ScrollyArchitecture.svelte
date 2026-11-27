@@ -108,7 +108,7 @@
 <section
 	id="about"
 	bind:this={sectionEl}
-	class="relative scroll-mt-20 bg-gradient-to-b from-[var(--bg-bone)] via-[#f2f3ef] to-[var(--bg-bone)] lg:min-h-[clamp(1350px,195vh,1850px)]"
+	class="relative scroll-mt-20 bg-gradient-to-b from-[var(--bg-bone)] via-[#f2f3ef] to-[var(--bg-bone)] lg:min-h-[clamp(2200px,310vh,3000px)]"
 >
 	<div bind:this={stickyEl} class="w-full px-6 py-16 sm:px-10 lg:sticky lg:top-20 lg:px-14 lg:py-12 xl:px-20">
 		<div class="max-w-[66ch]">
