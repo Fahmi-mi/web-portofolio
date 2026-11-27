@@ -17,11 +17,10 @@
 	}}
 />
 
-<header
-	class="sticky top-0 z-40 border-b border-[var(--rule)] bg-[var(--bg-bone)]/95"
-	aria-label="Primary navigation"
->
-	<div class="flex h-16 w-full items-center justify-between px-6 sm:px-10 lg:px-14 xl:px-20">
+<header class="sticky top-3 z-40 px-4 sm:px-6 lg:px-10 xl:px-14" aria-label="Primary navigation">
+	<div
+		class="liquid-glass-light mx-auto flex h-14 w-full items-center justify-between rounded-full px-5 sm:px-6"
+	>
 		<a
 			href="#top"
 			class="font-display text-sm font-bold tracking-tight text-[var(--ink)]"
@@ -33,7 +32,7 @@
 			{#each navLinks as link}
 				<a
 					href={link.href}
-					class="text-sm font-medium text-[var(--ink-muted)] transition-colors hover:text-[var(--ink)]"
+					class="text-sm font-semibold text-[var(--ink)] transition-colors hover:text-[var(--teal)]"
 				>
 					{link.label}
 				</a>
@@ -47,7 +46,7 @@
 			</a>
 		</nav>
 
-		<div class="flex items-center gap-2.5 md:hidden">
+		<div class="flex items-center gap-2 md:hidden">
 			<a
 				href={PROFILE.cvPath}
 				download={PROFILE.cvDownloadName}
@@ -57,7 +56,7 @@
 			</a>
 			<button
 				type="button"
-				class="font-mono-tech rounded-full border border-[var(--rule)] bg-[var(--bg-plate)] px-3.5 py-1.5 text-[11px] font-medium text-[var(--ink)]"
+				class="font-mono-tech rounded-full border border-[var(--rule)] bg-white/75 px-3.5 py-1.5 text-[11px] font-medium text-[var(--ink)]"
 				aria-expanded={menuOpen}
 				aria-controls="mobile-nav-drawer"
 				onclick={() => (menuOpen = !menuOpen)}
@@ -70,7 +69,7 @@
 	{#if menuOpen}
 		<nav
 			id="mobile-nav-drawer"
-			class="mx-4 mb-3 rounded-2xl border border-[var(--rule)] bg-[var(--bg-plate)] px-5 py-4 md:hidden"
+			class="liquid-glass-light mx-auto mt-2 rounded-2xl px-5 py-4 md:hidden"
 			aria-label="Mobile sections"
 		>
 			<div class="flex flex-col gap-3">
@@ -78,7 +77,7 @@
 					<a
 						href={link.href}
 						onclick={() => (menuOpen = false)}
-						class="border-b border-[var(--rule)] pb-2 text-sm font-medium text-[var(--ink)] last:border-b-0 last:pb-0"
+						class="border-b border-[var(--rule)]/70 pb-2 text-sm font-semibold text-[var(--ink)] last:border-b-0 last:pb-0"
 					>
 						{link.label}
 					</a>
