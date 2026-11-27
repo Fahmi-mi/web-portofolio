@@ -137,67 +137,33 @@
 		<!-- Borderless editorial 3-column gallery grid -->
 		<div class="mt-10 grid grid-cols-1 gap-x-7 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
 			{#each unifiedProjects as project (project.id)}
-				<article id={`project-${project.id}`} animate:flip={{ duration: 300 }} class="group scroll-mt-24 flex flex-col">
+				<article id={`project-${project.id}`} animate:flip={{ duration: 300 }} class="scroll-mt-24">
 					<button
 						type="button"
 						onclick={() => (selectedProjectId = project.id)}
 						aria-haspopup="dialog"
-						class="aspect-[16/10] w-full cursor-pointer overflow-hidden rounded-2xl text-left shadow-[0_14px_32px_-18px_rgba(17,19,23,0.26)] transition-all duration-300 group-hover:shadow-[0_20px_42px_-18px_rgba(15,118,110,0.26)]"
+						class="group flex w-full cursor-pointer flex-col rounded-2xl text-left focus-visible:outline-offset-4"
 					>
-						<ProjectMedia
-							variant={project.visualVariant}
-							title={project.title}
-							media={project.media}
-						/>
-					</button>
+						<div class="aspect-[16/10] w-full overflow-hidden rounded-2xl shadow-[0_14px_32px_-18px_rgba(17,19,23,0.26)] transition-all duration-300 group-hover:shadow-[0_20px_42px_-18px_rgba(15,118,110,0.26)]">
+							<ProjectMedia
+								variant={project.visualVariant}
+								title={project.title}
+								media={project.media}
+							/>
+						</div>
 
-					<div class="pt-3.5">
-						<div class="flex flex-wrap items-center justify-between gap-2 font-mono-tech text-[11px]">
-							<span class="font-semibold text-[var(--teal)]">
+						<div class="pt-3.5">
+							<span class="font-mono-tech block text-[11px] font-semibold text-[var(--teal)]">
 								{project.categoryLabel}
 							</span>
 
-							<div class="flex items-center gap-3.5">
-								<button
-									type="button"
-									onclick={() => (selectedProjectId = project.id)}
-									class="cursor-pointer font-medium text-[var(--ink)] transition-colors hover:text-[var(--teal)]"
-								>
-									Inspect
-								</button>
-								<a
-									href={project.repoUrl}
-									target="_blank"
-									rel="noopener noreferrer"
-									class="font-medium text-[var(--ink)] transition-colors hover:text-[var(--teal)] hover:underline"
-								>
-									Repository
-								</a>
-								{#if project.liveUrl}
-									<a
-										href={project.liveUrl}
-										target="_blank"
-										rel="noopener noreferrer"
-										class="font-semibold text-[var(--vermilion)] transition-colors hover:underline"
-									>
-										Live Demo
-									</a>
-								{/if}
-							</div>
-						</div>
-
-						<h3 class="font-display mt-1.5 text-base font-bold leading-snug text-[var(--ink)] sm:text-lg">
-							<button
-								type="button"
-								onclick={() => (selectedProjectId = project.id)}
-								class="cursor-pointer text-left transition-colors hover:text-[var(--teal)]"
-							>
+							<h3 class="font-display mt-1.5 text-base font-bold leading-snug text-[var(--ink)] transition-colors group-hover:text-[var(--teal)] sm:text-lg">
 								{project.title}
-							</button>
-						</h3>
+							</h3>
 
-						<p class="mt-1.5 text-xs leading-relaxed text-[#2A2E35] sm:text-sm">{project.summary}</p>
-					</div>
+							<p class="mt-1.5 text-xs leading-relaxed text-[#2A2E35] sm:text-sm">{project.summary}</p>
+						</div>
+					</button>
 				</article>
 			{/each}
 		</div>
