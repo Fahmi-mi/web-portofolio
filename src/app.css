@@ -63,12 +63,6 @@
 	font-variant-numeric: tabular-nums;
 }
 
-.specimen-dot-grid {
-	background-color: var(--bg-bone);
-	background-image: radial-gradient(#cfcac0 1px, transparent 1px);
-	background-size: 18px 18px;
-}
-
 .marquee-mask {
 	mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
 	-webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);

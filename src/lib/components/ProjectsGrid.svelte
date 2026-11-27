@@ -51,7 +51,7 @@
 
 <section id="projects" class="scroll-mt-16 border-b border-[var(--rule)] bg-[var(--bg-bone)]">
 	<div class="w-full px-6 py-20 sm:px-10 lg:px-14 lg:py-24 xl:px-20">
-		<div class="flex flex-col justify-between gap-6 border-b border-[var(--ink)] pb-6 md:flex-row md:items-end">
+		<div class="flex flex-col justify-between gap-6 border-b border-[var(--rule)] pb-6 md:flex-row md:items-end">
 			<div>
 				<h2 class="font-display text-3xl font-extrabold tracking-tight text-[var(--ink)] sm:text-4xl">
 					Selected Projects
@@ -67,13 +67,13 @@
 						type="button"
 						aria-pressed={activeFilter === tab.id}
 						onclick={() => (activeFilter = tab.id)}
-						class="font-mono-tech rounded-full border px-4 py-2 text-xs font-medium tracking-[0.04em] uppercase transition-colors"
+						class="font-mono-tech rounded-full border px-4 py-2 text-xs font-medium transition-colors"
 						class:border-[var(--ink)]={activeFilter === tab.id}
 						class:bg-[var(--ink)]={activeFilter === tab.id}
 						class:text-[var(--bg-plate)]={activeFilter === tab.id}
 						class:border-[var(--rule)]={activeFilter !== tab.id}
 						class:bg-[var(--bg-plate)]={activeFilter !== tab.id}
-						class:text-[var(--ink)]={activeFilter !== tab.id}
+						class:text-[var(--ink-muted)]={activeFilter !== tab.id}
 					>
 						{tab.label}
 					</button>
@@ -83,17 +83,17 @@
 
 		<div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
 			{#each unifiedProjects as project (project.id)}
-				<article class="flex flex-col justify-between rounded-2xl border border-[var(--rule)] bg-[var(--bg-plate)] p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--teal)]/50 sm:p-7">
+				<article class="flex flex-col justify-between rounded-2xl border border-[var(--rule)] bg-[var(--bg-plate)] p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--teal)]/45 sm:p-7">
 					<div>
-						<h3 class="font-display text-lg font-bold leading-snug text-[var(--ink)] sm:text-xl">
+						<span class="font-mono-tech inline-block rounded-full bg-[var(--bg-bone)] px-3 py-1 text-[11px] font-semibold text-[var(--teal)]">
+							{project.categoryLabel}
+						</span>
+						<h3 class="font-display mt-3 text-lg font-bold leading-snug text-[var(--ink)] sm:text-xl">
 							{project.title}
 						</h3>
-						<div class="font-mono-tech mt-1.5 text-[11px] font-semibold text-[var(--teal)] uppercase">
-							{project.categoryLabel}
-						</div>
-						<p class="mt-3 text-sm leading-relaxed text-[#2A2E35]">{project.summary}</p>
+						<p class="mt-2.5 text-sm leading-relaxed text-[#2A2E35]">{project.summary}</p>
 						{#if project.keyResult}
-							<p class="mt-3 rounded-xl bg-[var(--bg-bone)] px-3.5 py-2.5 text-xs leading-relaxed text-[var(--ink-muted)]">
+							<p class="mt-2.5 text-xs leading-relaxed text-[var(--ink-muted)]">
 								{project.keyResult}
 							</p>
 						{/if}
@@ -104,7 +104,7 @@
 							href={project.repoUrl}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="font-mono-tech inline-block rounded-full border border-[var(--ink)] bg-[var(--bg-bone)] px-4 py-1.5 text-[11px] font-semibold tracking-[0.04em] text-[var(--ink)] uppercase transition-colors hover:bg-[var(--ink)] hover:text-[var(--bg-plate)]"
+							class="font-mono-tech inline-block rounded-full border border-[var(--rule)] bg-[var(--bg-bone)] px-4 py-1.5 text-[11px] font-medium text-[var(--ink)] transition-colors hover:border-[var(--ink)] hover:bg-[var(--ink)] hover:text-[var(--bg-plate)]"
 						>
 							Repository
 						</a>
@@ -113,7 +113,7 @@
 								href={project.liveUrl}
 								target="_blank"
 								rel="noopener noreferrer"
-								class="font-mono-tech inline-block rounded-full border border-[var(--vermilion)] bg-[var(--vermilion)] px-4 py-1.5 text-[11px] font-semibold tracking-[0.04em] text-[var(--bg-plate)] uppercase transition-colors hover:bg-[#9A2D16]"
+								class="font-mono-tech inline-block rounded-full bg-[var(--vermilion)] px-4 py-1.5 text-[11px] font-semibold text-[var(--bg-plate)] transition-colors hover:bg-[#9A2D16]"
 							>
 								Live Demo
 							</a>

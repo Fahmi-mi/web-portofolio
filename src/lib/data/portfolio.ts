@@ -82,7 +82,7 @@ export interface SkillGroup {
 }
 
 export interface ScrollStage {
-	id: 'statistical-causal' | 'data-streaming' | 'software-tooling';
+	id: 'decision-pipelines' | 'structured-workflows' | 'autonomous-systems';
 	step: string;
 	title: string;
 	subtitle: string;
@@ -480,37 +480,37 @@ export const SKILL_GROUPS: SkillGroup[] = [
 
 export const SCROLL_STAGES: ScrollStage[] = [
 	{
-		id: 'statistical-causal',
+		id: 'decision-pipelines',
 		step: 'Stage 01',
-		title: 'Statistical ML & Causal Modeling',
-		subtitle: 'Calibrated uncertainty bounds and treatment optimization',
+		title: 'From Guesswork to Calibrated Decisions',
+		subtitle: 'Turning raw model outputs and ad-hoc heuristics into measurable bounds',
 		description:
-			'Pairs split conformal prediction (MAPIE + LightGBM) on RAGTruth and RouterBench Pareto routing with doubly-robust uplift estimation (EconML DR-Learner + PuLP) across 64k Hillstrom records.',
-		metricLabel: 'Verified Research Benchmarks',
+			'Unchecked LLM outputs hallucinate (13.52% false-accept) and naive targeting wastes budget ($679.37 random baseline). Wrapping models with split conformal guardrails, Pareto routing, and DR-Learner uplift turns noisy predictions into reliable policy.',
+		metricLabel: 'Verified Impact',
 		metricValue: '1.96% FAR (alpha 0.05) | $2,679.37 Net Profit',
 		stack: ['MAPIE', 'LightGBM', 'EconML', 'PuLP']
 	},
 	{
-		id: 'data-streaming',
+		id: 'structured-workflows',
 		step: 'Stage 02',
-		title: 'Streaming Agents & ML Data Pipelines',
-		subtitle: 'Event-driven ingestion, ETL DAGs, and reproducible training',
+		title: 'From Scattered Workflows to Structured Platforms',
+		subtitle: 'Consolidating manual grading, CMS edits, and fragmented operations into one system',
 		description:
-			'Ingests Protobuf ticks over Go and NATS JetStream into a 5-stage LangGraph worker, TimescaleDB hypertables, and 4 Apache Airflow DAGs—alongside Parquet/MLflow ensemble pipelines.',
-		metricLabel: 'EquiSentinel + End-to-End ML Pipeline',
-		metricValue: '4 Airflow DAGs (1m/5m/1h) | Parquet + MLflow + pytest',
-		stack: ['Go', 'LangGraph', 'Apache Airflow', 'TimescaleDB']
+			'Manual exam grading, fragmented bilingual content, and brittle inquiry forms slow daily work down. I architect unified Laravel, Livewire, REST API, and MySQL platforms with background queues, RBAC, and automatic JSON cache failover.',
+		metricLabel: 'Shipped Client Systems',
+		metricValue: 'Smart School | Localive | Jogja Tour | Tentang Dental',
+		stack: ['Laravel', 'Livewire', 'MySQL', 'REST API']
 	},
 	{
-		id: 'software-tooling',
+		id: 'autonomous-systems',
 		step: 'Stage 03',
-		title: 'Production Web, APIs & CLI Tooling',
-		subtitle: 'Full-stack client platforms, REST backends, and developer tools',
+		title: 'From Repetitive Monitoring to Automated Pipelines',
+		subtitle: 'Eliminating manual checks through streaming agents, Airflow DAGs, and terminal CLIs',
 		description:
-			'Delivers production Laravel, Livewire, and MySQL platforms for schools, tourism CMS, and dental REST APIs alongside Svelte/TypeScript tooling including glzr, trello-cli, and snapshoot.',
-		metricLabel: 'Client & Open-Source Delivery',
-		metricValue: '3 Client Production Sites | 4 Shipped SWE Tools',
-		stack: ['Laravel', 'TypeScript', 'Svelte', 'MySQL']
+			'Checking market anomalies, ML experiments, and Kanban boards by hand breaks focus. Event streams (Go + NATS + 5-stage LangGraph), scheduled Airflow ETL DAGs, and keyboard-first CLIs like Glzr and Trello CLI keep execution effortless.',
+		metricLabel: 'Automation & Tooling',
+		metricValue: '4 Airflow DAGs | 5-Stage Agent | Glzr & Trello CLI',
+		stack: ['Go', 'LangGraph', 'Airflow', 'TypeScript']
 	}
 ];
 

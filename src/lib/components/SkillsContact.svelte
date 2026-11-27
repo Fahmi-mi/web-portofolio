@@ -102,7 +102,7 @@
 				<button
 					type="button"
 					onclick={handleCopyEmail}
-					class="font-mono-tech rounded-full border border-[var(--vitrine-ok)] bg-[var(--vitrine-ok)] px-5 py-2.5 text-xs font-semibold tracking-[0.04em] text-[#0E1716] uppercase transition-colors hover:bg-[#99dfd0]"
+					class="font-mono-tech rounded-full border border-[var(--vitrine-ok)] bg-[var(--vitrine-ok)] px-5 py-2.5 text-xs font-semibold text-[#0E1716] transition-colors hover:bg-[#99dfd0]"
 				>
 					{#if copyState === 'copied'}
 						Email Copied
@@ -121,14 +121,14 @@
 				</span>
 				<a
 					href={`mailto:${PROFILE.email}`}
-					class="font-mono-tech rounded-full border border-slate-500 px-5 py-2.5 text-xs font-medium tracking-[0.04em] text-slate-100 uppercase transition-colors hover:border-white hover:text-white"
+					class="font-mono-tech rounded-full border border-slate-500 px-5 py-2.5 text-xs font-medium text-slate-100 transition-colors hover:border-white hover:text-white"
 				>
 					Send Email
 				</a>
 				<a
 					href={PROFILE.cvPath}
 					download={PROFILE.cvDownloadName}
-					class="font-mono-tech rounded-full border border-slate-100 bg-slate-100 px-5 py-2.5 text-xs font-semibold tracking-[0.04em] text-[var(--vitrine)] uppercase transition-colors hover:bg-white"
+					class="font-mono-tech rounded-full border border-slate-100 bg-slate-100 px-5 py-2.5 text-xs font-semibold text-[var(--vitrine)] transition-colors hover:bg-white"
 				>
 					Download CV.pdf
 				</a>
