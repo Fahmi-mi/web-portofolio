@@ -1,8 +1,27 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { EXPERIENCE_ITEMS, HONOR_ITEMS, LEADERSHIP_ITEM } from '$lib/data/portfolio';
+	import { updateCardSpotlight } from '$lib/utils/interactions';
 
 	let activeRunIndex = $state(0);
 	let activeHonorIndex = $state(0);
+	let timelineEl = $state<HTMLDivElement | null>(null);
+	let timelineVisible = $state(false);
+
+	onMount(() => {
+		if (!timelineEl) return;
+		const observer = new IntersectionObserver(
+			(entries) => {
+				if (entries.some((entry) => entry.isIntersecting)) {
+					timelineVisible = true;
+					observer.disconnect();
+				}
+			},
+			{ threshold: 0.2 }
+		);
+		observer.observe(timelineEl);
+		return () => observer.disconnect();
+	});
 
 	interface TimelineRun {
 		id: string;
@@ -82,7 +101,10 @@
 		</div>
 
 		<!-- Minimal Execution Timeline (desktop clean Gantt track without heavy grid lines) -->
-		<div class="mt-8 hidden overflow-hidden rounded-2xl border border-[var(--rule)] bg-[var(--bg-plate)] md:block">
+		<div
+			bind:this={timelineEl}
+			class="mt-8 hidden overflow-hidden rounded-2xl border border-[var(--rule)] bg-[var(--bg-plate)] md:block"
+		>
 			<div class="grid min-w-[760px] grid-cols-[14.5rem_minmax(0,1fr)]">
 				<div class="flex h-10 items-center border-b border-[var(--rule)] px-5 font-mono-tech text-[11px] font-medium text-[var(--ink-muted)]">
 					Timeline (2026)
@@ -115,8 +137,9 @@
 					<div class="relative grid grid-cols-9 items-center border-b border-[var(--rule)]/60 py-2.5 pr-2 last:border-b-0">
 						<div class="pointer-events-none col-span-9 grid grid-cols-9 items-center px-1.5">
 							<div
-								style={`grid-column: ${run.colStart} / span ${run.colSpan};`}
-								class="flex h-6 items-center justify-between rounded-full border px-3 font-mono-tech text-[10px] transition-all duration-300"
+								style={`grid-column: ${run.colStart} / span ${run.colSpan}; animation-delay: ${idx * 75}ms;`}
+								class="timeline-bar flex h-6 items-center justify-between rounded-full border px-3 font-mono-tech text-[10px]"
+								class:is-visible={timelineVisible}
 								class:border-[var(--teal)]={activeRunIndex === idx || run.status === 'running'}
 								class:bg-[var(--teal)]={run.status === 'running'}
 								class:text-[var(--bg-plate)]={run.status === 'running'}
@@ -137,10 +160,11 @@
 			<div class="space-y-4">
 				{#each EXPERIENCE_ITEMS as item, idx}
 					<article
-						class="rounded-2xl border bg-[var(--bg-plate)] p-6 transition-colors duration-200"
+						class="clean-spotlight-card rounded-2xl border bg-[var(--bg-plate)] p-6"
 						class:border-[var(--teal)]={activeRunIndex === idx}
 						class:border-[var(--rule)]={activeRunIndex !== idx}
 						onpointerenter={() => (activeRunIndex = idx)}
+						onpointermove={updateCardSpotlight}
 					>
 						<div class="flex flex-wrap items-baseline justify-between gap-2">
 							<h3 class="font-display text-xl font-bold text-[var(--ink)]">
@@ -200,21 +224,23 @@
 						</span>
 					</div>
 
-					<div class="py-5">
-						<div
-							class="font-display text-5xl leading-none font-extrabold tracking-tight"
-							class:text-[var(--vermilion)]={activeHonorIndex === 0}
-							class:text-[var(--teal)]={activeHonorIndex !== 0}
-						>
-							{activeHonor.rank}
+					{#key activeHonorIndex}
+						<div class="panel-swap-enter py-5">
+							<div
+								class="font-display text-5xl leading-none font-extrabold tracking-tight"
+								class:text-[var(--vermilion)]={activeHonorIndex === 0}
+								class:text-[var(--teal)]={activeHonorIndex !== 0}
+							>
+								{activeHonor.rank}
+							</div>
+							<div class="font-display mt-3 text-lg leading-snug font-bold text-[var(--ink)]">
+								{activeHonor.title}
+							</div>
+							<div class="font-mono-tech mt-1.5 text-xs text-[var(--ink-muted)]">
+								{activeHonor.organizer} / {activeHonor.date}
+							</div>
 						</div>
-						<div class="font-display mt-3 text-lg leading-snug font-bold text-[var(--ink)]">
-							{activeHonor.title}
-						</div>
-						<div class="font-mono-tech mt-1.5 text-xs text-[var(--ink-muted)]">
-							{activeHonor.organizer} / {activeHonor.date}
-						</div>
-					</div>
+					{/key}
 
 					<div class="grid grid-cols-1 gap-2 border-t border-[var(--rule)] pt-4 sm:grid-cols-2">
 						{#each HONOR_ITEMS as honor, idx}
@@ -242,10 +268,11 @@
 
 				<!-- Clean ASSETS UGM Card -->
 				<article
-					class="rounded-2xl border bg-[var(--bg-plate)] p-6 transition-colors duration-200"
+					class="clean-spotlight-card rounded-2xl border bg-[var(--bg-plate)] p-6"
 					class:border-[var(--teal)]={activeRunIndex === 3}
 					class:border-[var(--rule)]={activeRunIndex !== 3}
 					onpointerenter={() => (activeRunIndex = 3)}
+					onpointermove={updateCardSpotlight}
 				>
 					<div class="flex items-baseline justify-between gap-2">
 						<h3 class="font-display text-base font-bold text-[var(--ink)]">
@@ -270,6 +297,32 @@
 </section>
 
 <style>
+	.timeline-bar {
+		position: relative;
+		overflow: hidden;
+		clip-path: inset(0 0 0 0 round 9999px);
+		transition:
+			border-color 0.25s ease,
+			background-color 0.25s ease,
+			box-shadow 0.25s ease;
+	}
+
+	.timeline-bar.is-visible {
+		animation: timeline-wipe 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+		animation-delay: inherit;
+	}
+
+	@keyframes timeline-wipe {
+		from {
+			opacity: 0.75;
+			transform: translate3d(-10px, 0, 0);
+		}
+		to {
+			opacity: 1;
+			transform: translate3d(0, 0, 0);
+		}
+	}
+
 	.exp-live-ping {
 		animation: exp-live-pulse 2.2s ease-in-out infinite;
 	}
@@ -287,6 +340,10 @@
 	}
 
 	@media (prefers-reduced-motion: reduce) {
+		.timeline-bar.is-visible {
+			animation: none;
+		}
+
 		.exp-live-ping {
 			animation: none;
 			opacity: 0;

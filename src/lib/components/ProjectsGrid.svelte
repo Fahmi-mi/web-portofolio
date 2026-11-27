@@ -1,10 +1,11 @@
 <script lang="ts">
+	import { flip } from 'svelte/animate';
 	import {
 		filterFeaturedProjects,
 		filterSecondaryProjects,
 		type ProjectFilter
 	} from '$lib/data/portfolio';
-	import { getProjectCounts } from '$lib/utils/interactions';
+	import { getProjectCounts, updateCardSpotlight } from '$lib/utils/interactions';
 
 	let activeFilter = $state<ProjectFilter>('all');
 
@@ -83,7 +84,11 @@
 
 		<div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
 			{#each unifiedProjects as project (project.id)}
-				<article class="flex flex-col justify-between rounded-2xl border border-[var(--rule)] bg-[var(--bg-plate)] p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--teal)]/45 sm:p-7">
+				<article
+					animate:flip={{ duration: 280 }}
+					onpointermove={updateCardSpotlight}
+					class="clean-spotlight-card flex flex-col justify-between rounded-2xl border border-[var(--rule)] bg-[var(--bg-plate)] p-6 hover:-translate-y-0.5 hover:border-[var(--teal)]/45 sm:p-7"
+				>
 					<div>
 						<span class="font-mono-tech inline-block rounded-full bg-[var(--bg-bone)] px-3 py-1 text-[11px] font-semibold text-[var(--teal)]">
 							{project.categoryLabel}

@@ -11,6 +11,7 @@
 	let canvasEl = $state<HTMLCanvasElement | null>(null);
 	let containerEl = $state<HTMLDivElement | null>(null);
 	let pointer = { x: -999, y: -999, active: false };
+	let hoveredNodeInfo = $state<{ label: string; layer: number } | null>(null);
 	let renderCurrentFrame: (() => void) | null = null;
 
 	$effect(() => {
@@ -109,26 +110,47 @@
 				...n
 			}));
 
+			let nearestIdx = -1;
+			let nearestDist = 46;
+			if (pointer.active) {
+				for (let i = 0; i < coords.length; i++) {
+					const d = Math.hypot(pointer.x - coords[i].x, pointer.y - coords[i].y);
+					if (d < nearestDist) {
+						nearestDist = d;
+						nearestIdx = i;
+					}
+				}
+			}
+			const nextHovered =
+				nearestIdx >= 0 && coords[nearestIdx].label
+					? { label: coords[nearestIdx].label!, layer: coords[nearestIdx].layer }
+					: null;
+			if (hoveredNodeInfo?.label !== nextHovered?.label) {
+				hoveredNodeInfo = nextHovered;
+			}
+
 			for (let i = 0; i < EDGES.length; i++) {
 				const edge = EDGES[i];
 				const a = coords[edge.from];
 				const b = coords[edge.to];
 				const isDomain = edge.domain === activeDomain;
+				const touchesHovered = nearestIdx >= 0 && (edge.from === nearestIdx || edge.to === nearestIdx);
 				const midX = (a.x + b.x) / 2;
 
 				ctx.beginPath();
 				ctx.moveTo(a.x, a.y);
 				ctx.bezierCurveTo(midX, a.y, midX, b.y, b.x, b.y);
-				ctx.strokeStyle = isDomain
-					? edge.domain === 'production-systems'
-						? 'rgba(184, 56, 30, 0.72)'
-						: 'rgba(15, 118, 110, 0.78)'
-					: 'rgba(180, 174, 162, 0.45)';
-				ctx.lineWidth = isDomain ? 2 : 1;
+				ctx.strokeStyle =
+					isDomain || touchesHovered
+						? edge.domain === 'production-systems'
+							? 'rgba(184, 56, 30, 0.78)'
+							: 'rgba(15, 118, 110, 0.82)'
+						: 'rgba(180, 174, 162, 0.42)';
+				ctx.lineWidth = touchesHovered ? 2.4 : isDomain ? 2 : 1;
 				ctx.stroke();
 
-				if (!reduced && isDomain) {
-					const u = (t * 0.48 + i * 0.19) % 1;
+				if (!reduced && (isDomain || touchesHovered)) {
+					const u = (t * 0.52 + i * 0.19) % 1;
 					const inv = 1 - u;
 					const px =
 						inv * inv * inv * a.x +
@@ -151,13 +173,14 @@
 			for (let i = 0; i < coords.length; i++) {
 				const node = coords[i];
 				const dist = pointer.active ? Math.hypot(pointer.x - node.x, pointer.y - node.y) : 999;
-				const nearPointer = dist < 56;
+				const nearPointer = i === nearestIdx || dist < 46;
 				const isDomainNode = node.domain === activeDomain;
 				const radius = node.layer === 2 ? 7 : 5.5;
 
 				if (nearPointer || isDomainNode) {
+					const breath = reduced ? 0 : Math.sin(t * 2.4 + i) * 1.6;
 					ctx.beginPath();
-					ctx.arc(node.x, node.y, radius + 6, 0, Math.PI * 2);
+					ctx.arc(node.x, node.y, radius + 6 + breath, 0, Math.PI * 2);
 					ctx.fillStyle =
 						activeDomain === 'production-systems'
 							? 'rgba(184, 56, 30, 0.14)'
@@ -258,6 +281,13 @@
 		}}
 		onpointerleave={() => {
 			pointer = { x: -999, y: -999, active: false };
+			hoveredNodeInfo = null;
 		}}
 	></canvas>
+
+	{#if hoveredNodeInfo}
+		<div class="pointer-events-none absolute bottom-3 left-3 rounded-full border border-[var(--rule)] bg-[var(--bg-plate)]/95 px-3 py-1 font-mono-tech text-[10px] font-medium text-[var(--ink)] shadow-sm">
+			{hoveredNodeInfo.label} · Stage {hoveredNodeInfo.layer + 1}
+		</div>
+	{/if}
 </div>
