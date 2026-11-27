@@ -233,9 +233,14 @@
 				{/each}
 			</div>
 
-			<div class="flex flex-col gap-5">
-				<!-- Clean Minimal Honors Spotlight (zero smudges / watermarks) -->
-				<div id="honors-spotlight" class="scroll-mt-24 rounded-2xl border border-[var(--rule)] bg-[var(--bg-plate)] p-6">
+			<div class="relative flex flex-col gap-5">
+				<div
+					class="pointer-events-none absolute -top-6 right-4 -z-10 h-44 w-44 rounded-full opacity-50 blur-3xl"
+					style="background: radial-gradient(circle, rgba(184, 56, 30, 0.2), rgba(15, 118, 110, 0.14) 55%, transparent 72%);"
+					aria-hidden="true"
+				></div>
+				<!-- Clean Minimal Honors Spotlight in translucent Liquid Glass -->
+				<div id="honors-spotlight" class="liquid-glass-light scroll-mt-24 rounded-2xl p-6">
 					<div class="flex items-center justify-between border-b border-[var(--rule)] pb-3">
 						<span class="font-mono-tech text-xs font-semibold text-[var(--ink)]">
 							Honors
