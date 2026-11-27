@@ -12,16 +12,28 @@
 	let activeIndex = $state(0);
 	let scrollProgress = $state(0);
 	let sectionEl = $state<HTMLElement | null>(null);
+	let stickyEl = $state<HTMLDivElement | null>(null);
 	let stepEls: HTMLElement[] = [];
 
 	const activeStage = $derived(SCROLL_STAGES[clampScrollStage(activeIndex, SCROLL_STAGES.length)]);
 
 	function jumpToStage(idx: number) {
-		activeIndex = clampScrollStage(idx, SCROLL_STAGES.length);
-		const target = stepEls[idx];
-		if (!target) return;
+		const clamped = clampScrollStage(idx, SCROLL_STAGES.length);
+		activeIndex = clamped;
+		if (!sectionEl) return;
 		const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-		target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
+		const behavior: ScrollBehavior = reduced ? 'auto' : 'smooth';
+
+		if (window.innerWidth >= 1024 && stickyEl) {
+			const rect = sectionEl.getBoundingClientRect();
+			const sectionTop = rect.top + window.scrollY;
+			const span = Math.max(1, sectionEl.offsetHeight - stickyEl.offsetHeight);
+			const targetProgress = clamped === 0 ? 0.08 : clamped === 1 ? 0.5 : 0.9;
+			window.scrollTo({ top: Math.round(sectionTop - 80 + span * targetProgress), behavior });
+			return;
+		}
+
+		stepEls[clamped]?.scrollIntoView({ behavior, block: 'center' });
 	}
 
 	$effect(() => {
@@ -38,6 +50,17 @@
 			if (!sectionEl) return;
 			const rect = sectionEl.getBoundingClientRect();
 			const viewH = window.innerHeight || 800;
+
+			if (window.innerWidth >= 1024 && stickyEl) {
+				const scrollableSpan = Math.max(1, sectionEl.offsetHeight - stickyEl.offsetHeight);
+				const traveled = 80 - rect.top;
+				const progress = Math.min(1, Math.max(0, traveled / scrollableSpan));
+				scrollProgress = progress;
+				const nextIdx = progress < 0.34 ? 0 : progress < 0.68 ? 1 : 2;
+				activeIndex = clampScrollStage(nextIdx, SCROLL_STAGES.length);
+				return;
+			}
+
 			const totalSpan = Math.max(1, rect.height - viewH * 0.45);
 			const traveled = viewH * 0.35 - rect.top;
 			scrollProgress = Math.min(1, Math.max(0, traveled / totalSpan));
@@ -81,24 +104,25 @@
 	});
 </script>
 
+<!-- Pinned bounded desktop runway prolongs scrollytelling dwell while keeping step spacing compact and even -->
 <section
 	id="about"
 	bind:this={sectionEl}
-	class="relative scroll-mt-20 overflow-x-clip bg-gradient-to-b from-[var(--bg-bone)] via-[#f2f3ef] to-[var(--bg-bone)]"
+	class="relative scroll-mt-20 bg-gradient-to-b from-[var(--bg-bone)] via-[#f2f3ef] to-[var(--bg-bone)] lg:min-h-[clamp(1350px,195vh,1850px)]"
 >
-	<div class="w-full px-6 py-20 sm:px-10 lg:px-14 lg:py-24 xl:px-20">
+	<div bind:this={stickyEl} class="w-full px-6 py-16 sm:px-10 lg:sticky lg:top-20 lg:px-14 lg:py-12 xl:px-20">
 		<div class="max-w-[66ch]">
 			<h2 class="font-display text-3xl font-extrabold tracking-tight text-[var(--ink)] sm:text-4xl">
 				What I Build &amp; Solve
 			</h2>
-			<p class="mt-3 text-base leading-relaxed text-[var(--ink-muted)]">
+			<p class="mt-2.5 text-base leading-relaxed text-[var(--ink-muted)]">
 				Turning fragmented workflows, noisy data, and manual checks into structured systems that make work reliable and fast.
 			</p>
 		</div>
 
-		<div class="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-			<!-- Translucent Liquid Glass active card + clean borderless steps -->
-			<div class="space-y-6 lg:space-y-24 lg:pt-4 lg:pb-12">
+		<div class="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-12">
+			<!-- Evenly spaced borderless steps without stage/stack headers -->
+			<div class="space-y-4">
 				{#each SCROLL_STAGES as stage, idx (stage.id)}
 					<button
 						type="button"
@@ -107,26 +131,21 @@
 						onclick={() => jumpToStage(idx)}
 						onpointermove={updateCardSpotlight}
 						aria-pressed={activeIndex === idx}
-						class="clean-spotlight-card block w-full rounded-2xl p-6 text-left transition-all duration-300 sm:p-7"
+						class="clean-spotlight-card block w-full rounded-2xl p-5 text-left transition-all duration-300 sm:p-6"
 						class:liquid-glass-light={activeIndex === idx}
 						class:opacity-100={activeIndex === idx}
 						class:bg-transparent={activeIndex !== idx}
 						class:opacity-65={activeIndex !== idx}
 						class:hover:opacity-100={activeIndex !== idx}
 					>
-						<div class="flex flex-wrap items-center justify-between gap-2 font-mono-tech text-[11px]">
-							<span class="font-semibold text-[var(--teal)]">{stage.step}</span>
-							<span class="text-[var(--ink-muted)]">{stage.stack.join(' / ')}</span>
-						</div>
-
-						<h3 class="font-display mt-2.5 text-xl font-bold text-[var(--ink)] sm:text-2xl">
+						<h3 class="font-display text-lg font-bold text-[var(--ink)] sm:text-xl">
 							{stage.title}
 						</h3>
-						<p class="mt-3 text-base leading-relaxed text-[#2A2E35]">
+						<p class="mt-2 text-sm leading-relaxed text-[#2A2E35] sm:text-base">
 							{stage.description}
 						</p>
 
-						<div class="mt-4 font-mono-tech text-xs font-medium text-[var(--ink)]">
+						<div class="mt-3 font-mono-tech text-xs font-medium text-[var(--ink)]">
 							<span class="text-[var(--ink-muted)]">{stage.metricLabel}:</span>
 							{stage.metricValue}
 						</div>
@@ -134,8 +153,8 @@
 				{/each}
 			</div>
 
-			<!-- Dark smoked Liquid Glass showcase backed by an ambient AI glow field -->
-			<div class="relative lg:sticky lg:top-24">
+			<!-- Dark smoked Liquid Glass showcase without stage pill -->
+			<div class="relative">
 				<div
 					class="pointer-events-none absolute -inset-4 -z-10 rounded-[2rem] opacity-75 blur-2xl"
 					style="background: radial-gradient(circle at 24% 28%, rgba(15, 118, 110, 0.28), transparent 55%), radial-gradient(circle at 82% 78%, rgba(184, 56, 30, 0.18), transparent 55%);"
@@ -143,13 +162,8 @@
 				></div>
 
 				<div class="liquid-glass-dark rounded-3xl p-6 text-[var(--vitrine-ink)] sm:p-8">
-					<div class="flex items-center justify-between gap-3 font-mono-tech text-xs">
-						<span class="font-semibold text-white">
-							{activeStage.title}
-						</span>
-						<span class="shrink-0 font-semibold text-[var(--vitrine-ok)]">
-							{activeStage.step}
-						</span>
+					<div class="font-mono-tech text-xs font-semibold text-white">
+						{activeStage.title}
 					</div>
 
 					<div class="mt-3 h-[2px] w-full overflow-hidden rounded-full bg-slate-700/60">

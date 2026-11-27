@@ -53,19 +53,12 @@
 			>
 				{PROFILE.bio}
 			</p>
-			<div style="animation-delay: 140ms" class="hero-reveal mt-8 flex flex-wrap items-center gap-4">
+			<div style="animation-delay: 140ms" class="hero-reveal mt-8">
 				<a
 					href="#projects"
 					class="font-mono-tech inline-block rounded-full bg-[var(--vermilion)] px-6 py-3 text-xs font-semibold text-[var(--bg-plate)] shadow-[0_12px_26px_-12px_rgba(184,56,30,0.65)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#9A2D16] active:scale-[0.98]"
 				>
 					Explore All Projects
-				</a>
-				<a
-					href="#about"
-					class="liquid-glass-light font-mono-tech inline-flex items-center gap-2 rounded-full px-5 py-3 text-xs font-medium text-[var(--ink)] transition-transform duration-200 hover:-translate-y-0.5"
-				>
-					<span class="h-2 w-2 rounded-full bg-[var(--teal)]" aria-hidden="true"></span>
-					AI Systems &amp; Causal ML
 				</a>
 			</div>
 		</div>
