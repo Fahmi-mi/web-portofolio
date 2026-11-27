@@ -2,6 +2,8 @@
 	import { flip } from 'svelte/animate';
 	import ProjectMedia from '$lib/components/ProjectMedia.svelte';
 	import {
+		FEATURED_PROJECTS,
+		SECONDARY_PROJECTS,
 		filterFeaturedProjects,
 		filterSecondaryProjects,
 		type ProjectFilter,
@@ -20,12 +22,12 @@
 	let { externalSelection = null }: Props = $props();
 
 	let activeFilter = $state<ProjectFilter>('all');
-	let expandedProjectId = $state<string | null>(null);
+	let selectedProjectId = $state<string | null>(null);
 
 	$effect(() => {
 		if (!externalSelection) return;
 		activeFilter = externalSelection.filter;
-		expandedProjectId = externalSelection.projectId;
+		selectedProjectId = externalSelection.projectId;
 	});
 
 	interface ArchiveProjectCard {
@@ -41,23 +43,11 @@
 		liveUrl?: string;
 	}
 
-	const featured = $derived(filterFeaturedProjects(activeFilter));
-	const secondary = $derived(filterSecondaryProjects(activeFilter));
-	const counts = $derived(getProjectCounts(activeFilter));
-
-	const unifiedProjects = $derived<ArchiveProjectCard[]>([
-		...featured.map((p) => ({
-			id: p.id,
-			title: p.title,
-			categoryLabel: 'Data Science & AI' as const,
-			visualVariant: p.visualVariant,
-			media: p.media,
-			summary: p.summary,
-			highlights: p.highlights,
-			stack: p.stack,
-			repoUrl: p.repoUrl
-		})),
-		...secondary.map((p) => ({
+	function toArchiveCard(
+		p: (typeof FEATURED_PROJECTS)[number] | (typeof SECONDARY_PROJECTS)[number]
+	): ArchiveProjectCard {
+		const isFeatured = 'highlights' in p;
+		return {
 			id: p.id,
 			title: p.title,
 			categoryLabel:
@@ -65,28 +55,38 @@
 			visualVariant: p.visualVariant,
 			media: p.media,
 			summary: p.summary,
-			highlights: [],
+			highlights: isFeatured ? p.highlights : [],
 			stack: p.stack,
 			repoUrl: p.repoUrl,
-			liveUrl: p.liveUrl
-		}))
+			liveUrl: 'liveUrl' in p ? p.liveUrl : undefined
+		};
+	}
+
+	const allProjects = [...FEATURED_PROJECTS, ...SECONDARY_PROJECTS].map(toArchiveCard);
+	const featured = $derived(filterFeaturedProjects(activeFilter));
+	const secondary = $derived(filterSecondaryProjects(activeFilter));
+	const counts = $derived(getProjectCounts(activeFilter));
+
+	const unifiedProjects = $derived<ArchiveProjectCard[]>([
+		...featured.map(toArchiveCard),
+		...secondary.map(toArchiveCard)
 	]);
+
+	const selectedProject = $derived(
+		selectedProjectId ? (allProjects.find((p) => p.id === selectedProjectId) ?? null) : null
+	);
 
 	const filters: { id: ProjectFilter; label: string }[] = [
 		{ id: 'all', label: 'All (8)' },
 		{ id: 'ds-ai', label: 'Data Science & AI (4)' },
 		{ id: 'swe', label: 'Software Eng (4)' }
 	];
-
-	function toggleExpand(id: string) {
-		expandedProjectId = expandedProjectId === id ? null : id;
-	}
 </script>
 
 <svelte:window
 	onkeydown={(e) => {
-		if (e.key === 'Escape' && expandedProjectId) {
-			expandedProjectId = null;
+		if (e.key === 'Escape' && selectedProjectId) {
+			selectedProjectId = null;
 		}
 	}}
 />
@@ -99,7 +99,7 @@
 					Selected Projects
 				</h2>
 				<p class="mt-2 max-w-[66ch] text-base text-[var(--ink-muted)]">
-					All {counts.total} repositories in one balanced index. Click any project to expand its benchmarks and system architecture.
+					All {counts.total} repositories in one balanced index. Click any project to inspect benchmarks and architecture.
 				</p>
 			</div>
 
@@ -108,10 +108,7 @@
 					<button
 						type="button"
 						aria-pressed={activeFilter === tab.id}
-						onclick={() => {
-							activeFilter = tab.id;
-							expandedProjectId = null;
-						}}
+						onclick={() => (activeFilter = tab.id)}
 						class={`font-mono-tech rounded-full border px-4 py-2 text-xs font-medium transition-all duration-200 ${
 							activeFilter === tab.id
 								? 'border-[var(--ink)] bg-[var(--ink)] text-[var(--bg-plate)]'
@@ -124,168 +121,174 @@
 			</div>
 		</div>
 
-		<!-- Borderless gallery grid with Bikeville-inspired shared-element morph expand into Liquid Glass -->
+		<!-- Borderless editorial 2-column gallery grid -->
 		<div class="mt-12 grid grid-cols-1 gap-x-10 gap-y-14 md:grid-cols-2">
 			{#each unifiedProjects as project (project.id)}
-				{@const isExpanded = expandedProjectId === project.id}
-				<article
-					id={`project-${project.id}`}
-					animate:flip={{ duration: 340 }}
-					class={`group scroll-mt-24 transition-opacity duration-300 ${
-						isExpanded ? 'md:col-span-2' : ''
-					} ${expandedProjectId !== null && !isExpanded ? 'opacity-75 hover:opacity-100' : ''}`}
-				>
-					{#if isExpanded}
-						<!-- Expanded morphing Liquid Glass Inspector -->
-						<div class="liquid-glass-light panel-swap-enter relative overflow-hidden rounded-3xl p-5 sm:p-8">
-							<div
-								class="pointer-events-none absolute -top-24 -right-24 -z-10 h-64 w-64 rounded-full opacity-55 blur-3xl"
-								style="background: radial-gradient(circle, rgba(15, 118, 110, 0.25), transparent 70%);"
-								aria-hidden="true"
-							></div>
+				<article id={`project-${project.id}`} animate:flip={{ duration: 300 }} class="group scroll-mt-24 flex flex-col">
+					<button
+						type="button"
+						onclick={() => (selectedProjectId = project.id)}
+						aria-haspopup="dialog"
+						class="aspect-[16/10] w-full cursor-pointer overflow-hidden rounded-2xl text-left shadow-[0_18px_40px_-22px_rgba(17,19,23,0.28)] transition-all duration-300 group-hover:shadow-[0_24px_48px_-20px_rgba(15,118,110,0.26)]"
+					>
+						<ProjectMedia
+							variant={project.visualVariant}
+							title={project.title}
+							media={project.media}
+						/>
+					</button>
 
-							<div class="grid grid-cols-1 items-center gap-8 lg:grid-cols-[1.05fr_0.95fr]">
-								<div class="aspect-[16/10] w-full overflow-hidden rounded-2xl shadow-[0_18px_42px_-20px_rgba(17,19,23,0.34)]">
-									<ProjectMedia
-										variant={project.visualVariant}
-										title={project.title}
-										media={project.media}
-									/>
-								</div>
+					<div class="pt-4">
+						<div class="flex flex-wrap items-center justify-between gap-2 font-mono-tech text-[11px]">
+							<span class="font-semibold text-[var(--teal)]">
+								{project.categoryLabel}
+							</span>
 
-								<div class="flex flex-col justify-between">
-									<div>
-										<div class="flex items-center justify-between gap-3">
-											<span class="font-mono-tech text-xs font-semibold text-[var(--teal)]">
-												{project.categoryLabel}
-											</span>
-											<button
-												type="button"
-												onclick={() => (expandedProjectId = null)}
-												class="font-mono-tech rounded-full border border-[var(--rule)] bg-white/80 px-3.5 py-1 text-[11px] font-medium text-[var(--ink-muted)] transition-colors hover:border-[var(--ink)] hover:text-[var(--ink)]"
-											>
-												Close
-											</button>
-										</div>
-
-										<h3 class="font-display mt-3 text-2xl font-extrabold tracking-tight text-[var(--ink)] sm:text-3xl">
-											{project.title}
-										</h3>
-
-										<p class="mt-3 text-sm leading-relaxed text-[#2A2E35] sm:text-base">
-											{project.summary}
-										</p>
-
-										{#if project.highlights.length > 0}
-											<ul class="mt-4 space-y-2 text-xs leading-relaxed text-[var(--ink-muted)] sm:text-sm">
-												{#each project.highlights as bullet}
-													<li class="flex items-start gap-2.5">
-														<span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--teal)]" aria-hidden="true"></span>
-														<span>{bullet}</span>
-													</li>
-												{/each}
-											</ul>
-										{/if}
-
-										<div class="mt-5 flex flex-wrap gap-1.5">
-											{#each project.stack as tech}
-												<span class="font-mono-tech rounded-full bg-[var(--bg-bone)] px-3 py-1 text-[11px] font-medium text-[var(--ink)]">
-													{tech}
-												</span>
-											{/each}
-										</div>
-									</div>
-
-									<div class="mt-6 flex flex-wrap items-center gap-3 pt-2">
-										<a
-											href={project.repoUrl}
-											target="_blank"
-											rel="noopener noreferrer"
-											class="font-mono-tech rounded-full bg-[var(--ink)] px-5 py-2 text-xs font-semibold text-[var(--bg-plate)] transition-colors hover:bg-[var(--teal)]"
-										>
-											Repository
-										</a>
-										{#if project.liveUrl}
-											<a
-												href={project.liveUrl}
-												target="_blank"
-												rel="noopener noreferrer"
-												class="font-mono-tech rounded-full bg-[var(--vermilion)] px-5 py-2 text-xs font-semibold text-[var(--bg-plate)] transition-colors hover:bg-[#9A2D16]"
-											>
-												Live Demo
-											</a>
-										{/if}
-									</div>
-								</div>
+							<div class="flex items-center gap-4">
+								<button
+									type="button"
+									onclick={() => (selectedProjectId = project.id)}
+									class="cursor-pointer font-medium text-[var(--ink)] transition-colors hover:text-[var(--teal)]"
+								>
+									Inspect
+								</button>
+								<a
+									href={project.repoUrl}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="font-medium text-[var(--ink)] transition-colors hover:text-[var(--teal)] hover:underline"
+								>
+									Repository
+								</a>
+								{#if project.liveUrl}
+									<a
+										href={project.liveUrl}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="font-semibold text-[var(--vermilion)] transition-colors hover:underline"
+									>
+										Live Demo
+									</a>
+								{/if}
 							</div>
 						</div>
-					{:else}
-						<!-- Clean borderless compact preview -->
-						<div class="flex flex-col">
+
+						<h3 class="font-display mt-2 text-lg font-bold leading-snug text-[var(--ink)] sm:text-xl">
 							<button
 								type="button"
-								onclick={() => toggleExpand(project.id)}
-								aria-expanded={false}
-								class="aspect-[16/10] w-full cursor-pointer overflow-hidden rounded-2xl text-left shadow-[0_18px_40px_-22px_rgba(17,19,23,0.28)] transition-all duration-300 group-hover:shadow-[0_24px_48px_-20px_rgba(15,118,110,0.26)]"
+								onclick={() => (selectedProjectId = project.id)}
+								class="cursor-pointer text-left transition-colors hover:text-[var(--teal)]"
 							>
-								<ProjectMedia
-									variant={project.visualVariant}
-									title={project.title}
-									media={project.media}
-								/>
+								{project.title}
 							</button>
+						</h3>
 
-							<div class="pt-4">
-								<div class="flex flex-wrap items-center justify-between gap-2 font-mono-tech text-[11px]">
-									<span class="font-semibold text-[var(--teal)]">
-										{project.categoryLabel}
-									</span>
-
-									<div class="flex items-center gap-4">
-										<button
-											type="button"
-											onclick={() => toggleExpand(project.id)}
-											class="font-medium text-[var(--ink-muted)] transition-colors hover:text-[var(--ink)]"
-										>
-											Inspect
-										</button>
-										<a
-											href={project.repoUrl}
-											target="_blank"
-											rel="noopener noreferrer"
-											class="font-medium text-[var(--ink)] transition-colors hover:text-[var(--teal)] hover:underline"
-										>
-											Repository
-										</a>
-										{#if project.liveUrl}
-											<a
-												href={project.liveUrl}
-												target="_blank"
-												rel="noopener noreferrer"
-												class="font-semibold text-[var(--vermilion)] transition-colors hover:underline"
-											>
-												Live Demo
-											</a>
-										{/if}
-									</div>
-								</div>
-
-								<h3 class="font-display mt-2 text-lg font-bold leading-snug text-[var(--ink)] sm:text-xl">
-									<button
-										type="button"
-										onclick={() => toggleExpand(project.id)}
-										class="cursor-pointer text-left transition-colors hover:text-[var(--teal)]"
-									>
-										{project.title}
-									</button>
-								</h3>
-
-								<p class="mt-2 text-sm leading-relaxed text-[#2A2E35]">{project.summary}</p>
-							</div>
-						</div>
-					{/if}
+						<p class="mt-2 text-sm leading-relaxed text-[#2A2E35]">{project.summary}</p>
+					</div>
 				</article>
 			{/each}
 		</div>
 	</div>
 </section>
+
+<!-- Centered Liquid Glass Project Detail Modal -->
+{#if selectedProject}
+	<div
+		class="fixed inset-0 z-50 flex items-center justify-center bg-[#111317]/45 p-4 backdrop-blur-sm sm:p-6"
+		role="presentation"
+		onclick={(e) => {
+			if (e.target === e.currentTarget) selectedProjectId = null;
+		}}
+	>
+		<div
+			role="dialog"
+			aria-modal="true"
+			aria-labelledby="project-modal-title"
+			class="modal-enter relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-3xl border border-white/85 bg-[#FAF9F6]/92 p-6 shadow-[0_32px_80px_-20px_rgba(17,19,23,0.45)] backdrop-blur-2xl sm:p-8"
+		>
+			<div
+				class="pointer-events-none absolute -top-24 -right-24 -z-10 h-64 w-64 rounded-full opacity-55 blur-3xl"
+				style="background: radial-gradient(circle, rgba(15, 118, 110, 0.22), transparent 70%);"
+				aria-hidden="true"
+			></div>
+
+			<div class="flex items-center justify-between gap-4 border-b border-[var(--rule)]/80 pb-4">
+				<span class="font-mono-tech text-xs font-semibold text-[var(--teal)]">
+					{selectedProject.categoryLabel}
+				</span>
+				<button
+					type="button"
+					onclick={() => (selectedProjectId = null)}
+					class="font-mono-tech cursor-pointer rounded-full border border-[var(--rule)] bg-white/90 px-4 py-1.5 text-xs font-semibold text-[var(--ink)] transition-colors hover:border-[var(--ink)] hover:bg-[var(--ink)] hover:text-white"
+				>
+					Close
+				</button>
+			</div>
+
+			<div class="mt-6 grid grid-cols-1 items-center gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+				<div class="aspect-[16/10] w-full overflow-hidden rounded-2xl shadow-[0_18px_42px_-20px_rgba(17,19,23,0.34)]">
+					<ProjectMedia
+						variant={selectedProject.visualVariant}
+						title={selectedProject.title}
+						media={selectedProject.media}
+					/>
+				</div>
+
+				<div class="flex flex-col justify-between">
+					<div>
+						<h3
+							id="project-modal-title"
+							class="font-display text-2xl font-extrabold tracking-tight text-[var(--ink)] sm:text-3xl"
+						>
+							{selectedProject.title}
+						</h3>
+
+						<p class="mt-3 text-sm leading-relaxed text-[#2A2E35] sm:text-base">
+							{selectedProject.summary}
+						</p>
+
+						{#if selectedProject.highlights.length > 0}
+							<ul class="mt-4 space-y-2 text-xs leading-relaxed text-[#2A2E35] sm:text-sm">
+								{#each selectedProject.highlights as bullet}
+									<li class="flex items-start gap-2.5">
+										<span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--teal)]" aria-hidden="true"></span>
+										<span>{bullet}</span>
+									</li>
+								{/each}
+							</ul>
+						{/if}
+
+						<div class="mt-5 flex flex-wrap gap-1.5">
+							{#each selectedProject.stack as tech}
+								<span class="font-mono-tech rounded-full bg-white/90 px-3 py-1 text-[11px] font-medium text-[var(--ink)]">
+									{tech}
+								</span>
+							{/each}
+						</div>
+					</div>
+
+					<div class="mt-6 flex flex-wrap items-center gap-3 pt-2">
+						<a
+							href={selectedProject.repoUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="font-mono-tech rounded-full bg-[var(--ink)] px-5 py-2.5 text-xs font-semibold text-[var(--bg-plate)] transition-colors hover:bg-[var(--teal)]"
+						>
+							Repository
+						</a>
+						{#if selectedProject.liveUrl}
+							<a
+								href={selectedProject.liveUrl}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="font-mono-tech rounded-full bg-[var(--vermilion)] px-5 py-2.5 text-xs font-semibold text-[var(--bg-plate)] transition-colors hover:bg-[#9A2D16]"
+							>
+								Live Demo
+							</a>
+						{/if}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{/if}

@@ -32,7 +32,7 @@
 			{#each navLinks as link}
 				<a
 					href={link.href}
-					class="text-sm font-medium text-[var(--ink-muted)] transition-colors hover:text-[var(--ink)]"
+					class="text-sm font-semibold text-[var(--ink)] transition-colors hover:text-[var(--teal)]"
 				>
 					{link.label}
 				</a>
@@ -77,7 +77,7 @@
 					<a
 						href={link.href}
 						onclick={() => (menuOpen = false)}
-						class="border-b border-[var(--rule)]/70 pb-2 text-sm font-medium text-[var(--ink)] last:border-b-0 last:pb-0"
+						class="border-b border-[var(--rule)]/70 pb-2 text-sm font-semibold text-[var(--ink)] last:border-b-0 last:pb-0"
 					>
 						{link.label}
 					</a>
