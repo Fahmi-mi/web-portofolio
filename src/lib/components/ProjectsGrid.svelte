@@ -30,6 +30,19 @@
 		selectedProjectId = externalSelection.projectId;
 	});
 
+	// Lock background page scroll while modal dialog is open
+	$effect(() => {
+		if (typeof document === 'undefined' || !selectedProjectId) return;
+		const prevHtmlOverflow = document.documentElement.style.overflow;
+		const prevBodyOverflow = document.body.style.overflow;
+		document.documentElement.style.overflow = 'hidden';
+		document.body.style.overflow = 'hidden';
+		return () => {
+			document.documentElement.style.overflow = prevHtmlOverflow;
+			document.body.style.overflow = prevBodyOverflow;
+		};
+	});
+
 	interface ArchiveProjectCard {
 		id: string;
 		title: string;
@@ -121,15 +134,15 @@
 			</div>
 		</div>
 
-		<!-- Borderless editorial 2-column gallery grid -->
-		<div class="mt-12 grid grid-cols-1 gap-x-10 gap-y-14 md:grid-cols-2">
+		<!-- Borderless editorial 3-column gallery grid -->
+		<div class="mt-10 grid grid-cols-1 gap-x-7 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
 			{#each unifiedProjects as project (project.id)}
 				<article id={`project-${project.id}`} animate:flip={{ duration: 300 }} class="group scroll-mt-24 flex flex-col">
 					<button
 						type="button"
 						onclick={() => (selectedProjectId = project.id)}
 						aria-haspopup="dialog"
-						class="aspect-[16/10] w-full cursor-pointer overflow-hidden rounded-2xl text-left shadow-[0_18px_40px_-22px_rgba(17,19,23,0.28)] transition-all duration-300 group-hover:shadow-[0_24px_48px_-20px_rgba(15,118,110,0.26)]"
+						class="aspect-[16/10] w-full cursor-pointer overflow-hidden rounded-2xl text-left shadow-[0_14px_32px_-18px_rgba(17,19,23,0.26)] transition-all duration-300 group-hover:shadow-[0_20px_42px_-18px_rgba(15,118,110,0.26)]"
 					>
 						<ProjectMedia
 							variant={project.visualVariant}
@@ -138,13 +151,13 @@
 						/>
 					</button>
 
-					<div class="pt-4">
+					<div class="pt-3.5">
 						<div class="flex flex-wrap items-center justify-between gap-2 font-mono-tech text-[11px]">
 							<span class="font-semibold text-[var(--teal)]">
 								{project.categoryLabel}
 							</span>
 
-							<div class="flex items-center gap-4">
+							<div class="flex items-center gap-3.5">
 								<button
 									type="button"
 									onclick={() => (selectedProjectId = project.id)}
@@ -173,7 +186,7 @@
 							</div>
 						</div>
 
-						<h3 class="font-display mt-2 text-lg font-bold leading-snug text-[var(--ink)] sm:text-xl">
+						<h3 class="font-display mt-1.5 text-base font-bold leading-snug text-[var(--ink)] sm:text-lg">
 							<button
 								type="button"
 								onclick={() => (selectedProjectId = project.id)}
@@ -183,7 +196,7 @@
 							</button>
 						</h3>
 
-						<p class="mt-2 text-sm leading-relaxed text-[#2A2E35]">{project.summary}</p>
+						<p class="mt-1.5 text-xs leading-relaxed text-[#2A2E35] sm:text-sm">{project.summary}</p>
 					</div>
 				</article>
 			{/each}
@@ -191,10 +204,10 @@
 	</div>
 </section>
 
-<!-- Centered Liquid Glass Project Detail Modal -->
+<!-- Centered Liquid Glass Project Detail Modal (no inner scroll, locks page behind) -->
 {#if selectedProject}
 	<div
-		class="fixed inset-0 z-50 flex items-center justify-center bg-[#111317]/45 p-4 backdrop-blur-sm sm:p-6"
+		class="fixed inset-0 z-50 flex items-center justify-center overflow-hidden overscroll-none bg-[#111317]/45 p-4 backdrop-blur-sm sm:p-6"
 		role="presentation"
 		onclick={(e) => {
 			if (e.target === e.currentTarget) selectedProjectId = null;
@@ -204,7 +217,7 @@
 			role="dialog"
 			aria-modal="true"
 			aria-labelledby="project-modal-title"
-			class="modal-enter relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-3xl border border-white/85 bg-[#FAF9F6]/92 p-6 shadow-[0_32px_80px_-20px_rgba(17,19,23,0.45)] backdrop-blur-2xl sm:p-8"
+			class="modal-enter relative w-full max-w-5xl overflow-hidden rounded-3xl border border-white/85 bg-[#FAF9F6]/94 p-5 shadow-[0_32px_80px_-20px_rgba(17,19,23,0.45)] backdrop-blur-2xl sm:p-7"
 		>
 			<div
 				class="pointer-events-none absolute -top-24 -right-24 -z-10 h-64 w-64 rounded-full opacity-55 blur-3xl"
@@ -212,21 +225,21 @@
 				aria-hidden="true"
 			></div>
 
-			<div class="flex items-center justify-between gap-4 border-b border-[var(--rule)]/80 pb-4">
+			<div class="flex items-center justify-between gap-4 border-b border-[var(--rule)]/80 pb-3">
 				<span class="font-mono-tech text-xs font-semibold text-[var(--teal)]">
 					{selectedProject.categoryLabel}
 				</span>
 				<button
 					type="button"
 					onclick={() => (selectedProjectId = null)}
-					class="font-mono-tech cursor-pointer rounded-full border border-[var(--rule)] bg-white/90 px-4 py-1.5 text-xs font-semibold text-[var(--ink)] transition-colors hover:border-[var(--ink)] hover:bg-[var(--ink)] hover:text-white"
+					class="font-mono-tech cursor-pointer rounded-full border border-[var(--rule)] bg-white/90 px-4 py-1 text-xs font-semibold text-[var(--ink)] transition-colors hover:border-[var(--ink)] hover:bg-[var(--ink)] hover:text-white"
 				>
 					Close
 				</button>
 			</div>
 
-			<div class="mt-6 grid grid-cols-1 items-center gap-8 lg:grid-cols-[1.05fr_0.95fr]">
-				<div class="aspect-[16/10] w-full overflow-hidden rounded-2xl shadow-[0_18px_42px_-20px_rgba(17,19,23,0.34)]">
+			<div class="mt-5 grid grid-cols-1 items-center gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8">
+				<div class="aspect-[16/9] max-h-[210px] w-full overflow-hidden rounded-2xl shadow-[0_18px_42px_-20px_rgba(17,19,23,0.34)] sm:aspect-[16/10] sm:max-h-none">
 					<ProjectMedia
 						variant={selectedProject.visualVariant}
 						title={selectedProject.title}
@@ -238,19 +251,19 @@
 					<div>
 						<h3
 							id="project-modal-title"
-							class="font-display text-2xl font-extrabold tracking-tight text-[var(--ink)] sm:text-3xl"
+							class="font-display text-xl font-extrabold tracking-tight text-[var(--ink)] sm:text-2xl"
 						>
 							{selectedProject.title}
 						</h3>
 
-						<p class="mt-3 text-sm leading-relaxed text-[#2A2E35] sm:text-base">
+						<p class="mt-2 text-xs leading-relaxed text-[#2A2E35] sm:text-sm">
 							{selectedProject.summary}
 						</p>
 
 						{#if selectedProject.highlights.length > 0}
-							<ul class="mt-4 space-y-2 text-xs leading-relaxed text-[#2A2E35] sm:text-sm">
+							<ul class="mt-3 space-y-1.5 text-xs leading-snug text-[#2A2E35]">
 								{#each selectedProject.highlights as bullet}
-									<li class="flex items-start gap-2.5">
+									<li class="flex items-start gap-2">
 										<span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--teal)]" aria-hidden="true"></span>
 										<span>{bullet}</span>
 									</li>
@@ -258,21 +271,21 @@
 							</ul>
 						{/if}
 
-						<div class="mt-5 flex flex-wrap gap-1.5">
+						<div class="mt-4 flex flex-wrap gap-1.5">
 							{#each selectedProject.stack as tech}
-								<span class="font-mono-tech rounded-full bg-white/90 px-3 py-1 text-[11px] font-medium text-[var(--ink)]">
+								<span class="font-mono-tech rounded-full bg-white/90 px-2.5 py-0.5 text-[10.5px] font-medium text-[var(--ink)]">
 									{tech}
 								</span>
 							{/each}
 						</div>
 					</div>
 
-					<div class="mt-6 flex flex-wrap items-center gap-3 pt-2">
+					<div class="mt-5 flex flex-wrap items-center gap-3 pt-1">
 						<a
 							href={selectedProject.repoUrl}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="font-mono-tech rounded-full bg-[var(--ink)] px-5 py-2.5 text-xs font-semibold text-[var(--bg-plate)] transition-colors hover:bg-[var(--teal)]"
+							class="font-mono-tech rounded-full bg-[var(--ink)] px-5 py-2 text-xs font-semibold text-[var(--bg-plate)] transition-colors hover:bg-[var(--teal)]"
 						>
 							Repository
 						</a>
@@ -281,7 +294,7 @@
 								href={selectedProject.liveUrl}
 								target="_blank"
 								rel="noopener noreferrer"
-								class="font-mono-tech rounded-full bg-[var(--vermilion)] px-5 py-2.5 text-xs font-semibold text-[var(--bg-plate)] transition-colors hover:bg-[#9A2D16]"
+								class="font-mono-tech rounded-full bg-[var(--vermilion)] px-5 py-2 text-xs font-semibold text-[var(--bg-plate)] transition-colors hover:bg-[#9A2D16]"
 							>
 								Live Demo
 							</a>
