@@ -67,7 +67,7 @@
 						type="button"
 						aria-pressed={activeFilter === tab.id}
 						onclick={() => (activeFilter = tab.id)}
-						class="font-mono-tech border px-3.5 py-2 text-xs font-medium tracking-[0.04em] uppercase transition-colors"
+						class="font-mono-tech rounded-full border px-4 py-2 text-xs font-medium tracking-[0.04em] uppercase transition-colors"
 						class:border-[var(--ink)]={activeFilter === tab.id}
 						class:bg-[var(--ink)]={activeFilter === tab.id}
 						class:text-[var(--bg-plate)]={activeFilter === tab.id}
@@ -83,7 +83,7 @@
 
 		<div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
 			{#each unifiedProjects as project (project.id)}
-				<article class="flex flex-col justify-between border border-[var(--rule)] bg-[var(--bg-plate)] p-6 transition-colors duration-200 hover:border-[var(--ink)] sm:p-7">
+				<article class="flex flex-col justify-between rounded-2xl border border-[var(--rule)] bg-[var(--bg-plate)] p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--teal)]/50 sm:p-7">
 					<div>
 						<h3 class="font-display text-lg font-bold leading-snug text-[var(--ink)] sm:text-xl">
 							{project.title}
@@ -93,7 +93,7 @@
 						</div>
 						<p class="mt-3 text-sm leading-relaxed text-[#2A2E35]">{project.summary}</p>
 						{#if project.keyResult}
-							<p class="mt-3 border-l border-[var(--rule)] pl-3 text-xs leading-relaxed text-[var(--ink-muted)]">
+							<p class="mt-3 rounded-xl bg-[var(--bg-bone)] px-3.5 py-2.5 text-xs leading-relaxed text-[var(--ink-muted)]">
 								{project.keyResult}
 							</p>
 						{/if}
@@ -104,7 +104,7 @@
 							href={project.repoUrl}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="font-mono-tech inline-block border border-[var(--ink)] bg-[var(--bg-bone)] px-3 py-1.5 text-[11px] font-semibold tracking-[0.04em] text-[var(--ink)] uppercase transition-colors hover:bg-[var(--ink)] hover:text-[var(--bg-plate)]"
+							class="font-mono-tech inline-block rounded-full border border-[var(--ink)] bg-[var(--bg-bone)] px-4 py-1.5 text-[11px] font-semibold tracking-[0.04em] text-[var(--ink)] uppercase transition-colors hover:bg-[var(--ink)] hover:text-[var(--bg-plate)]"
 						>
 							Repository
 						</a>
@@ -113,7 +113,7 @@
 								href={project.liveUrl}
 								target="_blank"
 								rel="noopener noreferrer"
-								class="font-mono-tech inline-block border border-[var(--vermilion)] bg-[var(--vermilion)] px-3 py-1.5 text-[11px] font-semibold tracking-[0.04em] text-[var(--bg-plate)] uppercase transition-colors hover:bg-[#9A2D16]"
+								class="font-mono-tech inline-block rounded-full border border-[var(--vermilion)] bg-[var(--vermilion)] px-4 py-1.5 text-[11px] font-semibold tracking-[0.04em] text-[var(--bg-plate)] uppercase transition-colors hover:bg-[#9A2D16]"
 							>
 								Live Demo
 							</a>

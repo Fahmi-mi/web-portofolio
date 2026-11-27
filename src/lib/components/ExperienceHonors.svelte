@@ -162,7 +162,7 @@
 		</div>
 
 		<!-- Run-Timeline Execution Matrix (desktop interactive gantt rail) -->
-		<div class="mt-8 hidden overflow-x-auto border border-[var(--rule)] bg-[var(--bg-bone)] md:block">
+		<div class="mt-8 hidden overflow-hidden rounded-2xl border border-[var(--rule)] bg-[var(--bg-bone)] md:block">
 			<div class="grid min-w-[780px] grid-cols-[15rem_minmax(0,1fr)]">
 				<div class="flex h-10 items-center border-r border-b border-[var(--rule)] bg-[var(--bg-plate)] px-4 font-mono-tech text-[10.5px] font-semibold tracking-[0.06em] text-[var(--ink-muted)] uppercase">
 					Execution Run (2026)
@@ -202,7 +202,7 @@
 						>
 							<div
 								style={`grid-column: ${run.colStart} / span ${run.colSpan};`}
-								class="relative flex h-6 items-center justify-between border px-2 font-mono-tech text-[10px] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+								class="relative flex h-6 items-center justify-between rounded-full border px-2.5 font-mono-tech text-[10px] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
 								class:border-[var(--teal)]={activeRunIndex === idx || run.status === 'running'}
 								class:bg-[var(--teal)]={run.status === 'running'}
 								class:text-[var(--bg-plate)]={run.status === 'running'}
@@ -284,7 +284,7 @@
 
 			<div class="flex flex-col gap-6">
 				<!-- Poster-Wall Honors Stage inspired by typographic scanner specimens -->
-				<div class="relative overflow-hidden border border-[var(--ink)] bg-[var(--bg-bone)] p-6">
+				<div class="relative overflow-hidden rounded-2xl border border-[var(--rule)] bg-[var(--bg-bone)] p-6">
 					<!-- Repeating subtle typographic watermark mask -->
 					<div
 						aria-hidden="true"
@@ -333,7 +333,7 @@
 								onclick={() => selectHonor(idx)}
 								onpointerenter={() => selectHonor(idx)}
 								aria-pressed={activeHonorIndex === idx}
-								class="border px-3 py-2.5 text-left transition-colors duration-200"
+								class="rounded-xl border px-3 py-2.5 text-left transition-colors duration-200"
 								class:border-[var(--ink)]={activeHonorIndex === idx}
 								class:bg-[var(--bg-plate)]={activeHonorIndex === idx}
 								class:border-[var(--rule)]={activeHonorIndex !== idx}
@@ -352,7 +352,7 @@
 
 				<!-- Leadership / Mentorship Run Card -->
 				<article
-					class="border bg-[var(--bg-bone)] p-6 transition-colors duration-200"
+					class="rounded-2xl border bg-[var(--bg-bone)] p-6 transition-colors duration-200"
 					class:border-[var(--teal)]={activeRunIndex === 3}
 					class:border-[var(--rule)]={activeRunIndex !== 3}
 					onpointerenter={() => (activeRunIndex = 3)}

@@ -246,7 +246,7 @@
 
 <div
 	bind:this={containerEl}
-	class="relative h-[280px] w-full overflow-hidden border border-[var(--ink)] bg-[var(--bg-plate)] sm:h-[310px]"
+	class="relative h-[280px] w-full overflow-hidden rounded-2xl border border-[var(--rule)] bg-[var(--bg-plate)] sm:h-[310px]"
 >
 	<canvas
 		bind:this={canvasEl}

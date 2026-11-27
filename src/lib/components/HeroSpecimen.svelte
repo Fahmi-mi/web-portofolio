@@ -28,13 +28,13 @@
 				<div class="mt-7 flex flex-wrap gap-3">
 					<a
 						href="#projects"
-						class="font-mono-tech bg-[var(--vermilion)] px-5 py-3 text-xs font-semibold tracking-[0.06em] text-[var(--bg-plate)] uppercase transition-colors hover:bg-[#9A2D16]"
+						class="font-mono-tech rounded-full bg-[var(--vermilion)] px-6 py-3 text-xs font-semibold tracking-[0.06em] text-[var(--bg-plate)] uppercase transition-colors hover:bg-[#9A2D16]"
 					>
 						Explore All Projects
 					</a>
 					<a
 						href="#contact"
-						class="font-mono-tech border border-[var(--ink)] bg-[var(--bg-plate)] px-5 py-3 text-xs font-medium tracking-[0.05em] text-[var(--ink)] uppercase transition-colors hover:bg-[var(--ink)] hover:text-[var(--bg-plate)]"
+						class="font-mono-tech rounded-full border border-[var(--ink)] bg-[var(--bg-plate)] px-6 py-3 text-xs font-medium tracking-[0.05em] text-[var(--ink)] uppercase transition-colors hover:bg-[var(--ink)] hover:text-[var(--bg-plate)]"
 					>
 						Email / GitHub / LinkedIn
 					</a>
@@ -88,7 +88,7 @@
 						type="button"
 						aria-pressed={activeDomain === domain.id}
 						onclick={() => (activeDomain = domain.id)}
-						class="font-mono-tech border px-3 py-1.5 text-xs tracking-[0.04em] uppercase transition-colors"
+						class="font-mono-tech rounded-full border px-3.5 py-1.5 text-xs tracking-[0.04em] uppercase transition-colors"
 						class:border-[var(--ink)]={activeDomain === domain.id}
 						class:bg-[var(--ink)]={activeDomain === domain.id}
 						class:text-[var(--bg-plate)]={activeDomain === domain.id}

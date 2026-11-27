@@ -41,7 +41,7 @@
 			<a
 				href={PROFILE.cvPath}
 				download={PROFILE.cvDownloadName}
-				class="font-mono-tech border border-[var(--ink)] bg-[var(--ink)] px-3.5 py-1.5 text-xs font-semibold tracking-[0.04em] text-[var(--bg-plate)] uppercase transition-colors hover:border-[var(--teal)] hover:bg-[var(--teal)]"
+				class="font-mono-tech rounded-full border border-[var(--ink)] bg-[var(--ink)] px-4 py-1.5 text-xs font-semibold tracking-[0.04em] text-[var(--bg-plate)] uppercase transition-colors hover:border-[var(--teal)] hover:bg-[var(--teal)]"
 			>
 				Download CV
 			</a>
@@ -51,13 +51,13 @@
 			<a
 				href={PROFILE.cvPath}
 				download={PROFILE.cvDownloadName}
-				class="font-mono-tech border border-[var(--ink)] bg-[var(--ink)] px-3 py-1.5 text-[11px] font-semibold tracking-[0.04em] text-[var(--bg-plate)] uppercase"
+				class="font-mono-tech rounded-full border border-[var(--ink)] bg-[var(--ink)] px-3.5 py-1.5 text-[11px] font-semibold tracking-[0.04em] text-[var(--bg-plate)] uppercase"
 			>
 				CV.pdf
 			</a>
 			<button
 				type="button"
-				class="font-mono-tech border border-[var(--rule)] bg-[var(--bg-plate)] px-3 py-1.5 text-[11px] font-medium tracking-[0.05em] text-[var(--ink)] uppercase"
+				class="font-mono-tech rounded-full border border-[var(--rule)] bg-[var(--bg-plate)] px-3.5 py-1.5 text-[11px] font-medium tracking-[0.05em] text-[var(--ink)] uppercase"
 				aria-expanded={menuOpen}
 				aria-controls="mobile-nav-drawer"
 				onclick={() => (menuOpen = !menuOpen)}
@@ -70,7 +70,7 @@
 	{#if menuOpen}
 		<nav
 			id="mobile-nav-drawer"
-			class="border-t border-[var(--rule)] bg-[var(--bg-plate)] px-6 py-4 md:hidden"
+			class="mx-4 mb-3 rounded-2xl border border-[var(--rule)] bg-[var(--bg-plate)] px-5 py-4 md:hidden"
 			aria-label="Mobile sections"
 		>
 			<div class="flex flex-col gap-3">
