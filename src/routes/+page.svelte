@@ -38,11 +38,10 @@
 				projectId: node.projectId ?? null,
 				seq: seqCounter
 			};
-			await tick();
-			const targetEl =
-				(node.projectId ? document.getElementById(`project-${node.projectId}`) : null) ??
-				document.getElementById('projects');
-			targetEl?.scrollIntoView({ behavior, block: 'center' });
+			if (!node.projectId) {
+				await tick();
+				document.getElementById('projects')?.scrollIntoView({ behavior, block: 'start' });
+			}
 			return;
 		}
 

@@ -81,7 +81,11 @@
 	});
 </script>
 
-<section id="about" bind:this={sectionEl} class="scroll-mt-16 border-b border-[var(--rule)] bg-[var(--bg-bone)]">
+<section
+	id="about"
+	bind:this={sectionEl}
+	class="relative scroll-mt-20 overflow-x-clip bg-gradient-to-b from-[var(--bg-bone)] via-[#f2f3ef] to-[var(--bg-bone)]"
+>
 	<div class="w-full px-6 py-20 sm:px-10 lg:px-14 lg:py-24 xl:px-20">
 		<div class="max-w-[66ch]">
 			<h2 class="font-display text-3xl font-extrabold tracking-tight text-[var(--ink)] sm:text-4xl">
@@ -93,8 +97,8 @@
 		</div>
 
 		<div class="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-			<!-- Borderless typographic stages without nested boxes -->
-			<div class="space-y-6 lg:space-y-28 lg:pt-4 lg:pb-12">
+			<!-- Translucent Liquid Glass active card + clean borderless steps -->
+			<div class="space-y-6 lg:space-y-24 lg:pt-4 lg:pb-12">
 				{#each SCROLL_STAGES as stage, idx (stage.id)}
 					<button
 						type="button"
@@ -104,8 +108,7 @@
 						onpointermove={updateCardSpotlight}
 						aria-pressed={activeIndex === idx}
 						class="clean-spotlight-card block w-full rounded-2xl p-6 text-left transition-all duration-300 sm:p-7"
-						class:bg-[var(--bg-plate)]={activeIndex === idx}
-						class:shadow-[0_16px_36px_-22px_rgba(17,19,23,0.12)]={activeIndex === idx}
+						class:liquid-glass-light={activeIndex === idx}
 						class:opacity-100={activeIndex === idx}
 						class:bg-transparent={activeIndex !== idx}
 						class:opacity-65={activeIndex !== idx}
@@ -131,9 +134,15 @@
 				{/each}
 			</div>
 
-			<!-- Single unified dark showcase surface without nested inner frames -->
-			<div class="lg:sticky lg:top-24">
-				<div class="rounded-3xl bg-[var(--vitrine)] p-6 text-[var(--vitrine-ink)] shadow-[0_24px_56px_-22px_rgba(17,19,23,0.38)] sm:p-8">
+			<!-- Dark smoked Liquid Glass showcase backed by an ambient AI glow field -->
+			<div class="relative lg:sticky lg:top-24">
+				<div
+					class="pointer-events-none absolute -inset-4 -z-10 rounded-[2rem] opacity-75 blur-2xl"
+					style="background: radial-gradient(circle at 24% 28%, rgba(15, 118, 110, 0.28), transparent 55%), radial-gradient(circle at 82% 78%, rgba(184, 56, 30, 0.18), transparent 55%);"
+					aria-hidden="true"
+				></div>
+
+				<div class="liquid-glass-dark rounded-3xl p-6 text-[var(--vitrine-ink)] sm:p-8">
 					<div class="flex items-center justify-between gap-3 font-mono-tech text-xs">
 						<span class="font-semibold text-white">
 							{activeStage.title}
@@ -160,7 +169,7 @@
 										<path
 											d="M 44 246 C 175 212, 290 135, 514 66 L 514 38 C 320 88, 185 170, 44 218 Z"
 											fill="#7FD4C2"
-											fill-opacity="0.12"
+											fill-opacity="0.14"
 										/>
 										<path
 											d="M 44 254 C 165 128, 315 68, 514 48"
@@ -199,7 +208,7 @@
 											Structured System
 										</text>
 
-										<rect x="12" y="44" width="232" height="66" rx="12" fill="#262E38" />
+										<rect x="12" y="44" width="232" height="66" rx="12" fill="rgba(38,46,56,0.75)" />
 										<text x="128" y="72" text-anchor="middle" font-family="JetBrains Mono" font-size="10.5" font-weight="600" fill="#F1F5F9">
 											Manual Grading &amp; KPI Sheets
 										</text>
@@ -207,7 +216,7 @@
 											Slow exam sync &amp; scattered reports
 										</text>
 
-										<rect x="12" y="126" width="232" height="66" rx="12" fill="#262E38" />
+										<rect x="12" y="126" width="232" height="66" rx="12" fill="rgba(38,46,56,0.75)" />
 										<text x="128" y="154" text-anchor="middle" font-family="JetBrains Mono" font-size="10.5" font-weight="600" fill="#F1F5F9">
 											Unstructured Tour &amp; CMS Edits
 										</text>
@@ -215,7 +224,7 @@
 											Manual inquiries &amp; static pages
 										</text>
 
-										<rect x="12" y="208" width="232" height="68" rx="12" fill="#262E38" />
+										<rect x="12" y="208" width="232" height="68" rx="12" fill="rgba(38,46,56,0.75)" />
 										<text x="128" y="236" text-anchor="middle" font-family="JetBrains Mono" font-size="10.5" font-weight="600" fill="#F1F5F9">
 											Clinic Records Without Docs
 										</text>
@@ -227,7 +236,7 @@
 										<line x1="248" y1="159" x2="294" y2="159" stroke="#7FD4C2" stroke-width="1.5" stroke-dasharray="4 3" />
 										<line x1="248" y1="242" x2="294" y2="242" stroke="#7FD4C2" stroke-width="1.5" stroke-dasharray="4 3" />
 
-										<rect x="298" y="44" width="250" height="66" rx="12" fill="#262E38" stroke="#7FD4C2" stroke-width="1" stroke-opacity="0.45" />
+										<rect x="298" y="44" width="250" height="66" rx="12" fill="rgba(38,46,56,0.82)" stroke="#7FD4C2" stroke-width="1" stroke-opacity="0.45" />
 										<text x="423" y="72" text-anchor="middle" font-family="JetBrains Mono" font-size="10.5" font-weight="600" fill="#FFFFFF">
 											Smart School Platform
 										</text>
@@ -235,7 +244,7 @@
 											Laravel Queues | LLM | DashboardService
 										</text>
 
-										<rect x="298" y="126" width="250" height="66" rx="12" fill="#262E38" stroke="#7FD4C2" stroke-width="1" stroke-opacity="0.45" />
+										<rect x="298" y="126" width="250" height="66" rx="12" fill="rgba(38,46,56,0.82)" stroke="#7FD4C2" stroke-width="1" stroke-opacity="0.45" />
 										<text x="423" y="154" text-anchor="middle" font-family="JetBrains Mono" font-size="10.5" font-weight="600" fill="#FFFFFF">
 											Localive &amp; Jogja Tour
 										</text>
@@ -243,7 +252,7 @@
 											Bilingual RBAC CMS | JSON Failover
 										</text>
 
-										<rect x="298" y="208" width="250" height="68" rx="12" fill="#262E38" stroke="#7FD4C2" stroke-width="1" stroke-opacity="0.45" />
+										<rect x="298" y="208" width="250" height="68" rx="12" fill="rgba(38,46,56,0.82)" stroke="#7FD4C2" stroke-width="1" stroke-opacity="0.45" />
 										<text x="423" y="236" text-anchor="middle" font-family="JetBrains Mono" font-size="10.5" font-weight="600" fill="#FFFFFF">
 											Tentang Dental Backend
 										</text>
@@ -262,7 +271,7 @@
 										<path d="M 280 190 L 280 134" fill="none" stroke="#94A3B8" stroke-width="1.4" stroke-dasharray="4 4" />
 										<path d="M 470 190 L 470 134" fill="none" stroke="#7FD4C2" stroke-width="1.4" stroke-dasharray="4 4" />
 
-										<rect x="16" y="50" width="148" height="84" rx="12" fill="#262E38" />
+										<rect x="16" y="50" width="148" height="84" rx="12" fill="rgba(38,46,56,0.82)" />
 										<text x="90" y="79" text-anchor="middle" font-family="JetBrains Mono" font-size="11.5" font-weight="600" fill="#FFFFFF">
 											NATS / Go
 										</text>
@@ -273,7 +282,7 @@
 											&gt;3% | &gt;5x Vol
 										</text>
 
-										<rect x="206" y="50" width="148" height="84" rx="12" fill="#262E38" />
+										<rect x="206" y="50" width="148" height="84" rx="12" fill="rgba(38,46,56,0.82)" />
 										<text x="280" y="79" text-anchor="middle" font-family="JetBrains Mono" font-size="11.5" font-weight="600" fill="#FFFFFF">
 											LangGraph
 										</text>
@@ -284,7 +293,7 @@
 											Auto Alerting
 										</text>
 
-										<rect x="396" y="50" width="148" height="84" rx="12" fill="#262E38" />
+										<rect x="396" y="50" width="148" height="84" rx="12" fill="rgba(38,46,56,0.82)" />
 										<text x="470" y="79" text-anchor="middle" font-family="JetBrains Mono" font-size="11.5" font-weight="600" fill="#FFFFFF">
 											TimescaleDB
 										</text>
@@ -295,7 +304,7 @@
 											Feature Store
 										</text>
 
-										<rect x="16" y="190" width="528" height="88" rx="14" fill="#262E38" />
+										<rect x="16" y="190" width="528" height="88" rx="14" fill="rgba(38,46,56,0.82)" />
 										<text x="280" y="220" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#FFFFFF">
 											Glzr Workspace  /  Trello CLI  /  End-to-End MLflow Pipeline
 										</text>
