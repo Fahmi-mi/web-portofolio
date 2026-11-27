@@ -241,12 +241,9 @@
 				></div>
 				<!-- Clean Minimal Honors Spotlight in translucent Liquid Glass -->
 				<div id="honors-spotlight" class="liquid-glass-light scroll-mt-24 rounded-2xl p-6">
-					<div class="flex items-center justify-between border-b border-[var(--rule)] pb-3">
+					<div class="border-b border-[var(--rule)] pb-3">
 						<span class="font-mono-tech text-xs font-semibold text-[var(--ink)]">
 							Honors
-						</span>
-						<span class="font-mono-tech text-xs font-semibold text-[var(--teal)] tabular-nums">
-							0{activeHonorIndex + 1} / 0{HONOR_ITEMS.length}
 						</span>
 					</div>
 

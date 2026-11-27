@@ -19,7 +19,7 @@
 
 <header class="sticky top-3 z-40 px-4 sm:px-6 lg:px-10 xl:px-14" aria-label="Primary navigation">
 	<div
-		class="liquid-glass-light mx-auto flex h-14 w-full items-center justify-between rounded-full px-5 sm:px-6"
+		class="mx-auto flex h-14 w-full items-center justify-between rounded-full border border-[var(--rule)] bg-[var(--bg-plate)] px-5 shadow-[0_10px_28px_-14px_rgba(17,19,23,0.16)] sm:px-6"
 	>
 		<a
 			href="#top"
@@ -69,7 +69,7 @@
 	{#if menuOpen}
 		<nav
 			id="mobile-nav-drawer"
-			class="liquid-glass-light mx-auto mt-2 rounded-2xl px-5 py-4 md:hidden"
+			class="mx-auto mt-2 rounded-2xl border border-[var(--rule)] bg-[var(--bg-plate)] px-5 py-4 shadow-[0_14px_32px_-16px_rgba(17,19,23,0.18)] md:hidden"
 			aria-label="Mobile sections"
 		>
 			<div class="flex flex-col gap-3">
